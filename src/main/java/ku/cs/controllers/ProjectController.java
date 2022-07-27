@@ -1,4 +1,4 @@
-package ku.cs;
+package ku.cs.controllers;
 
 public class ProjectController {
 }
