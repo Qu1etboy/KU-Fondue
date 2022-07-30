@@ -1,0 +1,21 @@
+.title {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+}
+
+.register-btn, .back-btn, .upload-btn {
+    -fx-background-color: #00ADB5;
+    -fx-cursor: hand;
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+    -fx-width: 50px;
+}
+
+.register-btn:hover, .back-btn:hover, .upload-btn:hover {
+    -fx-background-color: rgba(0, 173, 181, 0.8);
+}
+
+.logo-title {
+    -fx-font-size: 32px;
+    -fx-font-weight: bolder;
+}

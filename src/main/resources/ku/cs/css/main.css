@@ -1,0 +1,51 @@
+.root {
+    -fx-font-size: 12pt;
+}
+
+/* sidebar */
+.sidebar-bg {
+    -fx-background-color: #212121;
+}
+
+.sidebar-menu-btn {
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+    -fx-cursor: hand;
+    -fx-font-size: 1em;
+}
+
+.glyph-icon:hover {
+    -fx-fill: #00ADB5;
+}
+
+.glyph-icon {
+    -fx-fill: white;
+}
+
+.sidebar-menu-btn:hover {
+    -fx-text-fill: #00ADB5;
+}
+
+.sidebar-menu-btn:hover > .glyph-icon {
+    -fx-fill: #00ADB5;
+}
+
+.main-bg {
+    -fx-background-color: #323232;
+}
+
+.active {
+    -fx-text-fill: #00ADB5;
+    -fx-border-width: 0 0 0 2px;
+    -fx-border-color: #00ADB5;
+}
+
+.active > .glyph-icon {
+    -fx-fill: #00ADB5;
+}
+
+.logo-title {
+    -fx-text-fill: white;
+    -fx-font-size: 24px;
+    -fx-font-weight: bolder;
+}
