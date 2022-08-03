@@ -8,7 +8,7 @@ public class ShowUserDetailController {
     private TableView<String> userTable;
 
     @FXML
-    public void handdleBackButton(){
+    public void handleBackButton(){
 
     }
 }
