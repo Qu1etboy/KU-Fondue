@@ -17,7 +17,7 @@ public class RegisterController {
     private TextField passwordTextField;
     @FXML
     private TextField confirmPasswordTextField;
-
+    private Router router = new Router();
     @FXML
     public void handleUploadImage() {
 
@@ -26,7 +26,7 @@ public class RegisterController {
     @FXML
     public void handleBackButton(ActionEvent actionEvent) throws IOException {
         // go back to login page
-        Router.switchScene("login.fxml", actionEvent);
+        router.switchScene("login.fxml", actionEvent);
     }
 
     @FXML

@@ -5,13 +5,12 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
 <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" stylesheets="@../css/login.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ku.cs.controllers.LoginController">
    <children>
-      <VBox prefHeight="600.0" prefWidth="359.0" style="-fx-background-color: #00ADB5;">
+      <VBox prefHeight="600.0" prefWidth="414.0" style="-fx-background-color: #00ADB5;" styleClass="login-bg" HBox.hgrow="ALWAYS">
          <children>
             <Label styleClass="logo-title" text="KU แจ้งเรื่องร้องเรียน" />
          </children>
@@ -19,20 +18,35 @@
             <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
          </padding>
       </VBox>
-      <VBox alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="441.0">
+      <VBox alignment="CENTER" prefHeight="600.0" prefWidth="336.0" spacing="10.0" HBox.hgrow="ALWAYS">
          <children>
-            <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="286.0" prefWidth="327.0" VBox.vgrow="NEVER">
+            <Label styleClass="title" text="Login" />
+            <VBox alignment="CENTER" prefHeight="86.0" prefWidth="321.0" spacing="20.0">
                <children>
-                  <Label layoutX="91.0" layoutY="66.0" text="Username" />
-                  <TextField fx:id="usernameTextField" layoutX="91.0" layoutY="88.0" />
-                  <Label layoutX="92.0" layoutY="124.0" text="Password" />
-                  <PasswordField fx:id="passwordTextField" layoutX="91.0" layoutY="145.0" />
-                  <Button layoutX="133.0" layoutY="228.0" mnemonicParsing="false" onAction="#handleLoginButton" styleClass="login-btn" text="Login" />
-                  <Button layoutX="64.0" layoutY="178.0" mnemonicParsing="false" onAction="#handleRegisterButton" styleClass="register-btn" text="Don't have an account? Register now" />
-                  <Label layoutX="131.0" styleClass="title" text="Login" />
+                  <TextField fx:id="usernameTextField" promptText="Username">
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                     <padding>
+                        <Insets bottom="10.0" left="5.0" />
+                     </padding>
+                  </TextField>
+                  <PasswordField fx:id="passwordTextField" promptText="Password">
+                     <padding>
+                        <Insets bottom="10.0" left="5.0" />
+                     </padding>
+                  </PasswordField>
                </children>
-            </AnchorPane>
+            </VBox>
+            <Button mnemonicParsing="false" onAction="#handleLoginButton" styleClass="login-btn" text="Login" />
+            <Button mnemonicParsing="false" onAction="#handleRegisterButton" styleClass="register-btn" text="Don't have an account? Register now" />
          </children>
+         <HBox.margin>
+            <Insets />
+         </HBox.margin>
+         <padding>
+            <Insets left="20.0" right="20.0" />
+         </padding>
       </VBox>
    </children>
 </HBox>

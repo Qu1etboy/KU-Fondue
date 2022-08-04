@@ -15,18 +15,20 @@ public class LoginController {
     @FXML
     private TextField passwordTextField;
 
+    private Router router = new Router();
+
     @FXML
     public void initialize() {}
 
     @FXML
     public void handleRegisterButton(ActionEvent actionEvent) throws IOException {
         // go to register page
-        Router.switchScene("register.fxml", actionEvent);
+        router.switchScene("register.fxml", actionEvent);
     }
 
     @FXML
     public void handleLoginButton(ActionEvent actionEvent) throws IOException{
         // go to main application if login successfully
-        Router.switchScene("main-application.fxml", actionEvent);
+        router.switchScene("main-application.fxml", actionEvent);
     }
 }

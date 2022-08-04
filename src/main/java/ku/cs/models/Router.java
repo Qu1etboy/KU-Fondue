@@ -15,7 +15,7 @@ public class Router {
     * This method use to go between scene get path and actionEvent
     * as a parameter, actionEvent use to get the current stage
     * */
-    public static void switchScene(String path, ActionEvent actionEvent) throws IOException {
+    public void switchScene(String path, ActionEvent actionEvent) throws IOException {
         FXMLLoader loader = new FXMLLoader(Router.class.getResource("/ku/cs/view/" + path));
         Parent root = loader.load();
         Scene scene = new Scene(root);

@@ -29,3 +29,20 @@
     -fx-font-size: 32px;
     -fx-font-weight: bolder;
 }
+
+.login-bg {
+    -fx-background-image: url('../images/mountain-bg.jpg');
+    -fx-background-size: cover;
+}
+
+.text-field {
+    -fx-background-color: -fx-text-box-border, -fx-background;
+    -fx-background-insets: 0, 0 0 1 0;
+    -fx-background-radius: 0;
+    -fx-prompt-text-fill: derive(-fx-control-inner-background, -30%);
+}
+
+.text-field:focused {
+    -fx-background-color: -fx-focus-color, -fx-background;
+    -fx-prompt-text-fill: derive(-fx-control-inner-background, -30%);
+}
