@@ -9,14 +9,10 @@ import ku.cs.models.Router;
 import java.io.IOException;
 
 public class RegisterController {
-    @FXML
-    private TextField usernameTextField;
-    @FXML
-    private TextField nameTextField;
-    @FXML
-    private TextField passwordTextField;
-    @FXML
-    private TextField confirmPasswordTextField;
+    @FXML private TextField usernameTextField;
+    @FXML private TextField nameTextField;
+    @FXML private TextField passwordTextField;
+    @FXML private TextField confirmPasswordTextField;
     private Router router = new Router();
     @FXML
     public void handleUploadImage() {

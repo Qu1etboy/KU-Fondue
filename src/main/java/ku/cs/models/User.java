@@ -6,6 +6,7 @@ public class User {
     private String username;
     private String password;
     private String role; // 3 roles { student, teacher, admin }
+    private String status; // online , offline
     private Image profileImage;
 
     public User(String username, String password, String role) {

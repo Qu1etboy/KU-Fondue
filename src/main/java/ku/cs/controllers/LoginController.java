@@ -10,11 +10,8 @@ import ku.cs.models.Router;
 import java.io.IOException;
 
 public class LoginController {
-    @FXML
-    private TextField usernameTextField;
-    @FXML
-    private TextField passwordTextField;
-
+    @FXML private TextField usernameTextField;
+    @FXML private TextField passwordTextField;
     private Router router = new Router();
 
     @FXML

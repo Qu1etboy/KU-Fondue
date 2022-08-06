@@ -2,19 +2,23 @@ package ku.cs.controllers;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.layout.BorderPane;
 
 public class MainApplicationController {
-    @FXML
-    private Button homeButton;
-    @FXML
-    private Button dashboardButton;
-    @FXML
-    private Button aboutButton;
-    @FXML
-    private Button helpButton;
-    @FXML
-    private Button settingButton;
+    @FXML private BorderPane borderPane;
+    @FXML private Button homeButton;
+    @FXML private Button dashboardButton;
+    @FXML private Button aboutButton;
+    @FXML private Button helpButton;
+    @FXML private Button settingButton;
 
+    @FXML
+    public void initialize() {
+        // initialize user app appearance
+        String theme = "dark";
+        String themeCSS = this.getClass().getResource("/ku/cs/css/themes/" + theme + ".css").toExternalForm();
+        borderPane.getStylesheets().add(themeCSS);
+    }
     @FXML
     public void handleHomeButton() {
         homeButton.getStyleClass().add("active");
