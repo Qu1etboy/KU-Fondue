@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ku.cs.controllers.HelpController">
+   <children>
+      <Pane prefHeight="50.0" prefWidth="800.0">
+         <children>
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="1.0" layoutY="-2.0" prefHeight="50.0" prefWidth="800.0" text="HELP">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+      <VBox layoutY="50.0" prefHeight="450.0" prefWidth="800.0">
+         <children>
+            <Label prefHeight="34.0" prefWidth="193.0" text="วิธีใช้งานโปรแกรมเบื้องต้น:">
+               <VBox.margin>
+                  <Insets left="20.0" top="20.0" />
+               </VBox.margin>
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+         </children>
+      </VBox>
+      <Pane layoutY="500.0" prefHeight="135.0" prefWidth="800.0">
+         <children>
+            <Label alignment="CENTER" layoutX="210.0" layoutY="57.0" text="รายงานปัญหา:">
+               <padding>
+                  <Insets right="20.0" />
+               </padding>
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+            <TextField fx:id="reportProblemTextField" layoutX="300.0" layoutY="57.0" prefHeight="25.0" prefWidth="313.0" />
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>
