@@ -40,12 +40,12 @@
          <children>
             <ImageView fx:id="image3" fitHeight="250.0" fitWidth="275.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER">
                <image>
-                  <Image url="@../images/test.jpg" />
+                  <Image url="@../images/non.jpg" />
                </image>
             </ImageView>
             <ImageView fx:id="image4" fitHeight="250.0" fitWidth="275.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                <image>
-                  <Image url="@../images/test.jpg" />
+                  <Image url="@../images/ice.jpg" />
                </image>
             </ImageView>
             <Label text="นายวีรวงศ์ วงศ์กตัญญู ชื่อเล่น นนท์" GridPane.halignment="CENTER" GridPane.rowIndex="1">

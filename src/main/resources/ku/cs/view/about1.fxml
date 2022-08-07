@@ -39,12 +39,12 @@
          <children>
             <ImageView fx:id="image1" fitHeight="250.0" fitWidth="275.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER">
                <image>
-                  <Image url="@../images/test.jpg" />
+                  <Image url="@../images/ong.jpg" />
                </image>
             </ImageView>
             <ImageView fx:id="image2" fitHeight="250.0" fitWidth="275.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                <image>
-                  <Image url="@../images/test.jpg" />
+                  <Image url="@../images/arm.jpg" />
                </image>
             </ImageView>
             <Label text="นายสิทธิพงค์ เหมล้วน ชื่อเล่น อ๋อง" GridPane.halignment="CENTER" GridPane.rowIndex="1">
