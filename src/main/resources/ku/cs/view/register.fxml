@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" stylesheets="@../css/register.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ku.cs.controllers.RegisterController">
+   <children>
+      <VBox prefHeight="600.0" prefWidth="414.0" style="-fx-background-color: #FF5722;" styleClass="register-bg" HBox.hgrow="ALWAYS">
+         <children>
+            <Label styleClass="logo-title" text="KU แจ้งเรื่องร้องเรียน" />
+         </children>
+         <padding>
+            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+         </padding>
+      </VBox>
+      <VBox alignment="CENTER" prefHeight="600.0" prefWidth="336.0" spacing="10.0" HBox.hgrow="ALWAYS">
+         <children>
+            <Label styleClass="title" text="Register">
+               <VBox.margin>
+                  <Insets bottom="20.0" />
+               </VBox.margin>
+            </Label>
+            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="20.0">
+               <children>
+                  <TextField fx:id="usernameTextField" promptText="Username">
+                     <padding>
+                        <Insets bottom="10.0" left="5.0" />
+                     </padding>
+                  </TextField>
+                  <TextField fx:id="nameTextField" promptText="Name">
+                     <padding>
+                        <Insets bottom="10.0" left="5.0" />
+                     </padding>
+                  </TextField>
+                  <PasswordField fx:id="passwordTextField" promptText="Password">
+                     <padding>
+                        <Insets bottom="10.0" left="5.0" />
+                     </padding>
+                  </PasswordField>
+                  <PasswordField fx:id="confirmPasswordTextField" promptText="Confirm Password">
+                     <padding>
+                        <Insets bottom="10.0" left="5.0" />
+                     </padding>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                  </PasswordField>
+                  <Button fx:id="handleUploadImage" mnemonicParsing="false" styleClass="upload-btn" text="Upload profile image">
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                  </Button>
+               </children>
+            </VBox>
+            <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
+               <children>
+                  <Button mnemonicParsing="false" onAction="#handleBackButton" styleClass="back-btn" text="&lt;&lt; Back" />
+                  <Button fx:id="handleRegisterButton" mnemonicParsing="false" styleClass="register-btn" text="Register" />
+               </children>
+            </HBox>
+         </children>
+         <padding>
+            <Insets left="20.0" right="20.0" />
+         </padding>
+      </VBox>
+   </children>
+</HBox>

@@ -1,0 +1,69 @@
+.root {
+    -fx-font-size: 12pt;
+}
+
+.label {
+    -fx-text-fill: -primary-text-color;
+    -fx-font-size: 1em;
+}
+
+.main-bg {
+    -fx-background-color: -primary-background-color;
+}
+
+/* sidebar */
+.sidebar-bg {
+    -fx-background-color: -secondary-background-color;
+}
+
+.sidebar-menu-btn {
+    -fx-background-color: transparent;
+    -fx-text-fill: -primary-text-color;;
+    -fx-cursor: hand;
+    -fx-font-size: 1em;
+}
+
+.glyph-icon:hover {
+    -fx-fill: -primary-text-color-hover;
+}
+
+.glyph-icon {
+    -fx-fill: -primary-text-color;
+}
+
+.sidebar-menu-btn:hover {
+    -fx-text-fill: -primary-text-color-hover;
+}
+
+.sidebar-menu-btn:hover > .glyph-icon {
+    -fx-fill: -primary-text-color-hover;
+}
+
+.active {
+    -fx-text-fill: -primary-text-color-hover;
+    -fx-border-width: 0 0 0 2px;
+    -fx-border-color: -primary-text-color-hover;
+}
+
+.active > .glyph-icon {
+    -fx-fill: -primary-text-color-hover;
+}
+
+.logo-title {
+    -fx-text-fill: -primary-text-color;
+    -fx-font-size: 1.5em;
+    -fx-font-weight: bolder;
+}
+
+/* text field */
+.text-field {
+    -fx-background-color: -fx-text-box-border, -fx-background;
+    -fx-background-insets: 0, 0 0 1 0;
+    -fx-background-radius: 0;
+    -fx-prompt-text-fill: derive(-fx-control-inner-background, -30%);
+}
+
+.text-field:focused {
+    -fx-background-color: -fx-focus-color, -fx-background;
+    -fx-prompt-text-fill: derive(-fx-control-inner-background, -30%);
+}

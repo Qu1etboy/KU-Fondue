@@ -1,0 +1,48 @@
+.title {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+}
+
+.register-btn {
+    -fx-background-color: transparent;
+    -fx-cursor: hand;
+    -fx-underline: true;
+}
+
+.register-btn:hover {
+    -fx-text-fill: #00ADB5;
+}
+
+.login-btn {
+    -fx-background-color: #00ADB5;
+    -fx-cursor: hand;
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+    -fx-width: 50px;
+}
+
+.login-btn:hover {
+    -fx-background-color: rgba(0, 173, 181, 0.8);
+}
+
+.logo-title {
+    -fx-font-size: 32px;
+    -fx-font-weight: bolder;
+}
+
+.login-bg {
+    -fx-background-image: url('../images/mountain-bg.jpg');
+    -fx-background-size: cover;
+}
+
+.text-field {
+    -fx-background-color: -fx-text-box-border, -fx-background;
+    -fx-background-insets: 0, 0 0 1 0;
+    -fx-background-radius: 0;
+    -fx-prompt-text-fill: derive(-fx-control-inner-background, -30%);
+}
+
+.text-field:focused {
+    -fx-background-color: -fx-focus-color, -fx-background;
+    -fx-prompt-text-fill: derive(-fx-control-inner-background, -30%);
+}
