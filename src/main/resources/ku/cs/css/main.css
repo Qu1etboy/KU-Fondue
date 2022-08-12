@@ -7,6 +7,30 @@
     -fx-font-size: 1em;
 }
 
+/* global button */
+.button {
+    -fx-background-color: -primary-button-color;
+    -fx-text-fill: -primary-text-color;
+    -fx-cursor: hand;
+}
+
+.button:hover {
+    -fx-background-color: -primary-button-color-hover;
+}
+
+/* text field */
+.text-field {
+    -fx-background-color: -fx-text-box-border, -fx-background;
+    -fx-background-insets: 0, 0 0 1 0;
+    -fx-background-radius: 0;
+    -fx-prompt-text-fill: derive(-fx-control-inner-background, -30%);
+}
+
+.text-field:focused {
+    -fx-background-color: -fx-focus-color, -fx-background;
+    -fx-prompt-text-fill: derive(-fx-control-inner-background, -30%);
+}
+
 .main-bg {
     -fx-background-color: -primary-background-color;
 }
@@ -33,6 +57,7 @@
 
 .sidebar-menu-btn:hover {
     -fx-text-fill: -primary-text-color-hover;
+    -fx-background-color: transparent;
 }
 
 .sidebar-menu-btn:hover > .glyph-icon {
@@ -55,15 +80,20 @@
     -fx-font-weight: bolder;
 }
 
-/* text field */
-.text-field {
-    -fx-background-color: -fx-text-box-border, -fx-background;
-    -fx-background-insets: 0, 0 0 1 0;
-    -fx-background-radius: 0;
-    -fx-prompt-text-fill: derive(-fx-control-inner-background, -30%);
+.title {
+    -fx-font-size: 1.25em;
 }
 
-.text-field:focused {
-    -fx-background-color: -fx-focus-color, -fx-background;
-    -fx-prompt-text-fill: derive(-fx-control-inner-background, -30%);
+/* setting page */
+.account-bg {
+    -fx-background-color: -secondary-background-color;
+    -fx-background-radius: 10;
+}
+
+.combo-box {
+    -fx-background-color: -secondary-background-color;
+}
+
+.combo-box .list-cell {
+    -fx-text-fill: -primary-text-color;
 }

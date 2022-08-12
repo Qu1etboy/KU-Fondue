@@ -18,7 +18,7 @@ public class Router {
     public void switchScene(String path, ActionEvent actionEvent) throws IOException {
         FXMLLoader loader = new FXMLLoader(Router.class.getResource("/ku/cs/view/" + path));
         Parent root = loader.load();
-        Scene scene = new Scene(root);
+        Scene scene = new Scene(root, 800, 600);
         Stage stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
 
         stage.setScene(scene);
