@@ -13,7 +13,7 @@
 
 <VBox alignment="TOP_CENTER" spacing="20.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ku.cs.controllers.HomeDetailController">
    <children>
-      <Label alignment="CENTER" text="&quot;ยินดีต้อนรับเข้าสู่โปรแกรมแจ้งเรื่องร้องเรียน&quot;" wrapText="true">
+      <Label alignment="CENTER" styleClass="welcome-title" text="&quot;ยินดีต้อนรับเข้าสู่โปรแกรมแจ้งเรื่องร้องเรียน&quot;" wrapText="true">
          <font>
             <Font size="31.0" />
          </font>

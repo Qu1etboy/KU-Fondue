@@ -3,6 +3,7 @@ package ku.cs;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -14,8 +15,8 @@ public class ProjectApplication extends Application {
         Scene scene = new Scene(fxmlLoader.load(), 800, 600);
         // scene.getStylesheets().add(this.getClass().getResource("/ku/cs/css/login.css").toExternalForm());
 
-        stage.setTitle("Project-Name");
-        // stage.setResizable(false);
+        stage.setTitle("KU Complaint");
+        stage.getIcons().add(new Image(getClass().getResource("/ku/cs/images/ku-logo.png").toExternalForm()));
         stage.setScene(scene);
         stage.show();
     }

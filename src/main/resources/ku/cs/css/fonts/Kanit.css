@@ -1,0 +1,13 @@
+@font-face {
+    font-family: "Kanit";
+    src: url("./downloads/Kanit-Regular.ttf");
+}
+
+@font-face {
+    font-family: "Kanit-Bold";
+    src: url("./downloads/Kanit-Bold.ttf");
+}
+
+.root {
+    -fx-font-family: "Kanit";
+}

@@ -1,28 +1,31 @@
 package ku.cs.models;
 
 public class Login {
-    /*
-    * check username exist
-    * check user was not banned
-    * check password
-    * */
-    public boolean isValid() {
-        return true;
+    UserList userList;
+
+    public Login(UserList userList) {
+        this.userList = userList;
     }
 
-    /*
-    * check if user exist and return user object
-    * */
-    public void checkUsername(String username) {
-
+    /**
+     * A method to check if username is already exist or not
+     *
+     * @param username a username to check
+     * @return A user's object if found; null otherwise
+     */
+    public User checkUsername(String username) {
+        return userList.findUserByUsername(username);
     }
 
-    /*
-    * check if input password is the same as in the database or not
-    * */
+    /**
+     * A method to check password is the same in user.csv
+     *
+     * @param password a password that contain in user.csv
+     * @param inputPassword a password that user type in login page
+     * @return true if and only if password match password in data file; false otherwise
+     */
     public boolean checkPassword(String password, String inputPassword) {
         return password.equals(inputPassword);
     }
-
 
 }

@@ -25,10 +25,10 @@
                      <children>
                         <ImageView fitHeight="77.0" fitWidth="76.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../images/chitanda.jpg" />
+                              <Image url="@../images/defaultProfileImg.jpeg" />
                            </image>
                         </ImageView>
-                        <Label text="Username" />
+                        <Label fx:id="usernameLabel" text="Username" />
                      </children>
                   </HBox>
                   <Button graphicTextGap="0.0" mnemonicParsing="false" onAction="#handleChangeProfile" prefHeight="25.0" prefWidth="145.0" text="เปลี่ยนรูปโปรไฟล์" wrapText="true">

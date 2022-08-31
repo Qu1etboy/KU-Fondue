@@ -1,0 +1,13 @@
+@font-face {
+    font-family: "Sarabun";
+    src: url("./downloads/Sarabun-Regular.ttf");
+}
+
+@font-face {
+    font-family: "Sarabun-Bold";
+    src: url("./downloads/Sarabun-Bold.ttf");
+}
+
+.root {
+    -fx-font-family: "Sarabun";
+}

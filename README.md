@@ -7,11 +7,20 @@
 - ออกแบบ controller ที่ใช้ควบคุมในส่วนของ view
 - สร้าง class และคิด field กับ method แต่ยังไม่ implement หลักการใดๆ
 
+## ความก้าวหน้าครั้งที่ 2
+- อ่านเขียนข้อมูลในไฟล์ csv ได้
+- ทําระบบสมัครสมาชิกของนิสิต/ครู ระบบล็อกอิน
+- ทําระบบแจ้งเรื่องร้องเรียน
+- แสดงผลเรื่องร้องเรียนทั้งหมด
+- ทําหน้าแสดงรายละเอียดเรื่องร้องเรียน
+- แสดงผลผู้ใช้ทั้งหมด
+- ทําหน้า setting ให้เปลี่ยนธีม/ฟอนต์/ขนาดฟอนด์ เปลี่ยนชื่อ/รหัส ได้
+
 ## Project structure
 *can be change in the future
 
 ```
-src/main 
+src/main
     ├── java
            ├── ku/cs
 		├── controllers
@@ -45,7 +54,20 @@ src/main
 	   ├── images
 		├── profile.png
 ```
+
+## Library used
+- FontawesomeFX
+- OpenCSV
+
 ## Setup
+
+1. clone project repository
+   ```
+   git clone https://github.com/CS211-651/project211-loveandjava.git
+   ```
+2. executable file locate in jar folder
+3. double-click the jar file to run the program
+
 **วิธีทดสอบการ RUN**
 1. Main
    - `run Main Class`
