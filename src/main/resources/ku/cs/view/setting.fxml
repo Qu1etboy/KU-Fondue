@@ -43,7 +43,7 @@
                   <VBox prefWidth="100.0" HBox.hgrow="ALWAYS">
                      <children>
                         <Label text="Name" />
-                        <Label text="nameLabel" />
+                        <Label fx:id="nameLabel" text="nameLabel" />
                      </children>
                   </VBox>
                   <Button graphicTextGap="0.0" mnemonicParsing="false" onAction="#handleChangeName" prefHeight="25.0" prefWidth="145.0" text="เปลี่ยนชื่อ" wrapText="true">
