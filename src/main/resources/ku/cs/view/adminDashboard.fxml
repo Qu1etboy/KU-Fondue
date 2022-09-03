@@ -8,10 +8,10 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ku.cs.controllers.DashboardDetailController">
+<VBox alignment="CENTER" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ku.cs.controllers.DashboardDetailController">
    <children>
-      <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="40.0" prefWidth="600.0" text="Dashboard" textAlignment="CENTER" />
-      <GridPane focusTraversable="true" gridLinesVisible="true" prefHeight="360.0" prefWidth="600.0">
+      <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="40.0" prefWidth="600.0" styleClass="logo-title" text="Dashboard" textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS" VBox.vgrow="ALWAYS" />
+      <GridPane alignment="CENTER" focusTraversable="true" gridLinesVisible="true" prefHeight="360.0" prefWidth="600.0" VBox.vgrow="SOMETIMES">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -22,16 +22,16 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Button mnemonicParsing="false" onAction="#handleComplaint" prefHeight="90.0" prefWidth="270.0" text="เรื่องร้องเรียน" translateX="15.0">
+            <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleComplaint" prefHeight="90.0" prefWidth="270.0" text="เรื่องร้องเรียน" GridPane.halignment="CENTER" GridPane.hgrow="SOMETIMES" GridPane.valignment="CENTER" GridPane.vgrow="SOMETIMES">
                <GridPane.margin>
                   <Insets />
                </GridPane.margin>
             </Button>
-            <Button mnemonicParsing="false" onAction="#handleMyComplaint" prefHeight="90.0" prefWidth="270.0" text="เรื่องร้องเรียนของฉัน" translateX="15.0" GridPane.columnIndex="1" />
-            <Button mnemonicParsing="false" onAction="#handleUserList" prefHeight="90.0" prefWidth="270.0" text="รายชื่อผู้ใช้" translateX="15.0" GridPane.rowIndex="1" />
-            <Button mnemonicParsing="false" onAction="#handleManageSubjectCategories" prefHeight="90.0" prefWidth="270.0" text="จัดการหมวดหมู่เรื่อง" translateX="15.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <Button mnemonicParsing="false" onAction="#handleManageComplaint" prefHeight="90.0" prefWidth="270.0" text="จัดการเรื่องร้องเรียน" translateX="15.0" GridPane.rowIndex="2" />
-            <Button mnemonicParsing="false" onAction="#handleApplyForStaff" prefHeight="90.0" prefWidth="270.0" text="สมัครเจ้าหน้าที่" translateX="15.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Button mnemonicParsing="false" onAction="#handleMyComplaint" prefHeight="90.0" prefWidth="270.0" text="เรื่องร้องเรียนของฉัน" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="SOMETIMES" GridPane.valignment="CENTER" GridPane.vgrow="SOMETIMES" />
+            <Button mnemonicParsing="false" onAction="#handleUserList" prefHeight="90.0" prefWidth="270.0" text="รายชื่อผู้ใช้" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.hgrow="SOMETIMES" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="SOMETIMES" />
+            <Button mnemonicParsing="false" onAction="#handleManageSubjectCategories" prefHeight="90.0" prefWidth="270.0" text="จัดการหมวดหมู่เรื่อง" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="SOMETIMES" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="SOMETIMES" />
+            <Button mnemonicParsing="false" onAction="#handleManageComplaint" prefHeight="90.0" prefWidth="270.0" text="จัดการเรื่องร้องเรียน" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.hgrow="SOMETIMES" GridPane.rowIndex="2" GridPane.valignment="CENTER" GridPane.vgrow="SOMETIMES" />
+            <Button mnemonicParsing="false" onAction="#handleApplyForStaff" prefHeight="90.0" prefWidth="270.0" text="สมัครเจ้าหน้าที่" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="SOMETIMES" GridPane.rowIndex="2" GridPane.valignment="CENTER" GridPane.vgrow="SOMETIMES" />
          </children>
       </GridPane>
    </children>
