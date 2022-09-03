@@ -12,13 +12,19 @@ import java.io.IOException;
 public class DashboardDetailController {
 
     @FXML
-    private void handleComplaint() {
-
+    private void handleComplaint(ActionEvent actionEvent) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/ku/cs/view/complaint.fxml"));
+        BorderPane borderPane = (BorderPane) ((StackPane)((Node) actionEvent.getSource()).getScene().getRoot()).
+                getChildren().get(0);
+        borderPane.setCenter(loader.load());
     }
 
     @FXML
-    private void handleMyComplaint() {
-
+    private void handleMyComplaint(ActionEvent actionEvent) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/ku/cs/view/myComplaint.fxml"));
+        BorderPane borderPane = (BorderPane) ((StackPane)((Node) actionEvent.getSource()).getScene().getRoot()).
+                getChildren().get(0);
+        borderPane.setCenter(loader.load());
     }
 
     @FXML
@@ -30,13 +36,19 @@ public class DashboardDetailController {
     }
 
     @FXML
-    private void handleManageSubjectCategories() {
-
+    private void handleManageSubjectCategories(ActionEvent actionEvent) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/ku/cs/view/.fxml"));
+        BorderPane borderPane = (BorderPane) ((StackPane)((Node) actionEvent.getSource()).getScene().getRoot()).
+                getChildren().get(0);
+        borderPane.setCenter(loader.load());
     }
 
     @FXML
-    private void handleManageComplaint() {
-
+    private void handleManageComplaint(ActionEvent actionEvent) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/ku/cs/view/.fxml"));
+        BorderPane borderPane = (BorderPane) ((StackPane)((Node) actionEvent.getSource()).getScene().getRoot()).
+                getChildren().get(0);
+        borderPane.setCenter(loader.load());
     }
 
     @FXML

@@ -9,10 +9,16 @@ import java.util.List;
 
 public class Appearance {
     private List<String> themes;
+    private List<String> fonts;
+    private List<String> fontSizes;
 
     public Appearance() {
         themes = new ArrayList<>();
+        fonts = new ArrayList<>();
+        fontSizes = new ArrayList<>();
         readThemeFile();
+        readFontFile();
+        readFontSizeFile();
     }
 
     public void readThemeFile() {
@@ -40,4 +46,49 @@ public class Appearance {
         return themes;
     }
 
+    public void readFontFile() {
+        // read all file from fonts directory
+        File folder = null;
+        try {
+            folder = new File(TestDataSource.class.getResource("/ku/cs/css/fonts").toURI());
+            File[] files = folder.listFiles();
+            if (files == null) {
+                return;
+            }
+            for (File file : files) {
+                if (file.isFile()) {
+                    // get file name without fil extension
+                    fonts.add(file.getName().substring(0, file.getName().length() - 4));
+                    // System.out.println("File: " + file.getName().substring(0, file.getName().length() - 4));
+                }
+            }
+        } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public List<String> getAllFont() { return fonts; }
+
+    public void readFontSizeFile() {
+        // read all file from fonts directory
+        File folder = null;
+        try {
+            folder = new File(TestDataSource.class.getResource("/ku/cs/css/fontSize").toURI());
+            File[] files = folder.listFiles();
+            if (files == null) {
+                return;
+            }
+            for (File file : files) {
+                if (file.isFile()) {
+                    // get file name without fil extension
+                    fontSizes.add(file.getName().substring(0, file.getName().length() - 4));
+                    // System.out.println("File: " + file.getName().substring(0, file.getName().length() - 4));
+                }
+            }
+        } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public List<String> getAllFontSize() { return fontSizes; }
 }

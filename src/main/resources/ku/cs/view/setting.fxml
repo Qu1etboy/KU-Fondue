@@ -73,8 +73,8 @@
          <children>
             <Label styleClass="title" text="Appearance" />
             <ComboBox fx:id="themeSelector" prefWidth="150.0" promptText="Theme" />
-            <ComboBox prefWidth="150.0" promptText="Font" />
-            <ComboBox prefWidth="150.0" promptText="Font Size" />
+            <ComboBox fx:id="fontSelector" prefWidth="150.0" promptText="Font" />
+            <ComboBox fx:id="fontSizeSelector" prefWidth="150.0" promptText="Font Size" />
          </children>
          <padding>
             <Insets top="20.0" />
