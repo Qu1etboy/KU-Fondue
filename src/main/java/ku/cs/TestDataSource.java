@@ -1,12 +1,8 @@
 package ku.cs;
 
-import ku.cs.models.User;
-import ku.cs.models.UserList;
+import ku.cs.models.*;
+import ku.cs.services.ComplaintCategoryListDataSource;
 import ku.cs.services.DataSource;
-import ku.cs.services.UserListDataSource;
-
-import java.io.File;
-import java.net.URISyntaxException;
 
 public class TestDataSource {
     public static void main(String[] args) {
@@ -21,22 +17,40 @@ public class TestDataSource {
 //        data.writeData(userList);
 
         // Read all file in the directory
-        File folder = null;
-        try {
-            folder = new File(TestDataSource.class.getResource("/ku/cs/css/themes").toURI());
-            File[] files = folder.listFiles();
-            if (files == null) {
-                return;
-            }
-            for (File file : files) {
-                if (file.isFile()) {
-                    // print file without fil extension
-                    System.out.println("File: " + file.getName().substring(0, file.getName().length() - 4));
-                }
-            }
-        } catch (URISyntaxException e) {
-            throw new RuntimeException(e);
+//        File folder = null;
+//        try {
+//            folder = new File(TestDataSource.class.getResource("/ku/cs/css/themes").toURI());
+//            File[] files = folder.listFiles();
+//            if (files == null) {
+//                return;
+//            }
+//            for (File file : files) {
+//                if (file.isFile()) {
+//                    // print file without fil extension
+//                    System.out.println("File: " + file.getName().substring(0, file.getName().length() - 4));
+//                }
+//            }
+//        } catch (URISyntaxException e) {
+//            throw new RuntimeException(e);
+//        }
+
+//        DataSource<ComplaintList> data = new ComplaintListDataSource("data", "complaint.csv");
+//        ComplaintList complaintList = data.readData();
+//
+//        for (Complaint complaint : complaintList.getComplaintList()) {
+//            System.out.println(complaint.getTopic() + " " + complaint.getDetail());
+//        }
+//        complaintList.addComplaint(new Complaint("123","456"));
+//        data.writeData(complaintList);
+
+        DataSource<ComplaintCategoryList> data = new ComplaintCategoryListDataSource("data", "complaint_category.csv");
+        ComplaintCategoryList complaintCategoryList = data.readData();
+
+        for (ComplaintCategory complaintCategory : complaintCategoryList.getComplaintCategoryList()) {
+            System.out.println(complaintCategory.getId() + " " + complaintCategory.getName());
         }
+//        complaintCategoryList.addComplaintCatergory(new ComplaintCategory("123","I","e,r,o"));
+//        data.writeData(complaintCategoryList);
 
     }
 }

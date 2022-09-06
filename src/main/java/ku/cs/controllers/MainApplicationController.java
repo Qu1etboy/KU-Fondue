@@ -50,7 +50,10 @@ public class MainApplicationController {
         settingButton.getStyleClass().remove("active");
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/ku/cs/view/home.fxml"));
-        borderPane.setCenter(loader.load());
+        Parent pane = loader.load();
+        HomeDetailController homeDetailController = loader.getController();
+        homeDetailController.initData(user);
+        borderPane.setCenter(pane);
     }
 
     @FXML
