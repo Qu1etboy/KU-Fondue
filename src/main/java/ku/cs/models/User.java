@@ -10,6 +10,7 @@ public class User {
     private String name;
     private String password;
     private final String role; // 3 roles { student, teacher, admin }
+    private Agency agency;
     private String theme;
     private String font;
     private int fontSize;
@@ -17,13 +18,14 @@ public class User {
     private String status; // online , offline
     private boolean isSuspend;
 
-    public User(String id, String username, String name, String password, String role, String theme, String font,
+    public User(String id, String username, String name, String password, String role, Agency agency, String theme, String font,
                 int fontSize, Image profileImage, String status, boolean isSuspend) {
         this.id = id;
         this.username = username;
         this.name = name;
         this.password = password;
         this.role = role;
+        this.agency = agency;
         this.status = status;
         this.profileImage = profileImage;
         this.theme = theme;
@@ -32,13 +34,18 @@ public class User {
         this.isSuspend = isSuspend;
     }
 
+    public User(String username, String name, String password, String role, Agency agency) {
+        this(UUID.randomUUID().toString(), username, name, password, role, agency, "dark", "Kanit",
+                16, null, "online", false);
+    }
+
     public User(String username, String name, String password, String role) {
-        this(UUID.randomUUID().toString(), username, name, password, role, "dark", "Kanit",
+        this(UUID.randomUUID().toString(), username, name, password, role, null, "dark", "Kanit",
                 16, null, "online", false);
     }
 
     public User(String username, String name, String password) {
-        this(UUID.randomUUID().toString(), username, name, password, "student", "dark", "Kanit",
+        this(UUID.randomUUID().toString(), username, name, password, "student", null, "dark", "Kanit",
                 16, null, "online", false);
     }
 
@@ -58,6 +65,10 @@ public class User {
 
     public String getRole() {
         return role;
+    }
+
+    public Agency getAgency() {
+        return agency;
     }
 
     public String getTheme() {
@@ -115,6 +126,7 @@ public class User {
                 name,
                 password,
                 role,
+                (agency != null ?  agency.getId() : "null"),
                 theme,
                 font,
                 Integer.toString(fontSize),

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minWidth="-Infinity" spacing="20.0" styleClass="dialog-box" stylesheets="@../css/dialog.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ku.cs.controllers.AddCategoryDialogController">
+   <children>
+      <Label styleClass="title" text="เพิ่มหมวดหมู่เรื่องร้องเรียน" />
+      <Label text="ใส่ชื่อหมู่หมวดหมู่ที่ต้องการเพิ่ม" />
+      <VBox spacing="10.0">
+         <children>
+            <Label text="ชื่อหมวดหมู่" />
+            <TextField />
+         </children>
+      </VBox>
+      <HBox alignment="TOP_RIGHT" spacing="10.0">
+         <children>
+            <Button mnemonicParsing="false" text="Cancel" />
+            <Button mnemonicParsing="false" text="Done" />
+         </children>
+      </HBox>
+   </children>
+   <padding>
+      <Insets bottom="20.0" left="15.0" right="15.0" top="20.0" />
+   </padding>
+</VBox>
