@@ -9,13 +9,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.control.TableView;
-import ku.cs.models.Complaint;
-import ku.cs.models.ComplaintList;
-import ku.cs.services.ComplaintDataSource;
 import ku.cs.services.DataSource;
 
 import java.io.IOException;

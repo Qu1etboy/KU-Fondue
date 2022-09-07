@@ -37,12 +37,21 @@ public class DashboardDetailController {
 
     @FXML
     private void handleManageSubjectCategories() {
-
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/ku/cs/view/complaintCategory.fxml"));
+        BorderPane borderPane = (BorderPane) ((StackPane)((Node) actionEvent.getSource()).getScene().getRoot()).
+                getChildren().get(0);
+        Parent root = loader.load();
+        ComplaintCategoryDetailController controller = loader.getController();
+        controller.initData(user);
+        borderPane.setCenter(root);
     }
 
     @FXML
     private void handleManageComplaint() {
-
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/ku/cs/view/.fxml"));
+        BorderPane borderPane = (BorderPane) ((StackPane)((Node) actionEvent.getSource()).getScene().getRoot()).
+                getChildren().get(0);
+        borderPane.setCenter(loader.load());
     }
 
     @FXML
