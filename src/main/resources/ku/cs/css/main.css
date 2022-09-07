@@ -17,14 +17,14 @@
 /* text field */
 .text-field {
     -fx-background-color: -fx-text-box-border, -secondary-background-color;
-    -fx-background-insets: 0, 0 0 1 0;
+    -fx-background-insets: 0, 0 0 0 0;
     -fx-background-radius: 0;
     -fx-prompt-text-fill: derive(-primary-text-color, -30%);
     -fx-text-fill: -primary-text-color;
 }
 
 .text-field:focused {
-    -fx-background-color: -fx-focus-color, -secondary-background-color;
+    -fx-background-color: transparent, -secondary-background-color;
     -fx-prompt-text-fill: derive(-primary-text-color, -30%);
 }
 
@@ -88,6 +88,38 @@
 }
 .table-view .virtual-flow .scroll-bar:horizontal .thumb {
     -fx-background-color:  -secondary-background-color;
+}
+
+.scroll-bar .increment-button, .scroll-bar .decrement-button {
+    -fx-opacity: 0;
+}
+
+.scroll-bar:vertical .thumb {
+    -fx-background-color: -secondary-background-color;
+}
+
+.scroll-bar:horizontal .thumb {
+    -fx-background-color: -secondary-background-color;
+}
+
+.scroll-bar:vertical, .scroll-bar:vertical .track,
+.scroll-bar:vertical .track-background,
+.scroll-bar:horizontal, .scroll-bar:horizontal .track,
+.scroll-bar:horizontal .track-background {
+    -fx-background-color: -primary-background-color;
+}
+
+.scroll-pane {
+    -fx-background: -primary-background-color;
+    -fx-background-insets: 0;
+}
+
+.scroll-pane:focused {
+    -fx-background-insets: 0;
+}
+
+.check-box {
+    -fx-text-fill: -primary-text-color;
 }
 
 .main-bg {

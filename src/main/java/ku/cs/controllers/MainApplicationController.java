@@ -72,7 +72,10 @@ public class MainApplicationController {
             loader = new FXMLLoader(getClass().getResource("/ku/cs/view/adminDashboard.fxml"));
         }
 
-        borderPane.setCenter(loader.load());
+        Parent root = loader.load();
+        DashboardDetailController controller = loader.getController();
+        controller.initData(user);
+        borderPane.setCenter(root);
     }
 
     @FXML

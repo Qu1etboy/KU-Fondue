@@ -1,22 +1,25 @@
 package ku.cs.services;
 
-import com.opencsv.*;
-
+import com.opencsv.CSVReader;
+import com.opencsv.CSVWriter;
 import com.opencsv.exceptions.CsvException;
 import ku.cs.models.Agency;
 import ku.cs.models.AgencyList;
 import ku.cs.models.User;
 import ku.cs.models.UserList;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.List;
 
-public class UserListDataSource implements DataSource<UserList> {
+public class AgencyListDataSource implements DataSource<AgencyList> {
     // read and write csv file using opencsv library
     String directoryName;
     String fileName;
 
-    public UserListDataSource(String directoryName, String fileName) {
+    public AgencyListDataSource(String directoryName, String fileName) {
         this.directoryName = directoryName;
         this.fileName = fileName;
         checkFileIsExisted();
@@ -42,31 +45,17 @@ public class UserListDataSource implements DataSource<UserList> {
     }
 
     @Override
-    public UserList readData() {
-        UserList userList = new UserList();
+    public AgencyList readData() {
+        AgencyList agencyList = new AgencyList();
         String filePath = directoryName + File.separator + fileName;
         try {
             CSVReader reader = new CSVReader(new FileReader(filePath));
 
             List<String[]> allData = reader.readAll();
-            DataSource<AgencyList> agencyData = new AgencyListDataSource("data", "agency.csv");
-            AgencyList agencyList = agencyData.readData();
-
             for (String[] data : allData) {
-                Agency agency = agencyList.findAgencyById(data[5]);
-                userList.addUser(new User(
+                agencyList.addAgency(new Agency(
                         data[0],
-                        data[1],
-                        data[2],
-                        data[3],
-                        data[4],
-                        agency,
-                        data[6],
-                        data[7],
-                        Integer.parseInt(data[8]),
-                        null,
-                        data[10],
-                        Boolean.parseBoolean(data[11])
+                        data[1]
                         )
                 );
             }
@@ -75,17 +64,17 @@ public class UserListDataSource implements DataSource<UserList> {
             throw new RuntimeException(e);
         }
 
-        return userList;
+        return agencyList;
     }
 
     @Override
-    public void writeData(UserList userList) {
+    public void writeData(AgencyList agencyList) {
         String filePath = directoryName + File.separator + fileName;
         CSVWriter writer = null;
         try {
             writer = new CSVWriter(new FileWriter(filePath));
-            for (User user : userList.getUserList()) {
-                String[] row = user.toStringArray();
+            for (Agency agency : agencyList.getAgencyList()) {
+                String[] row = agency.toStringArray();
                 writer.writeNext(row);
             }
         } catch (IOException e) {

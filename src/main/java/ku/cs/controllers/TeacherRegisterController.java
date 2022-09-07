@@ -4,23 +4,33 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
+import ku.cs.models.Agency;
+import ku.cs.models.AgencyList;
 import ku.cs.models.Register;
 import ku.cs.models.User;
+import ku.cs.services.AgencyListDataSource;
+import ku.cs.services.DataSource;
 import ku.cs.services.UserListDataSource;
 
 import java.io.IOException;
 
 public class TeacherRegisterController extends RegisterController {
-    @FXML private ComboBox<String> agencySelector;
-    @FXML private String agency;
+    @FXML private User user;
+    @FXML private ComboBox<Agency> agencySelector;
+    @FXML private Agency agency;
 
+    public void initData(User user) {
+        this.user = user;
+    }
     public void initialize() {
-        String[] agencys = { "Agency1", "Agency2", "Agency3" };
-        agencySelector.getItems().addAll(agencys);
+        DataSource<AgencyList> agencyData = new AgencyListDataSource("data", "agency.csv");
+        AgencyList agencyList = agencyData.readData();
+        agencySelector.getItems().addAll(agencyList.getAgencyList());
         agencySelector.setOnAction(e -> handleSelectAgency());
 
         data = new UserListDataSource("data", "user.csv");
@@ -29,7 +39,7 @@ public class TeacherRegisterController extends RegisterController {
     }
 
     public void handleSelectAgency() {
-        agency = agencySelector.getValue();
+        agency = agencySelector.getSelectionModel().getSelectedItem();
     }
 
     @Override
@@ -39,7 +49,11 @@ public class TeacherRegisterController extends RegisterController {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/ku/cs/view/adminDashboard.fxml"));
         BorderPane borderPane = (BorderPane) ((StackPane)((Node) actionEvent.getSource()).getScene().getRoot()).
                 getChildren().get(0);
-        borderPane.setCenter(loader.load());
+
+        Parent pane = loader.load();
+        DashboardDetailController dashboardDetailController = loader.getController();
+        dashboardDetailController.initData(user);
+        borderPane.setCenter(pane);
     }
 
     @Override
@@ -55,7 +69,7 @@ public class TeacherRegisterController extends RegisterController {
         }
 
         // create new user and add it to user list
-        userList.addUser(new User(username, name, password, "teacher"));
+        userList.addUser(new User(username, name, password, "teacher", agency));
         data.writeData(userList);
 
         Alert alert = new Alert(Alert.AlertType.INFORMATION);

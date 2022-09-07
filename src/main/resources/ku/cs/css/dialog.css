@@ -9,6 +9,10 @@
     -fx-font-size: 16px;
 }
 
+.check-box {
+    -fx-text-fill: -primary-text-color;
+}
+
 .title {
     -fx-font-size: 24px;
     -fx-font-weight: bold;
