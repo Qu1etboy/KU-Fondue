@@ -18,7 +18,7 @@
             </Button>
          </children>
       </HBox>
-      <TableView>
+      <TableView fx:id="complaintTable">
          <columns>
             <TableColumn fx:id="number" prefWidth="75.0" text="ลำดับ" />
             <TableColumn fx:id="category" prefWidth="165.0" text="หมวดหมู่" />
