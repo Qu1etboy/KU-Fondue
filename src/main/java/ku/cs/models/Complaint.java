@@ -29,11 +29,11 @@ public class Complaint {
         this.category = category;
     }
 
-    public String getDetails() {
+    public String getDetail() {
         return detail;
     }
 
-    public void setDetails(String details) {
+    public void setDetail(String details) {
         this.detail = details;
     }
 
@@ -45,15 +45,7 @@ public class Complaint {
         this.status = status;
     }
 
-    public String[] toStringArray() {
-        return new String[] {
-                number,
-                category,
-                detail,
-                status,
 
-        };
-    }
 
 
 }

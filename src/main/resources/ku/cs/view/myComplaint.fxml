@@ -20,10 +20,10 @@
       </HBox>
       <TableView>
          <columns>
-            <TableColumn prefWidth="75.0" text="ลำดับ" />
-            <TableColumn prefWidth="165.0" text="หมวดหมู่" />
-            <TableColumn prefWidth="257.0" text="รายละเอียด" />
-            <TableColumn prefWidth="172.0" text="สถานะ" />
+            <TableColumn fx:id="number" prefWidth="75.0" text="ลำดับ" />
+            <TableColumn fx:id="category" prefWidth="165.0" text="หมวดหมู่" />
+            <TableColumn fx:id="detail" prefWidth="257.0" text="รายละเอียด" />
+            <TableColumn fx:id="status" prefWidth="172.0" text="สถานะ" />
          </columns>
          <columnResizePolicy>
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

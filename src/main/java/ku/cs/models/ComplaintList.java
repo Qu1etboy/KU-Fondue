@@ -4,14 +4,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ComplaintList {
-    private List<Complaint> informationList;
+    private List<Complaint> complaintList;
 
     public ComplaintList() {
-        informationList = new ArrayList<>();
+        complaintList = new ArrayList<>();
     }
 
-    public List<Complaint> getInformationListTest() { return informationList;
+    public List<Complaint> getComplaintList() { return complaintList;
     }
 
+    public void addComplaint(Complaint complaint){ complaintList.add(complaint);
+    }
 
 }

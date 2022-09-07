@@ -1,21 +1,18 @@
 package ku.cs.models;
 
 public class AppProblem {
-    private String information;
+    private String appProblem;
 
-    public AppProblem(String information) {
-        this.information = information;
+    public AppProblem(String appProblem) {
+        this.appProblem = appProblem;
     }
 
-    public String getInformation() {
-        return information;
+    public String getAppProblem() {
+        return appProblem;
     }
 
-    public void setInformation(String information) {
-        this.information = information;
+    public void setAppProblem(String appProblem) {
+        this.appProblem = appProblem;
     }
 
-    public void addInformation(String information) {
-
-    }
 }
