@@ -4,6 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 
@@ -37,10 +38,13 @@ public class DashboardDetailController {
 
     @FXML
     private void handleManageSubjectCategories(ActionEvent actionEvent) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/ku/cs/view/.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/ku/cs/view/complaintCategory.fxml"));
         BorderPane borderPane = (BorderPane) ((StackPane)((Node) actionEvent.getSource()).getScene().getRoot()).
                 getChildren().get(0);
-        borderPane.setCenter(loader.load());
+        Parent root = loader.load();
+        ComplaintCategoryDetailController controller = loader.getController();
+        controller.initData(user);
+        borderPane.setCenter(root);
     }
 
     @FXML
@@ -56,6 +60,10 @@ public class DashboardDetailController {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/ku/cs/view/teacher-register.fxml"));
         BorderPane borderPane = (BorderPane) ((StackPane)((Node) actionEvent.getSource()).getScene().getRoot()).
                 getChildren().get(0);
-        borderPane.setCenter(loader.load());
+
+        Parent pane = loader.load();
+        TeacherRegisterController teacherRegisterController = loader.getController();
+        teacherRegisterController.initData(user);
+        borderPane.setCenter(pane);
     }
 }
