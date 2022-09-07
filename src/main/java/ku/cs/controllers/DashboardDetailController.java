@@ -7,10 +7,17 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
+import ku.cs.models.User;
 
 import java.io.IOException;
 
 public class DashboardDetailController {
+    private User user;
+
+    public void initData(User user) {
+        this.user = user;
+    }
+
 
     @FXML
     private void handleComplaint(ActionEvent actionEvent) throws IOException {

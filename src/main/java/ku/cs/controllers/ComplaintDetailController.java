@@ -1,5 +1,6 @@
 package ku.cs.controllers;
 
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -12,6 +13,9 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.control.TableView;
+import ku.cs.models.Complaint;
+import ku.cs.models.ComplaintList;
+import ku.cs.services.ComplaintListDataSource;
 import ku.cs.services.DataSource;
 
 import java.io.IOException;
@@ -54,6 +58,9 @@ public class ComplaintDetailController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        data = new ComplaintListDataSource("data", "complaint.csv");
+        complaintList = data.readData();
+
         initColumn();
         loadData();
     }
@@ -61,17 +68,21 @@ public class ComplaintDetailController implements Initializable {
     private void initColumn(){
 
         number.setCellValueFactory(new PropertyValueFactory<>("number"));
-        category.setCellValueFactory(new PropertyValueFactory<>("category"));
+        category.setCellValueFactory(cellData ->
+                new SimpleStringProperty(cellData.getValue().getComplaintCategory().getName()));
         detail.setCellValueFactory(new PropertyValueFactory<>("detail"));
         status.setCellValueFactory(new PropertyValueFactory<>("status"));
     }
     private void loadData() {
             ObservableList<Complaint> dataTable = FXCollections.observableArrayList();
-
-            for(int i = 1;i < 7; i++){
-                dataTable.add(new Complaint(String.valueOf(i),"category " + i,"detail " + i,
-                        "status " + i));
-            }
+            dataTable.addAll(complaintList.getComplaintList());
+//            for (Complaint complaint : complaintList.getComplaintList()) {
+//                dataTable.add(complaint);
+//            }
+//            for(int i = 1;i < 7; i++){
+//                dataTable.add(new Complaint(String.valueOf(i),"category " + i,"detail " + i,
+//                        "status " + i));
+//            }
 
             complaintTable.setItems(dataTable);
 
