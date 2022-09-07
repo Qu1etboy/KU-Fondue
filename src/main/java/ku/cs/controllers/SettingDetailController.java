@@ -10,6 +10,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -31,10 +32,17 @@ public class SettingDetailController {
     private DataSource<UserList> data;
     private Appearance appearance;
     @FXML private Label usernameLabel;
+    @FXML private Label nameLabel;
     @FXML private ComboBox<String> themeSelector;
+
+    @FXML private ComboBox<String> fontSelector;
+
+    @FXML private ComboBox<String> fontSizeSelector;
+
     public void initData(User user) {
         this.user = user;
         usernameLabel.setText(user.getUsername());
+        nameLabel.setText(user.getName());
 
         data = new UserListDataSource("data", "user.csv");
         userList = data.readData();
@@ -42,8 +50,12 @@ public class SettingDetailController {
         appearance = new Appearance();
         themeSelector.getItems().addAll(appearance.getAllTheme());
         themeSelector.setOnAction(e -> handleChangeTheme(e));
+        fontSelector.getItems().addAll(appearance.getAllFont());
+        fontSelector.setOnAction(e -> handleChangFont(e));
+        fontSizeSelector.getItems().addAll(appearance.getAllFontSize());
+        fontSizeSelector.setOnAction(e -> handleChangFontSize(e));
     }
-
+/*
     @FXML private void handleChangeName(ActionEvent actionEvent) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/ku/cs/view/changeNameDialog.fxml"));
         Parent root = loader.load();
@@ -103,11 +115,26 @@ public class SettingDetailController {
 
         vBox.setVisible(false);
     }
+
+ */
+    @FXML private void handleChangeName(ActionEvent actionEvent) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/ku/cs/view/changeNameDialog.fxml"));
+        BorderPane borderPane = (BorderPane) ((StackPane) ((Node) actionEvent.getSource()).getScene().getRoot()).getChildren().get(0);
+        Parent pane = loader.load();
+        ChangeNameController changeNameController = loader.getController();
+        changeNameController.initData(user);
+        borderPane.setCenter(pane);
+    }
     @FXML private void handleChangeProfile (){
 
     }
-    @FXML private void handleChangePassword (){
-
+    @FXML private void handleChangePassword (ActionEvent actionEvent) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/ku/cs/view/changePasswordDialog.fxml"));
+        BorderPane borderPane = (BorderPane) ((StackPane) ((Node) actionEvent.getSource()).getScene().getRoot()).getChildren().get(0);
+        Parent pane = loader.load();
+        ChangePasswordController changePasswordController = loader.getController();
+        changePasswordController.initData(user);
+        borderPane.setCenter(pane);
     }
     @FXML private void handleChangeTheme(ActionEvent actionEvent) {
         String newTheme = themeSelector.getValue();
@@ -121,6 +148,38 @@ public class SettingDetailController {
         stackPane.getStylesheets().add(newThemeCSS);
 
         user.setTheme(newTheme);
+        userList.updateUser(user);
+        data.writeData(userList);
+    }
+
+    @FXML private void handleChangFont(ActionEvent actionEvent) {
+        String newFont = fontSelector.getValue();
+        String currFont = user.getFont();
+
+        String newFontCSS = this.getClass().getResource("/ku/cs/css/fonts/" + newFont + ".css").toExternalForm();
+        String currFontCSS = this.getClass().getResource("/ku/cs/css/fonts/" + currFont + ".css").toExternalForm();
+
+        StackPane stackPane = (StackPane) ((Node) actionEvent.getSource()).getScene().getRoot();
+        stackPane.getStylesheets().remove(currFontCSS);
+        stackPane.getStylesheets().add(newFontCSS);
+
+        user.setFont(newFont);
+        userList.updateUser(user);
+        data.writeData(userList);
+    }
+
+    @FXML private void handleChangFontSize(ActionEvent actionEvent) {
+        String newFontSize = fontSizeSelector.getValue();
+        String currFontSize = user.getFontSize() + "px";
+
+        String newFontSizeCSS = this.getClass().getResource("/ku/cs/css/fontSize/" + newFontSize + ".css").toExternalForm();
+        String currFontSizeCSS = this.getClass().getResource("/ku/cs/css/fontSize/" + currFontSize + ".css").toExternalForm();
+
+        StackPane stackPane = (StackPane) ((Node) actionEvent.getSource()).getScene().getRoot();
+        stackPane.getStylesheets().remove(currFontSizeCSS);
+        stackPane.getStylesheets().add(newFontSizeCSS);
+
+        user.setFontSize(Integer.parseInt(newFontSize.substring(0, newFontSize.length() - 2)));
         userList.updateUser(user);
         data.writeData(userList);
     }

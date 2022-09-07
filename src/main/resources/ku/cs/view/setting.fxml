@@ -43,7 +43,7 @@
                   <VBox prefWidth="100.0" HBox.hgrow="ALWAYS">
                      <children>
                         <Label text="Name" />
-                        <Label text="nameLabel" />
+                        <Label fx:id="nameLabel" text="nameLabel" />
                      </children>
                   </VBox>
                   <Button graphicTextGap="0.0" mnemonicParsing="false" onAction="#handleChangeName" prefHeight="25.0" prefWidth="145.0" text="เปลี่ยนชื่อ" wrapText="true">
@@ -73,8 +73,8 @@
          <children>
             <Label styleClass="title" text="Appearance" />
             <ComboBox fx:id="themeSelector" prefWidth="150.0" promptText="Theme" />
-            <ComboBox prefWidth="150.0" promptText="Font" />
-            <ComboBox prefWidth="150.0" promptText="Font Size" />
+            <ComboBox fx:id="fontSelector" prefWidth="150.0" promptText="Font" />
+            <ComboBox fx:id="fontSizeSelector" prefWidth="150.0" promptText="Font Size" />
          </children>
          <padding>
             <Insets top="20.0" />
