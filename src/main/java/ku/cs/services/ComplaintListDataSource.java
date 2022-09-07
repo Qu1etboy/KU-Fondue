@@ -51,11 +51,11 @@ public class ComplaintListDataSource implements DataSource<ComplaintList>{
             for (String[] data : allData) {
                 if (data.length > 0) {
                     User user = userList.findUserByUsername(data[0]);
-                    String[] inputData = { "q1", "q2" ,"q3","q4" };
-                    List<String> inputDataList = Arrays.asList(inputData);
+//                    String[] inputData = { "q1", "q2"};
+//                    List<String> inputDataList = Arrays.asList(inputData);
                     ComplaintCategory complaintCategory = complaintCategoryList.findComplaintCategoryById(data[3]);
 
-                    complaintList.addComplaint(new Complaint(user, data[1], data[2], complaintCategory));
+                    complaintList.addComplaint(new Complaint(user, data[1], data[2], complaintCategory ,null,null));
                 }
             }
 
