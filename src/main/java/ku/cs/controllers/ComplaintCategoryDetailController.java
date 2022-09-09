@@ -2,12 +2,16 @@ package ku.cs.controllers;
 
 import javafx.animation.FadeTransition;
 import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
@@ -17,7 +21,9 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
-import ku.cs.models.User;
+import ku.cs.models.*;
+import ku.cs.services.ComplaintCategoryListDataSource;
+import ku.cs.services.DataSource;
 
 import java.io.IOException;
 
@@ -25,14 +31,34 @@ public class ComplaintCategoryDetailController {
     @FXML
     private User user;
     @FXML
-    private ListView<Object> complaintCategoryListView;
+    private ListView<ComplaintCategory> complaintCategoryListView;
+    @FXML
+    private ListView<CategoryAttribute> attributeListView;
+    @FXML
+    private Label categoryNameLabel;
     @FXML
     private VBox detailContent;
     @FXML
     private VBox defaultContent;
 
+    private DataSource<ComplaintCategoryList> categoryData;
+    private ComplaintCategoryList complaintCategoryList;
+
     public void initData(User user) {
         this.user = user;
+
+        categoryData = new ComplaintCategoryListDataSource("data", "complaint_category.csv");
+        complaintCategoryList = categoryData.readData();
+
+        complaintCategoryListView.getItems().addAll(complaintCategoryList.getComplaintCategoryList());
+        complaintCategoryListView.getSelectionModel().selectedItemProperty().addListener(
+                new ChangeListener<ComplaintCategory>() {
+                    @Override
+                    public void changed(ObservableValue<? extends ComplaintCategory> observableValue, ComplaintCategory complaintCategory, ComplaintCategory t1) {
+                        handleViewComplaintCategoryDetail(t1);
+                    }
+                }
+        );
     }
 
     @FXML
@@ -86,16 +112,24 @@ public class ComplaintCategoryDetailController {
         ft.setToValue(1.0);
         ft.play();
 
+        AddCategoryDialogController controller = loader.getController();
+        controller.initData(complaintCategoryList);
         dialogBox.showAndWait();
+
+        categoryData.writeData(complaintCategoryList);
+        complaintCategoryListView.getItems().clear();
+        complaintCategoryListView.getItems().addAll(complaintCategoryList.getComplaintCategoryList());
 
         vBox.setVisible(false);
     }
 
-    @FXML
-    public void handleViewComplaintCategoryDetail() {
+    public void handleViewComplaintCategoryDetail(ComplaintCategory complaintCategory) {
         defaultContent.setVisible(false);
         detailContent.setVisible(true);
 
+        attributeListView.getItems().clear();
+        attributeListView.getItems().addAll(complaintCategory.getCategoryAttributeList());
+        categoryNameLabel.setText(complaintCategory.getName());
     }
 
     @FXML
@@ -136,7 +170,8 @@ public class ComplaintCategoryDetailController {
         dialogBox.setScene(scene);
         // make dialog box close when click outside
         dialogBox.focusedProperty().addListener((obs, wasFocused, isNowFocused) -> {
-            if (!isNowFocused) {
+            if (!dialogBox.isFocused()) {
+                System.out.println("Close");
                 dialogBox.close();
             }
         });

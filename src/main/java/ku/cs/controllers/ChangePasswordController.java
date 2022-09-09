@@ -40,7 +40,7 @@ public class ChangePasswordController {
         String username = userNameTextField.getText();
         String password = passwordPasswordField.getText();
         String passwordNew = passwordNewPasswordField.getText();
-        User user = login.checkUsername(username);
+        // User user = login.checkUsername(username);
 
         if (username.isEmpty() || password.isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -48,7 +48,7 @@ public class ChangePasswordController {
             alert.show();
             return;
         }
-        if (user == null) {
+        if (user.getUsername().equals(username)) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText("User doesn't exist");
             alert.show();

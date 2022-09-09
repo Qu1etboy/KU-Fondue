@@ -1,5 +1,6 @@
 package ku.cs.models;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
@@ -26,6 +27,10 @@ public class ComplaintCategory {
     public ComplaintCategory(String name, List<CategoryAttribute> categoryAttributeList) {
 
         this(UUID.randomUUID().toString(),name,categoryAttributeList,false);
+    }
+
+    public ComplaintCategory(String name) {
+        this(UUID.randomUUID().toString(), name, new ArrayList<>(), false);
     }
 
 
