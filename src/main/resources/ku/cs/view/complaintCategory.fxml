@@ -26,7 +26,7 @@
                         <ListView fx:id="complaintCategoryListView" />
                         <HBox spacing="10.0">
                            <children>
-                              <Button mnemonicParsing="false" onAction="#handleViewComplaintCategoryDetail" text="แสดงรายละเอียด" />
+                              <Button mnemonicParsing="false" text="แสดงรายละเอียด" />
                               <Button mnemonicParsing="false" onAction="#handleRemoveComplaintCategory" text="ลบหมวดหมู่" />
                            </children>
                         </HBox>
@@ -51,11 +51,11 @@
                                     <HBox>
                                        <children>
                                           <Label text="ชื่อหมวดหมู่ : " />
-                                          <Label text="categoryName" />
+                                          <Label fx:id="categoryNameLabel" text="categoryName" />
                                        </children>
                                     </HBox>
                                     <Label text="คุณลักษณะของหมวดหมู่เรื่องร้องเรียน" />
-                                    <ListView />
+                                    <ListView fx:id="attributeListView" />
                                     <HBox spacing="10.0">
                                        <children>
                                           <Button mnemonicParsing="false" onAction="#handleChangeAttribute" text="แก้ไขคุณลักษณะ" />

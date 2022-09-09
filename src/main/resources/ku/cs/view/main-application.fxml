@@ -12,12 +12,15 @@
    <children>
       <BorderPane fx:id="borderPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" styleClass="main-bg" stylesheets="@../css/main.css">
          <left>
-            <VBox alignment="TOP_CENTER" prefHeight="600.0" prefWidth="221.0" spacing="10.0" styleClass="sidebar-bg" BorderPane.alignment="CENTER">
+            <VBox alignment="TOP_CENTER" minWidth="221.0" spacing="10.0" styleClass="sidebar-bg" BorderPane.alignment="CENTER">
                <children>
                   <Label styleClass="logo-title" text="KU Complaint">
                      <VBox.margin>
                         <Insets bottom="20.0" />
                      </VBox.margin>
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding>
                   </Label>
                   <Button fx:id="homeButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleHomeButton" styleClass="sidebar-menu-btn" text="Home">
                      <graphic>

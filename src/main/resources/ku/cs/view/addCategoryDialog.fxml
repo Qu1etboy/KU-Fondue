@@ -14,13 +14,13 @@
       <VBox spacing="10.0">
          <children>
             <Label text="ชื่อหมวดหมู่" />
-            <TextField />
+            <TextField fx:id="categoryNameTextField" />
          </children>
       </VBox>
       <HBox alignment="TOP_RIGHT" spacing="10.0">
          <children>
-            <Button mnemonicParsing="false" text="Cancel" />
-            <Button mnemonicParsing="false" text="Done" />
+            <Button mnemonicParsing="false" onAction="#handleCancelButton" text="Cancel" />
+            <Button mnemonicParsing="false" onAction="#handleDoneButton" text="Done" />
          </children>
       </HBox>
    </children>

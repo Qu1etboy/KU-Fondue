@@ -50,10 +50,15 @@ public class SettingDetailController {
         appearance = new Appearance();
         themeSelector.getItems().addAll(appearance.getAllTheme());
         themeSelector.setOnAction(e -> handleChangeTheme(e));
+        themeSelector.setValue(user.getTheme());
+
         fontSelector.getItems().addAll(appearance.getAllFont());
         fontSelector.setOnAction(e -> handleChangFont(e));
+        fontSelector.setValue(user.getFont());
+
         fontSizeSelector.getItems().addAll(appearance.getAllFontSize());
         fontSizeSelector.setOnAction(e -> handleChangFontSize(e));
+        fontSizeSelector.setValue(user.getFontSize() + "px");
     }
 /*
     @FXML private void handleChangeName(ActionEvent actionEvent) throws IOException {
