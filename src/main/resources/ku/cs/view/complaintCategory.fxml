@@ -11,7 +11,7 @@
 
 <VBox xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ku.cs.controllers.ComplaintCategoryDetailController">
    <children>
-      <ScrollPane fitToWidth="true" minWidth="-Infinity" prefHeight="600.0" prefWidth="600.0" VBox.vgrow="ALWAYS">
+      <ScrollPane fitToWidth="true" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" VBox.vgrow="ALWAYS">
          <content>
             <HBox>
                <children>
@@ -24,12 +24,6 @@
                         </HBox>
                         <Label text="หมวดหมู่เรื่องร้องเรียนทั้งหมด" />
                         <ListView fx:id="complaintCategoryListView" />
-                        <HBox spacing="10.0">
-                           <children>
-                              <Button mnemonicParsing="false" text="แสดงรายละเอียด" />
-                              <Button mnemonicParsing="false" onAction="#handleRemoveComplaintCategory" text="ลบหมวดหมู่" />
-                           </children>
-                        </HBox>
                         <Button mnemonicParsing="false" onAction="#handleAddComplaintCategory" text="เพิ่มหมวดหมู่" />
                      </children>
                      <HBox.margin>
@@ -40,7 +34,7 @@
                      <children>
                         <StackPane VBox.vgrow="ALWAYS">
                            <children>
-                              <VBox fx:id="detailContent" prefHeight="200.0" prefWidth="100.0" spacing="10.0" visible="false">
+                              <VBox fx:id="detailContent" prefWidth="100.0" spacing="10.0" visible="false">
                                  <children>
                                     <HBox>
                                        <children>
@@ -55,15 +49,21 @@
                                        </children>
                                     </HBox>
                                     <Label text="คุณลักษณะของหมวดหมู่เรื่องร้องเรียน" />
-                                    <ListView fx:id="attributeListView" />
+                                    <ListView fx:id="attributeListView" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="200.0" />
+                                    <HBox spacing="10.0">
+                                       <children>
+                                          <Button mnemonicParsing="false" onAction="#handleChangeCategoryName" text="แก้ไขชื่อหมวดหมู่" wrapText="true" />
+                                          <Button mnemonicParsing="false" onAction="#handleAddAttribute" text="เพิ่มคุณลักษณะ" wrapText="true" />
+                                          <Button mnemonicParsing="false" onAction="#handleRemoveComplaintCategory" styleClass="danger-button" text="ลบหมวดหมู่" wrapText="true" />
+                                       </children>
+                                    </HBox>
+                                    <VBox fx:id="attributeDetailContainer" prefWidth="100.0" />
                                     <HBox spacing="10.0">
                                        <children>
                                           <Button mnemonicParsing="false" onAction="#handleChangeAttribute" text="แก้ไขคุณลักษณะ" />
-                                          <Button mnemonicParsing="false" onAction="#handleRemoveAttribute" text="ลบคุณลักษณะ" />
+                                          <Button mnemonicParsing="false" onAction="#handleRemoveAttribute" styleClass="danger-button" text="ลบคุณลักษณะ" />
                                        </children>
                                     </HBox>
-                                    <Button mnemonicParsing="false" onAction="#handleAddAttribute" text="เพิ่มคุณลักษณะ" />
-                                    <Button mnemonicParsing="false" text="แก้ไขชื่อหมวดหมู่" />
                                  </children>
                               </VBox>
                               <VBox fx:id="defaultContent" alignment="CENTER" prefHeight="200.0" prefWidth="100.0">

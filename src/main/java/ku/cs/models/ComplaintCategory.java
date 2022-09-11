@@ -41,6 +41,13 @@ public class ComplaintCategory {
     public List<CategoryAttribute> getCategoryAttributeList() {
         return categoryAttributeList;
     }
+    public void addCategoryAttribute(CategoryAttribute categoryAttribute) {
+        categoryAttributeList.add(categoryAttribute);
+    }
+
+    public void removeCategoryAttribute(CategoryAttribute categoryAttribute) {
+        categoryAttributeList.remove(categoryAttribute);
+    }
 
     public boolean isRequireImage() {
         return requireImage;

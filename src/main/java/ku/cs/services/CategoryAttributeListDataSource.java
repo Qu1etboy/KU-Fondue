@@ -1,12 +1,15 @@
 package ku.cs.services;
 
 import com.opencsv.CSVReader;
+import com.opencsv.CSVWriter;
 import com.opencsv.exceptions.CsvException;
 import ku.cs.models.*;
 
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -52,11 +55,13 @@ public class CategoryAttributeListDataSource implements DataSource <CategoryAttr
 
             for (String[] data : allData) {
                 if (data.length > 0) {
-                    List<String> inputData = Arrays.asList(data[3].split(","));
-                    List<String> inputAnswer = Arrays.asList(data[4].split(","));
-                    List<String> inputImage = Arrays.asList(data[5].split(","));
+                    List<String> inputData = new ArrayList<>(Arrays.asList(data[4].split(",")));
+                    List<String> inputAnswer = new ArrayList<>(Arrays.asList(data[5].split(",")));
+                    // List<String> inputImage = Arrays.asList(data[5].split(","));
 
-                    categoryAttributeList.addCategoryAttribute(new CategoryAttribute(data[0], data[1],data[2],inputData,inputAnswer,null));
+                    categoryAttributeList.addCategoryAttribute(
+                            new CategoryAttribute(data[0], data[1],data[2], data[3], inputData, inputAnswer,null)
+                    );
                 }
             }
 
@@ -68,6 +73,26 @@ public class CategoryAttributeListDataSource implements DataSource <CategoryAttr
 
     @Override
     public void writeData(CategoryAttributeList data) {
+        String filePath = directoryName + File.separator + fileName;
+        CSVWriter writer = null;
+        try {
+            writer = new CSVWriter(new FileWriter(filePath));
+            for(CategoryAttribute categoryAttribute : data.getCategoryAttributeList()){
+                String[] row = categoryAttribute.toStringArray();
+                writer.writeNext(row);
+            }
 
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        finally {
+            try {
+                if(writer != null){
+                    writer.close();
+                }
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
     }
 }

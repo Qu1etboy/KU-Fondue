@@ -15,7 +15,7 @@
       <VBox spacing="10.0">
          <children>
             <Label text="ชื่อคุณลักษณะ" />
-            <TextField />
+            <TextField fx:id="attributeNameTextField" />
             <Label text="Label" />
             <CheckBox fx:id="textCheckBox" mnemonicParsing="false" onAction="#handleTextCheckBox" text="ข้อความ" />
             <CheckBox fx:id="choiceCheckBox" mnemonicParsing="false" onAction="#handleChoiceCheckBox" text="ตัวเลือก" />
@@ -24,8 +24,8 @@
       </VBox>
       <HBox alignment="TOP_RIGHT" spacing="10.0">
          <children>
-            <Button mnemonicParsing="false" text="Cancel" />
-            <Button mnemonicParsing="false" text="Done" />
+            <Button mnemonicParsing="false" onAction="#handleCancelButton" text="Cancel" />
+            <Button mnemonicParsing="false" onAction="#handleDoneButton" text="Done" />
          </children>
       </HBox>
    </children>

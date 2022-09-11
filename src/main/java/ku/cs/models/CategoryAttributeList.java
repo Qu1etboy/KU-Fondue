@@ -33,4 +33,33 @@ public class CategoryAttributeList {
                 .filter(e -> e.getIdCategory().equals(categoryId))
                 .collect(Collectors.toList());
     }
+
+    public void removeAttribute(CategoryAttribute categoryAttribute) {
+        categoryAttributeList = categoryAttributeList
+                .stream()
+                .filter(a -> !a.getAttributeId().equals(categoryAttribute.getAttributeId()))
+                .collect(Collectors.toList());
+    }
+
+    /**
+     * This method remove all attribute that contain category id
+     * you want to remove
+     *
+     * @param complaintCategory A category you want to remove
+     */
+    public void removeAllAttributeByCategoryId(ComplaintCategory complaintCategory) {
+        categoryAttributeList = categoryAttributeList
+                .stream()
+                .filter(a -> !a.getIdCategory().equals(complaintCategory.getId()))
+                .collect(Collectors.toList());
+    }
+
+    public void updateAttribute(CategoryAttribute categoryAttribute) {
+        categoryAttributeList = categoryAttributeList
+                .stream()
+                .map(a -> a.getAttributeId().equals(categoryAttribute.getAttributeId()) ? categoryAttribute : a)
+                .collect(Collectors.toList());
+    }
+
+
 }

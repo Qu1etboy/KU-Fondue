@@ -2,6 +2,7 @@ package ku.cs.models;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ComplaintCategoryList {
     private List<ComplaintCategory> complaintCategoryList;
@@ -35,5 +36,19 @@ public class ComplaintCategoryList {
         }
 
         return null;
+    }
+
+    public void updateComplaintCategory(ComplaintCategory complaintCategory) {
+        complaintCategoryList = complaintCategoryList
+                .stream()
+                .map(c -> c.getId().equals(complaintCategory.getId()) ? complaintCategory : c)
+                .collect(Collectors.toList());
+    }
+
+    public void removeComplaintCategory(ComplaintCategory complaintCategory) {
+        complaintCategoryList = complaintCategoryList
+                .stream()
+                .filter(c -> !c.getId().equals(complaintCategory.getId()))
+                .collect(Collectors.toList());
     }
 }

@@ -14,6 +14,14 @@
     -fx-background-color: -primary-button-color-hover;
 }
 
+.danger-button {
+    -fx-background-color: #e63946;
+}
+
+.danger-button:hover {
+    -fx-background-color: #d90429;
+}
+
 /* text field */
 .text-field {
     -fx-background-color: -fx-text-box-border, -secondary-background-color;
