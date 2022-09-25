@@ -12,7 +12,7 @@
 
 <VBox xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ku.cs.controllers.SettingDetailController">
    <children>
-      <ScrollPane fitToWidth="true" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+      <ScrollPane fitToWidth="true" prefHeight="600.0" prefWidth="600.0" VBox.vgrow="ALWAYS">
          <content>
             <VBox alignment="TOP_CENTER">
                <children>
@@ -63,6 +63,7 @@
                               <Insets />
                            </opaqueInsets>
                         </Button>
+                        <Button minHeight="25.0" minWidth="145.0" mnemonicParsing="false" onAction="#handleLogOutButton" styleClass="danger-button" text="ออกจากระบบ" />
                      </children>
                      <opaqueInsets>
                         <Insets />

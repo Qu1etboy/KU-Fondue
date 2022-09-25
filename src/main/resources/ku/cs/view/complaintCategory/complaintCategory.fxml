@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
@@ -9,7 +10,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ku.cs.controllers.ComplaintCategoryDetailController">
+<VBox xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ku.cs.controllers.complaintcategory.ComplaintCategoryDetailController">
    <children>
       <ScrollPane fitToWidth="true" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" VBox.vgrow="ALWAYS">
          <content>
@@ -52,16 +53,31 @@
                                     <ListView fx:id="attributeListView" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="200.0" />
                                     <HBox spacing="10.0">
                                        <children>
-                                          <Button mnemonicParsing="false" onAction="#handleChangeCategoryName" text="แก้ไขชื่อหมวดหมู่" wrapText="true" />
-                                          <Button mnemonicParsing="false" onAction="#handleAddAttribute" text="เพิ่มคุณลักษณะ" wrapText="true" />
-                                          <Button mnemonicParsing="false" onAction="#handleRemoveComplaintCategory" styleClass="danger-button" text="ลบหมวดหมู่" wrapText="true" />
+                                          <Button mnemonicParsing="false" onAction="#handleChangeCategoryName" text="แก้ไขชื่อหมวดหมู่" wrapText="true">
+                                             <graphic>
+                                                <FontAwesomeIconView glyphName="PENCIL" />
+                                             </graphic></Button>
+                                          <Button mnemonicParsing="false" onAction="#handleAddAttribute" text="เพิ่มคุณลักษณะ" wrapText="true">
+                                             <graphic>
+                                                <FontAwesomeIconView glyphName="PLUS" />
+                                             </graphic></Button>
+                                          <Button mnemonicParsing="false" onAction="#handleRemoveComplaintCategory" styleClass="danger-button" text="ลบหมวดหมู่" wrapText="true">
+                                             <graphic>
+                                                <FontAwesomeIconView glyphName="TRASH_ALT" />
+                                             </graphic></Button>
                                        </children>
                                     </HBox>
                                     <VBox fx:id="attributeDetailContainer" prefWidth="100.0" />
                                     <HBox spacing="10.0">
                                        <children>
-                                          <Button mnemonicParsing="false" onAction="#handleChangeAttribute" text="แก้ไขคุณลักษณะ" />
-                                          <Button mnemonicParsing="false" onAction="#handleRemoveAttribute" styleClass="danger-button" text="ลบคุณลักษณะ" />
+                                          <Button mnemonicParsing="false" onAction="#handleChangeAttribute" text="แก้ไขคุณลักษณะ">
+                                             <graphic>
+                                                <FontAwesomeIconView glyphName="PENCIL" />
+                                             </graphic></Button>
+                                          <Button mnemonicParsing="false" onAction="#handleRemoveAttribute" styleClass="danger-button" text="ลบคุณลักษณะ">
+                                             <graphic>
+                                                <FontAwesomeIconView glyphName="TRASH_ALT" />
+                                             </graphic></Button>
                                        </children>
                                     </HBox>
                                  </children>

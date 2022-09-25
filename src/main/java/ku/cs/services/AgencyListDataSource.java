@@ -3,15 +3,14 @@ package ku.cs.services;
 import com.opencsv.CSVReader;
 import com.opencsv.CSVWriter;
 import com.opencsv.exceptions.CsvException;
-import ku.cs.models.Agency;
-import ku.cs.models.AgencyList;
-import ku.cs.models.User;
-import ku.cs.models.UserList;
+import ku.cs.models.*;
 
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class AgencyListDataSource implements DataSource<AgencyList> {
@@ -52,10 +51,20 @@ public class AgencyListDataSource implements DataSource<AgencyList> {
             CSVReader reader = new CSVReader(new FileReader(filePath));
 
             List<String[]> allData = reader.readAll();
+            DataSource<ComplaintCategoryList> categoryData = new ComplaintCategoryListDataSource("data", "complaint_category.csv");
+            ComplaintCategoryList complaintCategoryList = categoryData.readData();
+
             for (String[] data : allData) {
+                List<ComplaintCategory> categories = new ArrayList<>();
+                String[] categoryIds = data[2].split(",");
+                for (String categoryId : categoryIds) {
+                    if (categoryId.isEmpty()) continue;
+                    categories.add(complaintCategoryList.findComplaintCategoryById(categoryId));
+                }
                 agencyList.addAgency(new Agency(
                         data[0],
-                        data[1]
+                        data[1],
+                        categories
                         )
                 );
             }

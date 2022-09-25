@@ -21,7 +21,7 @@
          <columns>
             <TableColumn fx:id="name" prefWidth="156.0" text="Username" />
             <TableColumn fx:id="role" prefWidth="122.4000244140625" text="role" />
-            <TableColumn fx:id="status" prefWidth="220.7999267578125" text="Last Online" />
+            <TableColumn fx:id="lastOnline" prefWidth="220.7999267578125" text="Last Online" />
          </columns>
          <columnResizePolicy>
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

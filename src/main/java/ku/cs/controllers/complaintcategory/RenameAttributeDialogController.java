@@ -1,20 +1,19 @@
-package ku.cs.controllers;
+package ku.cs.controllers.complaintcategory;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import ku.cs.models.ComplaintCategory;
-import ku.cs.models.ComplaintCategoryList;
+import ku.cs.models.CategoryAttribute;
 
-public class RenameCategoryDialogController {
-    @FXML private TextField categoryNameTextField;
+public class RenameAttributeDialogController {
+    @FXML private TextField attributeNameTextField;
 
-    ComplaintCategory complaintCategory;
+    private CategoryAttribute categoryAttribute;
 
-    public void initData(ComplaintCategory complaintCategory) {
-        this.complaintCategory = complaintCategory;
+    public void initData(CategoryAttribute categoryAttribute) {
+        this.categoryAttribute = categoryAttribute;
     }
 
     @FXML
@@ -26,12 +25,10 @@ public class RenameCategoryDialogController {
     @FXML
     public void handleDoneButton(ActionEvent actionEvent) {
         Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-        String categoryName = categoryNameTextField.getText();
+        String attributeName = attributeNameTextField.getText();
 
-        complaintCategory.setName(categoryName);
+        categoryAttribute.setNameAttribute(attributeName);
 
         stage.close();
     }
-
-
 }

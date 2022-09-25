@@ -38,6 +38,16 @@ public class ComplaintCategoryList {
         return null;
     }
 
+    public ComplaintCategoryList filterBy(Filterer<ComplaintCategory> filterer) {
+        ComplaintCategoryList filteredCategory = new ComplaintCategoryList();
+        for (ComplaintCategory category : complaintCategoryList) {
+            if (filterer.filter(category)) {
+                filteredCategory.addComplaintCategory(category);
+            }
+        }
+        return filteredCategory;
+    }
+
     public void updateComplaintCategory(ComplaintCategory complaintCategory) {
         complaintCategoryList = complaintCategoryList
                 .stream()

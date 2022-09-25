@@ -2,14 +2,17 @@ package ku.cs.models;
 
 import javafx.scene.image.Image;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 public class User {
     private final String id; // a random unique id generate with UUID
     private String username;
     private String name;
     private String password;
-    private final String role; // 3 roles { student, teacher, admin }
+    private Role role; // 3 roles { student, teacher, admin }
     private Agency agency;
     private String theme;
     private String font;
@@ -17,9 +20,10 @@ public class User {
     private Image profileImage;
     private String status; // online , offline
     private boolean isSuspend;
+    private Date lastOnline;
 
-    public User(String id, String username, String name, String password, String role, Agency agency, String theme, String font,
-                int fontSize, Image profileImage, String status, boolean isSuspend) {
+    public User(String id, String username, String name, String password, Role role, Agency agency, String theme, String font,
+                int fontSize, Image profileImage, String status, boolean isSuspend, Date lastOnline) {
         this.id = id;
         this.username = username;
         this.name = name;
@@ -32,21 +36,22 @@ public class User {
         this.font = font;
         this.fontSize = fontSize;
         this.isSuspend = isSuspend;
+        this.lastOnline = lastOnline;
     }
 
-    public User(String username, String name, String password, String role, Agency agency) {
+    public User(String username, String name, String password, Role role, Agency agency) {
         this(UUID.randomUUID().toString(), username, name, password, role, agency, "dark", "Kanit",
-                16, null, "online", false);
+                16, null, "online", false, new Date());
     }
 
-    public User(String username, String name, String password, String role) {
+    public User(String username, String name, String password, Role role) {
         this(UUID.randomUUID().toString(), username, name, password, role, null, "dark", "Kanit",
-                16, null, "online", false);
+                16, null, "online", false, new Date());
     }
 
     public User(String username, String name, String password) {
-        this(UUID.randomUUID().toString(), username, name, password, "student", null, "dark", "Kanit",
-                16, null, "online", false);
+        this(UUID.randomUUID().toString(), username, name, password, Role.STUDENT, null, "dark", "Kanit",
+                16, null, "online", false, new Date());
     }
 
     public String getId() {
@@ -63,7 +68,7 @@ public class User {
         return password;
     }
 
-    public String getRole() {
+    public Role getRole() {
         return role;
     }
 
@@ -83,8 +88,16 @@ public class User {
         return fontSize;
     }
 
+    public String getStatus() {
+        return status;
+    }
+
     public boolean isSuspend() {
         return isSuspend;
+    }
+    public String getLastOnline() {
+        long diff = new Date().getTime() - lastOnline.getTime();
+        return TimeUnit.SECONDS.convert(diff, TimeUnit.MILLISECONDS) + " sec";
     }
 
     public void setUsername(String username) {
@@ -118,14 +131,21 @@ public class User {
     public void setSuspend(boolean isSuspend) {
         this.isSuspend = isSuspend;
     }
+    public void setLastOnline(Date date) {
+        this.lastOnline = date;
+    }
 
+
+    public void setAgency(Agency agency) {
+        this.agency = agency;
+    }
     public String[] toStringArray() {
         return new String[] {
                 id,
                 username,
                 name,
                 password,
-                role,
+                role.toString(),
                 (agency != null ?  agency.getId() : "null"),
                 theme,
                 font,
@@ -133,6 +153,7 @@ public class User {
                 "null",
                 status,
                 Boolean.toString(isSuspend),
+                new SimpleDateFormat().format(lastOnline)
         };
     }
 }

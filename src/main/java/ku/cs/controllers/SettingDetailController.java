@@ -25,6 +25,7 @@ import ku.cs.services.DataSource;
 import ku.cs.services.UserListDataSource;
 
 import java.io.IOException;
+import java.util.Date;
 
 public class SettingDetailController {
     private User user;
@@ -187,5 +188,20 @@ public class SettingDetailController {
         user.setFontSize(Integer.parseInt(newFontSize.substring(0, newFontSize.length() - 2)));
         userList.updateUser(user);
         data.writeData(userList);
+    }
+
+    @FXML
+    private void handleLogOutButton(ActionEvent actionEvent) throws IOException {
+        user.setLastOnline(new Date());
+        userList.updateUser(user);
+        data.writeData(userList);
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/ku/cs/view/login.fxml"));
+        Scene scene = new Scene(loader.load());
+        Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        stage.setMinWidth(0);
+        stage.setScene(scene);
+        stage.show();
+
     }
 }

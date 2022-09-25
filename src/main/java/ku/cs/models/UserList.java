@@ -49,6 +49,15 @@ public class UserList {
         return null;
     }
 
+    public UserList filterBy(Filterer<User> filterer) {
+        UserList filteredUserList = new UserList();
+        for (User user : userList) {
+            if (filterer.filter(user)) {
+                filteredUserList.addUser(user);
+            }
+        }
+        return filteredUserList;
+    }
 
     /**
      * Update a user information in userList by matching with unique id
@@ -59,5 +68,13 @@ public class UserList {
         userList = userList.stream()
                 .map(u -> u.getId().equals(user.getId()) ? user : u)
                 .collect(Collectors.toList());
+    }
+
+    public void updateUserAgency(Agency agency, Agency newAgency) {
+        for (User user : userList) {
+            if (user.getAgency() != null && user.getAgency().getId().equals(agency.getId())) {
+                user.setAgency(newAgency);
+            }
+        }
     }
 }

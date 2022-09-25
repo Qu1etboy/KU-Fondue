@@ -3,12 +3,12 @@ package ku.cs.services;
 import com.opencsv.*;
 
 import com.opencsv.exceptions.CsvException;
-import ku.cs.models.Agency;
-import ku.cs.models.AgencyList;
-import ku.cs.models.User;
-import ku.cs.models.UserList;
+import ku.cs.models.*;
 
 import java.io.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 public class UserListDataSource implements DataSource<UserList> {
@@ -54,24 +54,27 @@ public class UserListDataSource implements DataSource<UserList> {
 
             for (String[] data : allData) {
                 Agency agency = agencyList.findAgencyById(data[5]);
+                SimpleDateFormat formatter = new SimpleDateFormat();
+                Date lastOnline = formatter.parse(data[12]);
                 userList.addUser(new User(
                         data[0],
                         data[1],
                         data[2],
                         data[3],
-                        data[4],
+                        Role.valueOf(data[4]),
                         agency,
                         data[6],
                         data[7],
                         Integer.parseInt(data[8]),
                         null,
                         data[10],
-                        Boolean.parseBoolean(data[11])
+                        Boolean.parseBoolean(data[11]),
+                        lastOnline
                         )
                 );
             }
 
-        } catch (CsvException | IOException e) {
+        } catch (CsvException | IOException | ParseException e) {
             throw new RuntimeException(e);
         }
 

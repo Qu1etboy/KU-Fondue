@@ -1,4 +1,4 @@
-package ku.cs.controllers;
+package ku.cs.controllers.complaintcategory;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -8,12 +8,13 @@ import javafx.stage.Stage;
 import ku.cs.models.ComplaintCategory;
 import ku.cs.models.ComplaintCategoryList;
 
-public class AddCategoryDialogController {
+public class RenameCategoryDialogController {
     @FXML private TextField categoryNameTextField;
 
-    ComplaintCategoryList complaintCategoryList;
-    public void initData(ComplaintCategoryList complaintCategoryList) {
-        this.complaintCategoryList = complaintCategoryList;
+    ComplaintCategory complaintCategory;
+
+    public void initData(ComplaintCategory complaintCategory) {
+        this.complaintCategory = complaintCategory;
     }
 
     @FXML
@@ -27,7 +28,7 @@ public class AddCategoryDialogController {
         Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         String categoryName = categoryNameTextField.getText();
 
-        complaintCategoryList.addComplaintCategory(new ComplaintCategory(categoryName));
+        complaintCategory.setName(categoryName);
 
         stage.close();
     }

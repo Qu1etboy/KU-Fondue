@@ -29,14 +29,14 @@
 }
 
 .text-field {
-    -fx-background-color: -fx-text-box-border, -secondary-background-color;
+    -fx-background-color: -fx-text-box-border, -secondary-background-200;
     -fx-background-radius: 5px;
     -fx-prompt-text-fill: derive(-primary-text-color, -30%);
     -fx-text-fill: -primary-text-color;
 }
 
 .text-field:focused {
-    -fx-background-color: -fx-focus-color, -secondary-background-color;
+    -fx-background-color: -fx-focus-color, -secondary-background-200;
     -fx-background-radius: 5px;
     -fx-prompt-text-fill: derive(-primary-text-color, -30%);
 }

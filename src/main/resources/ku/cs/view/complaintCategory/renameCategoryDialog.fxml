@@ -7,10 +7,10 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minWidth="-Infinity" spacing="20.0" styleClass="dialog-box" stylesheets="@../css/dialog.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ku.cs.controllers.AddCategoryDialogController">
+<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minWidth="-Infinity" spacing="20.0" styleClass="dialog-box" stylesheets="@../../css/dialog.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ku.cs.controllers.complaintcategory.RenameCategoryDialogController">
    <children>
-      <Label styleClass="title" text="เพิ่มหมวดหมู่เรื่องร้องเรียน" />
-      <Label text="ใส่ชื่อหมู่หมวดหมู่ที่ต้องการเพิ่ม" />
+      <Label styleClass="title" text="แก้ไขชื่อหมวดหมู่เรื่องร้องเรียน" />
+      <Label text="ใส่ชื่อหมู่หมวดหมู่ใหม่" />
       <VBox spacing="10.0">
          <children>
             <Label text="ชื่อหมวดหมู่" />

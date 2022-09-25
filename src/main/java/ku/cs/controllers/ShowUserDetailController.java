@@ -1,6 +1,5 @@
 package ku.cs.controllers;
 
-import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -8,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -23,6 +23,8 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class ShowUserDetailController implements Initializable {
+
+    User user;
     @FXML
     private TableView<User> userTable;
     @FXML
@@ -30,12 +32,14 @@ public class ShowUserDetailController implements Initializable {
     @FXML
     private TableColumn<User,String> role;
     @FXML
-    private TableColumn<User,String> status;
+    private TableColumn<User, String> lastOnline;
 
     private UserList userList;
     private DataSource<UserList> data;
 
-
+    public void initData(User user) {
+        this.user = user;
+    }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         data = new UserListDataSource("data", "user.csv");
@@ -47,11 +51,11 @@ public class ShowUserDetailController implements Initializable {
 
     private void initColumn(){
 
-        name.setCellValueFactory(new PropertyValueFactory<>("name"));
+        name.setCellValueFactory(new PropertyValueFactory<>("username"));
 //        category.setCellValueFactory(cellData ->
 //                new SimpleStringProperty(cellData.getValue().getComplaintCategory().getName()));
         role.setCellValueFactory(new PropertyValueFactory<>("role"));
-        status.setCellValueFactory(new PropertyValueFactory<>("status"));
+        lastOnline.setCellValueFactory(new PropertyValueFactory<>("lastOnline"));
     }
     private void loadData() {
         ObservableList<User> dataTable = FXCollections.observableArrayList();
@@ -64,10 +68,14 @@ public class ShowUserDetailController implements Initializable {
 
     @FXML
     public void handleBackButton(ActionEvent actionEvent) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/ku/cs/view/adminDashboard.fxml"));
-        BorderPane borderPane = (BorderPane) ((StackPane)((Node) actionEvent.getSource()).getScene().getRoot()).
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/ku/cs/view/dashboard.fxml"));
+        BorderPane borderPane = (BorderPane) ((StackPane) ((Node) actionEvent.getSource()).getScene().getRoot()).
                 getChildren().get(0);
-        borderPane.setCenter(loader.load());
+
+        Parent pane = loader.load();
+        DashboardDetailController dashboardDetailController = loader.getController();
+        dashboardDetailController.initData(user);
+        borderPane.setCenter(pane);
     }
 }
 

@@ -1,6 +1,9 @@
 .root {
     -primary-background-color: #F0F5F9;
-    -secondary-background-color: #C9D6DF;
+    -primary-background-200: #F0F5F9;
+    -primary-background-300: #F0F5F9;
+    -secondary-background-100: #C9D6DF;
+    -secondary-background-200: #C9D6DF;
     -primary-text-color: black;
     -primary-text-color-hover: #0D7377;
     -primary-button-color: #7289da;
