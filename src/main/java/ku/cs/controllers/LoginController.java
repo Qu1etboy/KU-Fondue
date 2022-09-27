@@ -7,10 +7,8 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
-import javafx.scene.input.KeyCode;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import ku.cs.models.Login;
 import ku.cs.models.User;
 import ku.cs.models.UserList;
 import ku.cs.services.DataSource;
@@ -21,13 +19,13 @@ import java.io.IOException;
 public class LoginController {
     @FXML private TextField usernameTextField;
     @FXML private TextField passwordTextField;
-    private Login login;
+    private UserList userList;
+    private DataSource<UserList> data;
 
     @FXML
     public void initialize() {
-        DataSource<UserList> data = new UserListDataSource("data", "user.csv");
-        UserList userList = data.readData();
-        login = new Login(userList);
+        data = new UserListDataSource("data", "user.csv");
+        userList = data.readData();
     }
 
     @FXML
@@ -45,7 +43,7 @@ public class LoginController {
         String username = usernameTextField.getText();
         String password = passwordTextField.getText();
 
-        User user = login.checkUsername(username);
+        User user = userList.findUserByUsername(username);
 
         if (username.isEmpty() || password.isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -59,7 +57,7 @@ public class LoginController {
             alert.show();
             return;
         }
-        if (!login.checkPassword(user.getPassword(), password)) {
+        if (!user.getPassword().equals(password)) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText("Password is incorrect");
             alert.show();

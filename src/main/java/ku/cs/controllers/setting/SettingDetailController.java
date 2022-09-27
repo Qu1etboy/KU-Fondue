@@ -1,7 +1,5 @@
-package ku.cs.controllers;
+package ku.cs.controllers.setting;
 
-import javafx.animation.FadeTransition;
-import javafx.beans.value.ChangeListener;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -12,12 +10,9 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
-import javafx.util.Duration;
+import ku.cs.controllers.setting.ChangeNameController;
+import ku.cs.controllers.setting.ChangePasswordController;
 import ku.cs.models.Appearance;
 import ku.cs.models.User;
 import ku.cs.models.UserList;

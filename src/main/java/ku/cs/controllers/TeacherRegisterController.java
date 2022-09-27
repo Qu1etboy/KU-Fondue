@@ -32,7 +32,6 @@ public class TeacherRegisterController extends RegisterController {
 
         data = new UserListDataSource("data", "user.csv");
         userList = data.readData();
-        register = new Register(userList);
     }
 
     public void handleSelectAgency() {

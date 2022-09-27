@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ku.cs.controllers.SettingDetailController">
+<VBox xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ku.cs.controllers.setting.SettingDetailController">
    <children>
       <ScrollPane fitToWidth="true" prefHeight="600.0" prefWidth="600.0" VBox.vgrow="ALWAYS">
          <content>

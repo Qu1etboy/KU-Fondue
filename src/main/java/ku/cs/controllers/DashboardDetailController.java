@@ -90,10 +90,13 @@ public class DashboardDetailController {
 
     @FXML
     private void handleManageComplaint(ActionEvent actionEvent) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/ku/cs/view/.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/ku/cs/view/manageComplaint.fxml"));
         BorderPane borderPane = (BorderPane) ((StackPane)((Node) actionEvent.getSource()).getScene().getRoot()).
                 getChildren().get(0);
-        borderPane.setCenter(loader.load());
+        Parent root = loader.load();
+        ManageComplaintController controller = loader.getController();
+        controller.initData(user);
+        borderPane.setCenter(root);
     }
 
     @FXML
@@ -109,8 +112,15 @@ public class DashboardDetailController {
     }
 
     @FXML
-    private void handleReport() {
+    private void handleReport(ActionEvent actionEvent) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/ku/cs/view/report.fxml"));
+        BorderPane borderPane = (BorderPane) ((StackPane)((Node) actionEvent.getSource()).getScene().getRoot()).
+                getChildren().get(0);
 
+        Parent pane = loader.load();
+        ReportController controller = loader.getController();
+        controller.initData(user);
+        borderPane.setCenter(pane);
     }
 
     @FXML

@@ -8,7 +8,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import ku.cs.models.Register;
 import ku.cs.models.User;
 import ku.cs.models.UserList;
 import ku.cs.services.DataSource;
@@ -22,7 +21,6 @@ public class RegisterController {
     @FXML protected TextField passwordTextField;
     @FXML protected TextField confirmPasswordTextField;
 
-    protected Register register;
     protected UserList userList;
     protected DataSource<UserList> data;
     protected String username;
@@ -33,7 +31,6 @@ public class RegisterController {
     public void initialize() {
         data = new UserListDataSource("data", "user.csv");
         userList = data.readData();
-        register = new Register(userList);
     }
 
     @FXML
@@ -96,19 +93,19 @@ public class RegisterController {
             alert.show();
             return false;
         }
-        if (!register.validUsername(username)) {
+        if (!userList.validUsername(username)) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText("Username can contain only letter and digit with no more than 20 character");
             alert.show();
             return false;
         }
-        if (!register.checkUsername(username)) {
+        if (userList.findUserByUsername(username) != null) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText("Username already exist");
             alert.show();
             return false;
         }
-        if (!register.checkPassword(password, confirmPassword)) {
+        if (!password.equals(confirmPassword)) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText("Password and Confirm password don't match");
             alert.show();

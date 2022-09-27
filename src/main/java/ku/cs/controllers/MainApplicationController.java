@@ -6,6 +6,7 @@ import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
+import ku.cs.controllers.setting.SettingDetailController;
 import ku.cs.models.User;
 
 import java.io.IOException;

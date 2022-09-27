@@ -15,5 +15,7 @@ module cs.ku {
     opens ku.cs.controllers.complaintcategory to javafx.fxml;
     exports ku.cs.controllers.agency;
     opens ku.cs.controllers.agency to javafx.fxml;
+    exports ku.cs.controllers.setting;
+    opens ku.cs.controllers.setting to javafx.fxml;
 
 }

@@ -77,4 +77,13 @@ public class UserList {
             }
         }
     }
+
+    /*
+     * Check if username is valid to the rule or not
+     * 1. username no more than 20 character
+     * 2. contain only letter and digit
+     * */
+    public boolean validUsername(String username) {
+        return username.length() <= 20 && username.matches("^[a-zA-Z0-9]*$");
+    }
 }
