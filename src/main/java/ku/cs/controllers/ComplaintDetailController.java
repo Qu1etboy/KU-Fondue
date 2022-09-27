@@ -9,6 +9,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
@@ -16,18 +17,21 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.control.TableView;
 import ku.cs.models.Complaint;
 import ku.cs.models.ComplaintList;
+import ku.cs.models.Sorter;
 import ku.cs.models.User;
 import ku.cs.services.ComplaintListDataSource;
 import ku.cs.services.DataSource;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Comparator;
 import java.util.ResourceBundle;
 
 
 public class ComplaintDetailController implements Initializable {
 
     User user;
+    Sorter sorter;
     @FXML
     private TableView<Complaint> complaintTable;
     @FXML
@@ -38,6 +42,8 @@ public class ComplaintDetailController implements Initializable {
     private TableColumn<Complaint, String> detail;
     @FXML
     private TableColumn<Complaint, String> status;
+    @FXML
+    private ComboBox<String> sortSelector;
 
     private ComplaintList complaintList;
     private DataSource<ComplaintList> data;
@@ -69,21 +75,27 @@ public class ComplaintDetailController implements Initializable {
         data = new ComplaintListDataSource("data", "complaint.csv");
         complaintList = data.readData();
 
+        sorter = new Sorter();
+        if (sortSelector != null) {
+            sortSelector.getItems().addAll(sorter.getAllTSortList());
+            sortSelector.setOnAction(e -> handleSort(e));
+        }
+
         initColumn();
         loadData();
     }
 
     private void initColumn(){
 
-        // number.setCellValueFactory(new PropertyValueFactory<>("number"));
+//        number.setCellValueFactory(new PropertyValueFactory<>("number"));
         category.setCellValueFactory(cellData ->
                 new SimpleStringProperty(cellData.getValue().getComplaintCategory().getName()));
         detail.setCellValueFactory(new PropertyValueFactory<>("detail"));
         status.setCellValueFactory(new PropertyValueFactory<>("status"));
     }
     private void loadData() {
-            ObservableList<Complaint> dataTable = FXCollections.observableArrayList();
-            dataTable.addAll(complaintList.getComplaintList());
+        ObservableList<Complaint> dataTable = FXCollections.observableArrayList();
+        dataTable.addAll(complaintList.getComplaintList());
 //            for (Complaint complaint : complaintList.getComplaintList()) {
 //                dataTable.add(complaint);
 //            }
@@ -92,11 +104,18 @@ public class ComplaintDetailController implements Initializable {
 //                        "status " + i));
 //            }
 
-            complaintTable.setItems(dataTable);
+        complaintTable.setItems(dataTable);
 
     }
 
+    @FXML
+    public  void  handleSort(ActionEvent actionEvent) {
+        // TODO: implement the sort method that use comparator to sort complaint.csv
+        String sortType = sortSelector.getValue();
+        sorter.sort(complaintList.getComplaintList(), sortType);
+        loadData();
 
+    }
 
     @FXML
     public void handleBackButton(ActionEvent actionEvent) throws IOException {
