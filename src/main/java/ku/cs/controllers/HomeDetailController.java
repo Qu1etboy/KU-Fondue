@@ -125,7 +125,7 @@ public class HomeDetailController {
 //        }
 
         complaintCategory = categorySelector.getSelectionModel().getSelectedItem();
-        Complaint sendComplaint = new Complaint(user,topicTextField.getText(),detailTextArea.getText(), complaintCategory.getName());
+        Complaint sendComplaint = new Complaint(user, topicTextField.getText(), detailTextArea.getText().replaceAll("\n", " "), complaintCategory.getName());
         for (String q : questionAnswer.keyList()) {
             sendComplaint.addQuestionAnswer(q, questionAnswer.get(q));
         }

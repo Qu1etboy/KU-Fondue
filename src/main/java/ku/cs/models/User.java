@@ -156,4 +156,25 @@ public class User {
                 new SimpleDateFormat().format(lastOnline)
         };
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+
+        /* Check if o is an instance of Complex or not
+          "null instanceof [type]" also returns false */
+        if (!(obj instanceof User)) {
+            return false;
+        }
+
+        User u = (User) obj;
+        return id.equals(u.getId());
+    }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode();
+    }
 }

@@ -45,20 +45,11 @@ public class Complaint {
 
     }
 
+    public Complaint(User user, String topic, String detail,String complaintCategoryName) {
+        this(UUID.randomUUID().toString(),user,topic,detail,complaintCategoryName,"report",new Date(),"",0,new ArrayList<>());
+    }
     public void addQuestionAnswer(String q,String a){
         additionalDetail.put(q,a);
-    }
-    // Constructor
-    public Complaint(User user, String topic, String detail, String complaintCategoryName, String status,Date date) {
-        this(UUID.randomUUID().toString(),user,topic,detail,complaintCategoryName,status,date,"",0,new ArrayList<>());
-    }
-
-//    public Complaint(User user, String topic, String detail) {
-//        this(UUID.randomUUID().toString(),user,topic,detail,"","new",new Date(),"",0,new ArrayList<>());
-//    }
-
-    public Complaint(User user, String topic, String detail,String complaintCategoryName) {
-        this(UUID.randomUUID().toString(),user,topic,detail,complaintCategoryName,"new",new Date(),"",0,new ArrayList<>());
     }
 
     public String[] toStringArray(){
@@ -79,8 +70,8 @@ public class Complaint {
                 user.getId(),
                 topic,
                 detail,
-                status,
                 complaintCategoryName,
+                status,
                 String.join(",", questions),
                 String.join(",", answers),
                 new SimpleDateFormat().format(date),
@@ -110,6 +101,9 @@ public class Complaint {
         return complaintCategory;
     }
 
+    public ListMap<String, String> getAdditionalDetail() {
+        return additionalDetail;
+    }
     public int getVote() {
         return vote;
     }
@@ -119,7 +113,13 @@ public class Complaint {
     }
 
     public String getStatus() {
-        return status;
+        if (status.equals("report")) {
+            return "รอรับเรื่อง";
+        } else if (status.equals("In Progress")) {
+            return "รอดําเนินการ";
+        }
+
+        return "เสร็จสิ้น";
     }
 
     public Date getDate() {
@@ -148,5 +148,29 @@ public class Complaint {
 
     public List<Image> getImagesAnswer() {
         return imagesAnswer;
+    }
+
+    public void setAnswerTeacher(String answerTeacher) {
+        this.answerTeacher = answerTeacher;
+    }
+
+    public void addUserVote(User user) {
+        if (userVote.contains(user)) {
+            userVote.remove(user);
+        } else {
+            userVote.add(user);
+        }
+        vote = userVote.size();
+    }
+
+    @Override
+    public String toString() {
+        return "Complaint{" +
+                "user=" + user.getName() +
+                ", topic='" + topic + '\'' +
+                ", detail='" + detail + '\'' +
+                ", complaintCategoryName='" + complaintCategoryName + '\'' +
+                ", status='" + status + '\'' +
+                '}';
     }
 }
