@@ -11,3 +11,7 @@
 "11","e51e902c-cd41-4fc1-817a-6fe85feef9da","รูปภาพกิจกรรม","image","",""
 "12","3","ประเภทการคมนาคม","combobox",",มอเตอร์ไซต์,รถโดยสารประจําทาง,รถยนต์ส่วนตัว",""
 "13","a8ef8922-dce8-44da-a3b6-39f81f26955c","สถานที่","combobox","",""
+"4017e809-5b41-4fcd-b650-015482ec2240","c94f8345-3594-4e02-b2ab-d3aa63f9d54d","test 1","textfield","",""
+"8511f441-beb2-465f-ac36-beb74ba523f6","c94f8345-3594-4e02-b2ab-d3aa63f9d54d","test 2","textfield","",""
+"fcfcc887-4f8d-4aae-834e-eeb8d55f6488","c94f8345-3594-4e02-b2ab-d3aa63f9d54d","choice","combobox","1,2,3",""
+"fee98d25-e0a3-4c3d-88b9-1a977faef54a","c94f8345-3594-4e02-b2ab-d3aa63f9d54d","dee","combobox","t,s,r",""

@@ -1,5 +1,9 @@
 package ku.cs.models;
 
+import javafx.scene.image.Image;
+import ku.cs.datastructure.ListMap;
+
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class Complaint {
@@ -7,65 +11,84 @@ public class Complaint {
     private User user;
     private String topic;
     private String detail;
+    private String complaintCategoryName;
     private ComplaintCategory complaintCategory;
     private String status;
     private Date date;
     private String answerTeacher;
-    private Map<String,String> additionalDetail;
+    private ListMap<String,String> additionalDetail;
     private int vote;
     private List<User> userVote;
+    private List<Image> imagesAnswer;
 
-    public Complaint(String id,User user,String topic, String detail, ComplaintCategory complaintCategory, String status , Date date , String answerTeacher,int vote, List<User> userVote) {
+    public Complaint(String id, User user, String topic, String detail, String complaintCategoryName, String status, Date date, String answerTeacher, int vote, List<User> userVote) {
         this.id = id;
         this.user = user;
         this.topic = topic;
         this.detail = detail;
-        this.complaintCategory = complaintCategory;
+        this.complaintCategoryName = complaintCategoryName;
         this.status = status;
         this.date = date;
         this.answerTeacher = answerTeacher;
         this.vote = vote;
-        this.userVote = userVote;
-
-        // setAdditionalDetail();
+        if (userVote == null) {
+            this.userVote = new ArrayList<>();
+        } else {
+            this.userVote = userVote;
+        }
+        if(imagesAnswer == null){
+            this.imagesAnswer= new ArrayList<>();
+        }else{
+            this.imagesAnswer = imagesAnswer;
+        }
+        additionalDetail = new ListMap<>();
 
     }
 
-//    public void setAdditionalDetail () {
-//        additionalDetail = new HashMap<>();
-//        for( String question : complaintCategory.getInputData()){
-//            additionalDetail.put(question, "");
-//        }
+    public void addQuestionAnswer(String q,String a){
+        additionalDetail.put(q,a);
+    }
+    // Constructor
+    public Complaint(User user, String topic, String detail, String complaintCategoryName, String status,Date date) {
+        this(UUID.randomUUID().toString(),user,topic,detail,complaintCategoryName,status,date,"",0,new ArrayList<>());
+    }
+
+//    public Complaint(User user, String topic, String detail) {
+//        this(UUID.randomUUID().toString(),user,topic,detail,"","new",new Date(),"",0,new ArrayList<>());
 //    }
 
-    public void addAdditionalDetail(String question, String answer) {
-        additionalDetail.replace(question, answer);
+    public Complaint(User user, String topic, String detail,String complaintCategoryName) {
+        this(UUID.randomUUID().toString(),user,topic,detail,complaintCategoryName,"new",new Date(),"",0,new ArrayList<>());
     }
-
-    // Constructor
-    public Complaint(String topic, String detail, String status,Date date) {
-        this(UUID.randomUUID().toString(),null,topic,detail,null,status,date,"",0,null);
-    }
-
-    public Complaint(String topic, String detail, ComplaintCategory complaintCategory,String status,Date date){
-        this(UUID.randomUUID().toString(),null,topic,detail,complaintCategory,status,date,"",0,null);
-    }
-
-    public Complaint(User user, String topic, String detail, ComplaintCategory complaintCategory,String status,Date date) {
-        this(UUID.randomUUID().toString(),user,topic,detail,complaintCategory,status,date,"",0,null);
-    }
-
-    public Complaint(User user, String topic, String detail,String status,Date date) {
-        this(UUID.randomUUID().toString(),user,topic,detail,null,status,date,"",0,null);
-    }
-
-    public Complaint(User user, String topic, String detail) {
-        this(UUID.randomUUID().toString(),user,topic,detail,null,"default",new Date(),"",0,null);
-    }
-
 
     public String[] toStringArray(){
-        return new String[]{user.getUsername(),topic,detail};
+        List<String> questions = new ArrayList<>();
+        List<String> answers = new ArrayList<>();
+        for (String question : additionalDetail.keyList()) {
+            questions.add(question);
+            answers.add(additionalDetail.get(question));
+        }
+
+        List<String> usersId = new ArrayList<>();
+        for (User user : userVote) {
+            usersId.add(user.getId());
+        }
+
+        return new String[]{
+                id,
+                user.getId(),
+                topic,
+                detail,
+                status,
+                complaintCategoryName,
+                String.join(",", questions),
+                String.join(",", answers),
+                new SimpleDateFormat().format(date),
+                answerTeacher,
+                Integer.toString(vote),
+                String.join(",", usersId),
+                "",
+        };
     }
 
     public String getId() {
@@ -80,6 +103,9 @@ public class Complaint {
         return detail;
     }
 
+    public String getComplaintCategoryName() {
+        return complaintCategoryName;
+    }
     public ComplaintCategory getComplaintCategory() {
         return complaintCategory;
     }
@@ -102,5 +128,25 @@ public class Complaint {
 
     public String getAnswerTeacher() {
         return answerTeacher;
+    }
+
+    private void setStatus(String status) {
+        this.status = status;
+    }
+
+    public void done() {
+        setStatus("done");
+    }
+
+    public void inProgress(){
+        setStatus("In Progress");
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public List<Image> getImagesAnswer() {
+        return imagesAnswer;
     }
 }
