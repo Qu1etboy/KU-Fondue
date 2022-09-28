@@ -8,6 +8,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
@@ -15,6 +16,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.control.TableView;
 import ku.cs.models.Complaint;
 import ku.cs.models.ComplaintList;
+import ku.cs.models.User;
 import ku.cs.services.ComplaintListDataSource;
 import ku.cs.services.DataSource;
 
@@ -24,6 +26,8 @@ import java.util.ResourceBundle;
 
 
 public class ComplaintDetailController implements Initializable {
+
+    User user;
     @FXML
     private TableView<Complaint> complaintTable;
     @FXML
@@ -56,6 +60,10 @@ public class ComplaintDetailController implements Initializable {
 ////        complaintTable.setItems(list);
 //    }
 
+    public void initData(User user) {
+        this.user = user;
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         data = new ComplaintListDataSource("data", "complaint.csv");
@@ -67,7 +75,7 @@ public class ComplaintDetailController implements Initializable {
 
     private void initColumn(){
 
-        number.setCellValueFactory(new PropertyValueFactory<>("number"));
+        // number.setCellValueFactory(new PropertyValueFactory<>("number"));
         category.setCellValueFactory(cellData ->
                 new SimpleStringProperty(cellData.getValue().getComplaintCategory().getName()));
         detail.setCellValueFactory(new PropertyValueFactory<>("detail"));
@@ -92,10 +100,14 @@ public class ComplaintDetailController implements Initializable {
 
     @FXML
     public void handleBackButton(ActionEvent actionEvent) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/ku/cs/view/adminDashboard.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/ku/cs/view/dashboard.fxml"));
         BorderPane borderPane = (BorderPane) ((StackPane)((Node) actionEvent.getSource()).getScene().getRoot()).
                 getChildren().get(0);
-        borderPane.setCenter(loader.load());
+        Parent pane = loader.load();
+
+        DashboardDetailController controller = loader.getController();
+        controller.initData(user);
+        borderPane.setCenter(pane);
     }
 
 

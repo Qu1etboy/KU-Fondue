@@ -1,19 +1,22 @@
-package ku.cs.controllers;
+package ku.cs.controllers.agency;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import ku.cs.models.CategoryAttribute;
+import ku.cs.models.Agency;
+import ku.cs.models.AgencyList;
+import ku.cs.models.ComplaintCategory;
+import ku.cs.models.ComplaintCategoryList;
 
-public class RenameAttributeDialogController {
-    @FXML private TextField attributeNameTextField;
+public class AddAgencyDialogController {
+    @FXML
+    private TextField agencyNameTextField;
 
-    private CategoryAttribute categoryAttribute;
-
-    public void initData(CategoryAttribute categoryAttribute) {
-        this.categoryAttribute = categoryAttribute;
+    AgencyList agencyList;
+    public void initData(AgencyList agencyList) {
+        this.agencyList = agencyList;
     }
 
     @FXML
@@ -25,9 +28,9 @@ public class RenameAttributeDialogController {
     @FXML
     public void handleDoneButton(ActionEvent actionEvent) {
         Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-        String attributeName = attributeNameTextField.getText();
+        String agencyName = agencyNameTextField.getText();
 
-        categoryAttribute.setNameAttribute(attributeName);
+        agencyList.addAgency(new Agency(agencyName));
 
         stage.close();
     }

@@ -9,10 +9,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
-import ku.cs.models.Agency;
-import ku.cs.models.AgencyList;
-import ku.cs.models.Register;
-import ku.cs.models.User;
+import ku.cs.models.*;
 import ku.cs.services.AgencyListDataSource;
 import ku.cs.services.DataSource;
 import ku.cs.services.UserListDataSource;
@@ -46,7 +43,7 @@ public class TeacherRegisterController extends RegisterController {
     @FXML
     public void handleBackButton(ActionEvent actionEvent) throws IOException {
         // go back to login page
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/ku/cs/view/adminDashboard.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/ku/cs/view/dashboard.fxml"));
         BorderPane borderPane = (BorderPane) ((StackPane)((Node) actionEvent.getSource()).getScene().getRoot()).
                 getChildren().get(0);
 
@@ -69,7 +66,7 @@ public class TeacherRegisterController extends RegisterController {
         }
 
         // create new user and add it to user list
-        userList.addUser(new User(username, name, password, "teacher", agency));
+        userList.addUser(new User(username, name, password, Role.TEACHER, agency));
         data.writeData(userList);
 
         Alert alert = new Alert(Alert.AlertType.INFORMATION);

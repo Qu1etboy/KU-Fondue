@@ -45,8 +45,8 @@ public class ComplaintCategoryListDataSource implements DataSource <ComplaintCat
         try {
             CSVReader reader = new CSVReader(new FileReader(filePath));
             List<String[]> allData = reader.readAll();
-            DataSource<UserList> userData = new UserListDataSource("data", "user.csv");
-            UserList userList = userData.readData();
+//            DataSource<UserList> userData = new UserListDataSource("data", "user.csv");
+//            UserList userList = userData.readData();
             DataSource<CategoryAttributeList> categoryAttributeData = new CategoryAttributeListDataSource("data", "attribute.csv");
             CategoryAttributeList categoryAttributeList = categoryAttributeData.readData();
             for (String[] data : allData) {

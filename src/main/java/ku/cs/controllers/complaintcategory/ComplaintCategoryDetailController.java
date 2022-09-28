@@ -1,4 +1,4 @@
-package ku.cs.controllers;
+package ku.cs.controllers.complaintcategory;
 
 import javafx.animation.FadeTransition;
 import javafx.beans.value.ChangeListener;
@@ -18,6 +18,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
+import ku.cs.controllers.*;
 import ku.cs.models.*;
 import ku.cs.services.CategoryAttributeListDataSource;
 import ku.cs.services.ComplaintCategoryListDataSource;
@@ -149,7 +150,7 @@ public class ComplaintCategoryDetailController {
             });
 
             removeChoice.setOnAction(e -> {
-                handleRemoveChoice();
+                handleRemoveChoice(e);
             });
 
             HBox buttons = new HBox(addChoice, changeChoiceName, removeChoice);
@@ -160,9 +161,21 @@ public class ComplaintCategoryDetailController {
 
     }
 
+    public void showCategoryListView(ComplaintCategoryList complaintCategoryList) {
+        complaintCategoryListView.getItems().setAll(complaintCategoryList.getComplaintCategoryList());
+    }
+
+    public void showAttributeListView(ComplaintCategory complaintCategory) {
+        attributeListView.getItems().setAll(complaintCategory.getCategoryAttributeList());
+    }
+
+    public void showChoiceListView(CategoryAttribute categoryAttribute) {
+        choiceListView.getItems().setAll(categoryAttribute.getInputData());
+    }
+
     @FXML
     public void handleAddComplaintCategory(ActionEvent actionEvent) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/ku/cs/view/addCategoryDialog.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/ku/cs/view/complaintCategory/addCategoryDialog.fxml"));
         Parent root = loader.load();
 
         AddCategoryDialogController controller = loader.getController();
@@ -172,8 +185,7 @@ public class ComplaintCategoryDetailController {
 
         categoryData.writeData(complaintCategoryList);
 
-        complaintCategoryListView.getItems().clear();
-        complaintCategoryListView.getItems().addAll(complaintCategoryList.getComplaintCategoryList());
+        showCategoryListView(complaintCategoryList);
 
     }
 
@@ -184,7 +196,7 @@ public class ComplaintCategoryDetailController {
             return;
         }
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/ku/cs/view/addAttributeDialog.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/ku/cs/view/complaintCategory/addAttributeDialog.fxml"));
         Parent root = loader.load();
 
         AddAttributeDialogController controller = loader.getController();
@@ -194,8 +206,7 @@ public class ComplaintCategoryDetailController {
 
         attributeData.writeData(categoryAttributeList);
 
-        attributeListView.getItems().clear();;
-        attributeListView.getItems().addAll(complaintCategory.getCategoryAttributeList());
+        showAttributeListView(complaintCategory);
 
     }
 
@@ -205,7 +216,7 @@ public class ComplaintCategoryDetailController {
             return;
         }
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/ku/cs/view/addChoiceDialog.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/ku/cs/view/complaintCategory/addChoiceDialog.fxml"));
         Parent root = loader.load();
 
         AddChoiceDialogController controller = loader.getController();
@@ -216,11 +227,7 @@ public class ComplaintCategoryDetailController {
         categoryAttributeList.updateAttribute(categoryAttribute);
         attributeData.writeData(categoryAttributeList);
 
-        choiceListView.getItems().clear();
-        for (String choice : categoryAttribute.getInputData()) {
-            // Label choiceLabel = new Label(" - " + choice);
-            choiceListView.getItems().add(choice);
-        }
+        showChoiceListView(categoryAttribute);
 
     }
 
@@ -231,7 +238,7 @@ public class ComplaintCategoryDetailController {
             return;
         }
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/ku/cs/view/renameCategoryDialog.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/ku/cs/view/complaintCategory/renameCategoryDialog.fxml"));
         Parent root = loader.load();
 
         RenameCategoryDialogController controller = loader.getController();
@@ -242,8 +249,7 @@ public class ComplaintCategoryDetailController {
         complaintCategoryList.updateComplaintCategory(complaintCategory);
         categoryData.writeData(complaintCategoryList);
 
-        complaintCategoryListView.getItems().clear();
-        complaintCategoryListView.getItems().addAll(complaintCategoryList.getComplaintCategoryList());
+        showCategoryListView(complaintCategoryList);
         categoryNameLabel.setText(complaintCategory.getName());
 
     }
@@ -255,7 +261,7 @@ public class ComplaintCategoryDetailController {
             return;
         }
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/ku/cs/view/renameAttributeDialog.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/ku/cs/view/complaintCategory/renameAttributeDialog.fxml"));
         Parent root = loader.load();
 
         RenameAttributeDialogController controller = loader.getController();
@@ -266,8 +272,7 @@ public class ComplaintCategoryDetailController {
         categoryAttributeList.updateAttribute(categoryAttribute);
         attributeData.writeData(categoryAttributeList);
 
-        attributeListView.getItems().clear();;
-        attributeListView.getItems().addAll(complaintCategory.getCategoryAttributeList());
+        showAttributeListView(complaintCategory);
 
     }
 
@@ -277,7 +282,7 @@ public class ComplaintCategoryDetailController {
             return;
         }
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/ku/cs/view/renameChoiceDialog.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/ku/cs/view/complaintCategory/renameChoiceDialog.fxml"));
         Parent root = loader.load();
 
         RenameChoiceDialogController controller = loader.getController();
@@ -288,22 +293,29 @@ public class ComplaintCategoryDetailController {
         categoryAttributeList.updateAttribute(categoryAttribute);
         attributeData.writeData(categoryAttributeList);
 
-        choiceListView.getItems().clear();
-        for (String choice : categoryAttribute.getInputData()) {
-            choiceListView.getItems().add(choice);
-        }
+        showChoiceListView(categoryAttribute);
 
     }
 
     @FXML
-    public void handleRemoveComplaintCategory() {
+    public void handleRemoveComplaintCategory(ActionEvent actionEvent) throws IOException {
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/ku/cs/view/confirmationDialog.fxml"));
+        Parent root = loader.load();
+
+        ConfirmationDialogController controller = loader.getController();
+        controller.initData("คุณต้องการจะลบใช่ไหม?");
+
+        initDialogBox(actionEvent, root);
+
+        if (!controller.getConfirm()) return;
+
         categoryAttributeList.removeAllAttributeByCategoryId(complaintCategory);
         complaintCategoryList.removeComplaintCategory(complaintCategory);
         attributeData.writeData(categoryAttributeList);
         categoryData.writeData(complaintCategoryList);
 
-        complaintCategoryListView.getItems().clear();
-        complaintCategoryListView.getItems().addAll(complaintCategoryList.getComplaintCategoryList());
+        showCategoryListView(complaintCategoryList);
 
         detailContent.setVisible(false);
         defaultContent.setVisible(true);
@@ -311,41 +323,61 @@ public class ComplaintCategoryDetailController {
     }
 
     @FXML
-    public void handleRemoveAttribute() {
+    public void handleRemoveAttribute(ActionEvent actionEvent) throws IOException {
         if (categoryAttribute == null) {
             alert();
             return;
         }
 
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/ku/cs/view/confirmationDialog.fxml"));
+        Parent root = loader.load();
+
+        ConfirmationDialogController controller = loader.getController();
+        controller.initData("คุณต้องการจะลบใช่ไหม?");
+
+        initDialogBox(actionEvent, root);
+
+        if (!controller.getConfirm()) return;
+
         complaintCategory.removeCategoryAttribute(categoryAttribute);
         categoryAttributeList.removeAttribute(categoryAttribute);
         attributeData.writeData(categoryAttributeList);
 
-        attributeListView.getItems().clear();
-        attributeListView.getItems().addAll(complaintCategory.getCategoryAttributeList());
+        showAttributeListView(complaintCategory);
+
     }
 
-    public void handleRemoveChoice() {
+    public void handleRemoveChoice(ActionEvent actionEvent) {
         if (choiceName == null) {
             alert();
             return;
         }
 
-        categoryAttribute.removeChoice(choiceName);
-        categoryAttributeList.updateAttribute(categoryAttribute);
-        attributeData.writeData(categoryAttributeList);
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ku/cs/view/confirmationDialog.fxml"));
+            Parent root = loader.load();
 
-        choiceListView.getItems().clear();
-        for (String choice : categoryAttribute.getInputData()) {
-            // Label choiceLabel = new Label(" - " + choice);
-            choiceListView.getItems().add(choice);
+            ConfirmationDialogController controller = loader.getController();
+            controller.initData("คุณต้องการจะลบใช่ไหม?");
+
+            initDialogBox(actionEvent, root);
+
+            if (!controller.getConfirm()) return;
+
+            categoryAttribute.removeChoice(choiceName);
+            categoryAttributeList.updateAttribute(categoryAttribute);
+            attributeData.writeData(categoryAttributeList);
+
+            showChoiceListView(categoryAttribute);
+
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
     @FXML
     public void handleBackButton(ActionEvent actionEvent) throws IOException {
-        // only admin can access this page so no need to check for role
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/ku/cs/view/adminDashboard.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/ku/cs/view/dashboard.fxml"));
         BorderPane borderPane = (BorderPane) ((StackPane) ((Node) actionEvent.getSource()).getScene().getRoot()).
                 getChildren().get(0);
 

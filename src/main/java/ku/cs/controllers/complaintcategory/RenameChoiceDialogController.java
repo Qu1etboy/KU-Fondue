@@ -1,4 +1,4 @@
-package ku.cs.controllers;
+package ku.cs.controllers.complaintcategory;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

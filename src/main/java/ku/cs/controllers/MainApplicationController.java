@@ -65,15 +65,7 @@ public class MainApplicationController {
         helpButton.getStyleClass().remove("active");
         settingButton.getStyleClass().remove("active");
 
-        FXMLLoader loader;
-
-        if (user.getRole().equals("student")) {
-            loader = new FXMLLoader(getClass().getResource("/ku/cs/view/studentDashboard.fxml"));
-        } else if (user.getRole().equals("teacher")) {
-            loader = new FXMLLoader(getClass().getResource("/ku/cs/view/teacherDashboard.fxml"));
-        } else {
-            loader = new FXMLLoader(getClass().getResource("/ku/cs/view/adminDashboard.fxml"));
-        }
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/ku/cs/view/dashboard.fxml"));;
 
         Parent root = loader.load();
         DashboardDetailController controller = loader.getController();

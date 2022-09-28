@@ -72,4 +72,25 @@ public class ComplaintCategory {
     public String toString() {
         return name;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+
+        /* Check if o is an instance of Complex or not
+          "null instanceof [type]" also returns false */
+        if (!(obj instanceof ComplaintCategory)) {
+            return false;
+        }
+
+        ComplaintCategory c = (ComplaintCategory) obj;
+        return id.equals(c.getId());
+    }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode();
+    }
 }

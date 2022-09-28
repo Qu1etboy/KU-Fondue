@@ -28,6 +28,7 @@ public class Appearance {
     public void addTheme() {
         themes.add("dark");
         themes.add("light");
+        themes.add("snow");
     }
 
     public void addFont() {
