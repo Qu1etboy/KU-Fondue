@@ -37,37 +37,30 @@ public class Sorter {
 //    }
 
     public void sortByMost(ComplaintList complaintList, Comparator comparator)  {
-        for (int i = 0; i < complaintList.getComplaintList().size(); i++) {// i แบ่งส่วนเรียงแล้วกับยังไม่เรียง
-            int minPos = i;
-            for (int j = i + 1; j < complaintList.getComplaintList().size(); j++) { // วนลูปหาค่าน้อยสุด
-                if (comparator.compare(complaintList.getComplaintList().get(j), complaintList.getComplaintList().get(minPos)) < 0) {
-                    minPos = j;
+        for (int i = 0; i < complaintList.getComplaintList().size(); i++) {
+            int minimum = i;
+            for (int j = i + 1; j < complaintList.getComplaintList().size(); j++) {
+                if (comparator.compare(complaintList.getComplaintList().get(j), complaintList.getComplaintList().get(minimum)) < 0) {
+                    minimum = j;
                 }
             }
-// สลับข้อมูลใน minPos และ i ทําให้ข้อมูลใน minPos ไปอยู่ส่วนที่เรียงแล้ว
             Complaint temp = complaintList.getComplaintList().get(i);
-            complaintList.getComplaintList().set(i, complaintList.getComplaintList().get(minPos));
-            complaintList.getComplaintList().set(minPos, temp);
+            complaintList.getComplaintList().set(i, complaintList.getComplaintList().get(minimum));
+            complaintList.getComplaintList().set(minimum, temp);
         }
     }
 
     public void sortByLow(ComplaintList complaintList, Comparator comparator)  {
-        for (int i = 0; i < complaintList.getComplaintList().size(); i++) {// i แบ่งส่วนเรียงแล้วกับยังไม่เรียง
-            int maxPos = i;
-            for (int j = i + 1; j < complaintList.getComplaintList().size(); j++) { // วนลูปหาค่ามากสุด
-                if (comparator.compare(complaintList.getComplaintList().get(j), complaintList.getComplaintList().get(maxPos)) > 0) {
-                    maxPos = j;
+        for (int i = 0; i < complaintList.getComplaintList().size(); i++) {
+            int maximum = i;
+            for (int j = i + 1; j < complaintList.getComplaintList().size(); j++) {
+                if (comparator.compare(complaintList.getComplaintList().get(j), complaintList.getComplaintList().get(maximum)) > 0) {
+                    maximum = j;
                 }
             }
-// สลับข้อมูลใน maxPos และ i ทําให้ข้อมูลใน maxPos ไปอยู่ส่วนที่เรียงแล้ว
             Complaint temp = complaintList.getComplaintList().get(i);
-            complaintList.getComplaintList().set(i, complaintList.getComplaintList().get(maxPos));
-            complaintList.getComplaintList().set(maxPos, temp);
+            complaintList.getComplaintList().set(i, complaintList.getComplaintList().get(maximum));
+            complaintList.getComplaintList().set(maximum, temp);
         }
-    }
-
-
-    public Comparator<Complaint> getDateComparator() {
-        return new DateComparator();
     }
 }

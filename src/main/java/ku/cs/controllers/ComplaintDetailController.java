@@ -110,14 +110,11 @@ public class ComplaintDetailController implements Initializable {
     public  void  handleSort(ActionEvent actionEvent) {
         // TODO: implement the sort method that use comparator to sort complaint.csv
         String sortType = sortSelector.getValue();
-        if (sortType.equals("ล่าสุด")) {
-            sorter.sortByMost(complaintList, new DateComparator());
-        } else if (sortType.equals("เก่าสุด")) {
-            sorter.sortByLow(complaintList, new DateComparator());
-        } else if (sortType.equals("โหวตมากสุด")) {
-            sorter.sortByMost(complaintList, new VoteComparator());
-        } else if (sortType.equals("โหวตน้อยสุด")) {
-            sorter.sortByLow(complaintList, new VoteComparator());
+        switch (sortType) {
+            case "ล่าสุด" -> sorter.sortByMost(complaintList, new DateComparator());
+            case "เก่าสุด" -> sorter.sortByLow(complaintList, new DateComparator());
+            case "โหวตมากสุด" -> sorter.sortByMost(complaintList, new VoteComparator());
+            case "โหวตน้อยสุด" -> sorter.sortByLow(complaintList, new VoteComparator());
         }
         loadData();
     }
