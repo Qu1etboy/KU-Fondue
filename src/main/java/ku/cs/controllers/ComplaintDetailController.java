@@ -15,10 +15,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.control.TableView;
-import ku.cs.models.Complaint;
-import ku.cs.models.ComplaintList;
-import ku.cs.models.Sorter;
-import ku.cs.models.User;
+import ku.cs.models.*;
 import ku.cs.services.ComplaintListDataSource;
 import ku.cs.services.DataSource;
 
@@ -112,9 +109,16 @@ public class ComplaintDetailController implements Initializable {
     public  void  handleSort(ActionEvent actionEvent) {
         // TODO: implement the sort method that use comparator to sort complaint.csv
         String sortType = sortSelector.getValue();
-        sorter.sort(complaintList.getComplaintList(), sortType);
+        if (sortType.equals("ล่าสุด")) {
+            sorter.sortByMost(complaintList, new DateComparator());
+        } else if (sortType.equals("เก่าสุด")) {
+            sorter.sortByLow(complaintList, new DateComparator());
+        } else if (sortType.equals("โหวตมากสุด")) {
+            sorter.sortByMost(complaintList, new VoteComparator());
+        } else if (sortType.equals("โหวตน้อยสุด")) {
+            sorter.sortByLow(complaintList, new VoteComparator());
+        }
         loadData();
-
     }
 
     @FXML
