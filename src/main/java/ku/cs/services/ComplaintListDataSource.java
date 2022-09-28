@@ -6,7 +6,11 @@ import com.opencsv.exceptions.CsvException;
 import ku.cs.models.*;
 
 import java.io.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 public class ComplaintListDataSource implements DataSource<ComplaintList>{
@@ -50,16 +54,31 @@ public class ComplaintListDataSource implements DataSource<ComplaintList>{
 
             for (String[] data : allData) {
                 if (data.length > 0) {
-                    User user = userList.findUserByUsername(data[0]);
+                    User user = userList.findUserById(data[1]);
 //                    String[] inputData = { "q1", "q2"};
 //                    List<String> inputDataList = Arrays.asList(inputData);
-                    ComplaintCategory complaintCategory = complaintCategoryList.findComplaintCategoryById(data[3]);
+                    // ComplaintCategory complaintCategory = complaintCategoryList.findComplaintCategoryById(data[3]);
+                    List<User> userVote = new ArrayList<>();
+                    for (String userId : data[11].split(",")) {
+                        if (userId.isEmpty()) continue;
+                        userVote.add(userList.findUserById(userId));
+                    }
+                    SimpleDateFormat formatter = new SimpleDateFormat();
+                    Date date = formatter.parse(data[8]);
+                    Complaint complaint = new Complaint(data[0], user, data[2], data[3], data[4], data[5], date, data[9], Integer.valueOf(data[10]), userVote);
 
-                    complaintList.addComplaint(new Complaint(user, data[1], data[2], complaintCategory ,null,null));
+                    String[] question = data[6].split(",");
+                    String[] answer = data[7].split(",");
+
+                    for (int i = 0; i < question.length; i++) {
+                        complaint.addQuestionAnswer(question[i], answer[i]);
+                    }
+
+                    complaintList.addComplaint(complaint);
                 }
             }
 
-        } catch (IOException | CsvException e) {
+        } catch (IOException | CsvException | ParseException e) {
             throw new RuntimeException(e);
         }
         return  complaintList;

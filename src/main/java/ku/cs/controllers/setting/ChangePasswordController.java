@@ -1,4 +1,4 @@
-package ku.cs.controllers;
+package ku.cs.controllers.setting;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -10,7 +10,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
-import ku.cs.models.Login;
 import ku.cs.models.User;
 import ku.cs.models.UserList;
 import ku.cs.services.DataSource;
@@ -22,7 +21,6 @@ public class ChangePasswordController {
     private User user;
     private UserList userList;
     private DataSource<UserList> data;
-    private Login login;
     @FXML
     private Label usernameLabel;
     @FXML private TextField userNameTextField;
@@ -33,7 +31,6 @@ public class ChangePasswordController {
         this.user = user;
         data = new UserListDataSource("data", "user.csv");
         userList = data.readData();
-        login = new Login(userList);
     }
 
     @FXML private void handleOKButton(ActionEvent actionEvent) throws IOException {
@@ -54,7 +51,7 @@ public class ChangePasswordController {
             alert.show();
             return;
         }
-        if (!login.checkPassword(user.getPassword(), password)) {
+        if (user.getPassword().equals(password)) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText("Password is incorrect");
             alert.show();

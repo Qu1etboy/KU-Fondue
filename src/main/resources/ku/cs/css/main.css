@@ -168,6 +168,31 @@
     -fx-background-insets: 0;
 }
 
+.tab-pane .tab-header-area .tab-header-background {
+    -fx-opacity: 0;
+}
+
+.tab-pane .tab .tab-label {
+    -fx-text-fill: -primary-text-color;
+}
+
+.tab-pane .tab {
+    -fx-background-insets: 0 1 0 1, 0, 0;
+    -fx-background-color: gray;
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+}
+
+.tab-pane .tab:hover {
+    -fx-background-color: rgba(0,0,0,0.5);
+}
+
+.tab-pane .tab:selected {
+    -fx-background-color: black;
+    -fx-border-color: transparent;
+
+}
+
 .check-box {
     -fx-text-fill: -primary-text-color;
 }

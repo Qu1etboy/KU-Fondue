@@ -10,6 +10,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
@@ -86,7 +87,7 @@ public class ComplaintDetailController implements Initializable {
 
 //        number.setCellValueFactory(new PropertyValueFactory<>("number"));
         category.setCellValueFactory(cellData ->
-                new SimpleStringProperty(cellData.getValue().getComplaintCategory().getName()));
+                new SimpleStringProperty(cellData.getValue().getComplaintCategoryName()));
         detail.setCellValueFactory(new PropertyValueFactory<>("detail"));
         status.setCellValueFactory(new PropertyValueFactory<>("status"));
     }
@@ -131,6 +132,29 @@ public class ComplaintDetailController implements Initializable {
         DashboardDetailController controller = loader.getController();
         controller.initData(user);
         borderPane.setCenter(pane);
+    }
+
+    @FXML
+    public void handleViewDetail(ActionEvent actionEvent) throws IOException {
+        Complaint selectedComplaint = complaintTable.getSelectionModel().getSelectedItem();
+
+        if (selectedComplaint == null) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText("กรุณาเลือกเรื่องร้องเรียน");
+            alert.show();
+            return;
+        }
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/ku/cs/view/complaintDetail.fxml"));
+        Parent pane = loader.load();
+
+        ComplaintInfoController controller = loader.getController();
+        controller.initData(user, selectedComplaint);
+
+        BorderPane borderPane = (BorderPane) ((StackPane)((Node) actionEvent.getSource()).getScene().getRoot()).
+                getChildren().get(0);
+        borderPane.setCenter(pane);
+
     }
 
 
