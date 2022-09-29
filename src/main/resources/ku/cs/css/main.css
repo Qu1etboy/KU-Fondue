@@ -44,7 +44,8 @@
 }
 
 .text-field:focused {
-    -fx-background-color: transparent, -secondary-background-200;
+    /*-fx-background-color: black, -secondary-background-200;*/
+    -fx-effect: dropshadow( three-pass-box, black , 5 , 0, 0, 0);
     -fx-prompt-text-fill: derive(-primary-text-color, -30%);
 }
 
@@ -58,6 +59,7 @@
 
 .text-area:focused {
     -fx-background-color: transparent, -secondary-background-200;
+    -fx-effect: dropshadow( three-pass-box, black , 5 , 0, 0, 0);
     -fx-prompt-text-fill: derive(-primary-text-color, -30%);
 }
 
@@ -91,6 +93,8 @@
 
 .table-view .table-cell {
     -fx-text-fill: -primary-text-color;
+    -fx-pref-height: 50px;
+    -fx-alignment: CENTER-LEFT;
 }
 
 .table-row-cell:odd {
@@ -106,7 +110,7 @@
 }
 
 .table-view:focused .table-row-cell:filled:selected {
-    -fx-background-color: gray;
+    -fx-background-color: -secondary-background-200;
     -fx-background-insets: 0, 1, 2;
     -fx-background-radius: 10px;
     -fx-background: -fx-accent;
@@ -178,17 +182,17 @@
 
 .tab-pane .tab {
     -fx-background-insets: 0 1 0 1, 0, 0;
-    -fx-background-color: gray;
+    -fx-background-color: -primary-background-color;
     -fx-focus-color: transparent;
     -fx-faint-focus-color: transparent;
 }
 
 .tab-pane .tab:hover {
-    -fx-background-color: rgba(0,0,0,0.5);
+    -fx-background-color: rgba(0,0,0,0.3);
 }
 
 .tab-pane .tab:selected {
-    -fx-background-color: black;
+    -fx-background-color: -secondary-background-100;
     -fx-border-color: transparent;
 
 }
@@ -248,7 +252,7 @@
 
 .welcome-title {
     -fx-text-fill: linear-gradient(from 0% 0% to 100% 100%, repeat, -gradient-title-color-start, -gradient-title-color-end);
-    -fx-font-size: 1.5em;
+    -fx-font-size: 1.6em;
     -fx-font-weight: 900;
 }
 
@@ -291,4 +295,46 @@
 .warning-box .label,
 .success-box .label {
     -fx-text-fill: white;
+}
+
+.transparent-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: -primary-text-color;
+}
+
+.transparent-button > .glyph-icon {
+    -fx-fill: -primary-text-color;
+}
+
+.transparent-button:hover {
+    -fx-background-color: transparent;
+    -fx-text-fill: -primary-text-color-hover;
+}
+
+.transparent-button:hover > .glyph-icon {
+    -fx-fill: -primary-text-color-hover;
+}
+
+.voted {
+    -fx-text-fill: -primary-button-color;
+}
+
+.voted .glyph-icon {
+    -fx-fill: -primary-button-color;
+}
+
+.status {
+    -fx-background-color: gray;
+    -fx-background-radius: 10px;
+    -fx-font-size: 0.8em;
+    -fx-text-fill: white;
+    -fx-padding: 5 10 5 10;
+}
+
+.in-progress {
+    -fx-background-color: #F6B801;
+}
+
+.done {
+    -fx-background-color: #62D538;
 }

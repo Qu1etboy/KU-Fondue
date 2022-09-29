@@ -16,16 +16,21 @@
          </children>
       </HBox>
       <Label styleClass="title" text="รายการเรื่องร้องเรียนทั้งหมดในหมวดหมู่" />
-      <TableView prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
-        <columns>
-          <TableColumn prefWidth="75.0" text="topic" />
-          <TableColumn prefWidth="75.0" text="status" />
-        </columns>
+      <TableView fx:id="complaintTable">
+         <columns>
+            <TableColumn fx:id="number" editable="false" prefWidth="75.0" sortable="false" text="ลำดับ" />
+            <TableColumn fx:id="category" editable="false" prefWidth="165.0" sortable="false" text="หมวดหมู่" />
+            <TableColumn fx:id="topic" editable="false" prefWidth="75.0" sortable="false" text="หัวข้อ" />
+            <TableColumn fx:id="detail" editable="false" prefWidth="257.0" sortable="false" text="รายละเอียด" />
+            <TableColumn fx:id="vote" editable="false" prefWidth="75.0" sortable="false" style="-fx-alignment: CENTER;" text="โหวต" />
+            <TableColumn fx:id="date" editable="false" prefWidth="75.0" sortable="false" style="-fx-alignment: CENTER;" text="วันที่" />
+            <TableColumn fx:id="status" editable="false" prefWidth="172.0" sortable="false" style="-fx-alignment: CENTER;" text="สถานะ" />
+         </columns>
          <columnResizePolicy>
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TableView>
-      <Button mnemonicParsing="false" text="แสดงรายละเอียด" />
+      <Button mnemonicParsing="false" onAction="#handleViewDetail" text="แสดงรายละเอียด" />
    </children>
    <padding>
       <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />

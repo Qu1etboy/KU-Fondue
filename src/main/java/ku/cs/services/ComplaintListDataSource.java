@@ -65,7 +65,8 @@ public class ComplaintListDataSource implements DataSource<ComplaintList>{
                     }
                     SimpleDateFormat formatter = new SimpleDateFormat();
                     Date date = formatter.parse(data[8]);
-                    Complaint complaint = new Complaint(data[0], user, data[2], data[3], data[4], data[5], date, data[9], Integer.valueOf(data[10]), userVote);
+                    User teacher = userList.findUserById(data[13]);
+                    Complaint complaint = new Complaint(data[0], user, data[2], data[3], data[4], data[5], date, data[9], Integer.valueOf(data[10]), userVote, teacher);
 
                     String[] question = data[6].split(",");
                     String[] answer = data[7].split(",");

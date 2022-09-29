@@ -14,6 +14,7 @@ public class RenameAttributeDialogController {
 
     public void initData(CategoryAttribute categoryAttribute) {
         this.categoryAttribute = categoryAttribute;
+        attributeNameTextField.setText(categoryAttribute.getNameAttribute());
     }
 
     @FXML

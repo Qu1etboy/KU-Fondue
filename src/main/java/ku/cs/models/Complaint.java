@@ -20,8 +20,9 @@ public class Complaint {
     private int vote;
     private List<User> userVote;
     private List<Image> imagesAnswer;
+    private User teacher;
 
-    public Complaint(String id, User user, String topic, String detail, String complaintCategoryName, String status, Date date, String answerTeacher, int vote, List<User> userVote) {
+    public Complaint(String id, User user, String topic, String detail, String complaintCategoryName, String status, Date date, String answerTeacher, int vote, List<User> userVote, User teacher) {
         this.id = id;
         this.user = user;
         this.topic = topic;
@@ -42,11 +43,12 @@ public class Complaint {
             this.imagesAnswer = imagesAnswer;
         }
         additionalDetail = new ListMap<>();
+        this.teacher = teacher;
 
     }
 
     public Complaint(User user, String topic, String detail,String complaintCategoryName) {
-        this(UUID.randomUUID().toString(),user,topic,detail,complaintCategoryName,"report",new Date(),"",0,new ArrayList<>());
+        this(UUID.randomUUID().toString(),user,topic,detail,complaintCategoryName,"report",new Date(),"",0,new ArrayList<>(), null);
     }
     public void addQuestionAnswer(String q,String a){
         additionalDetail.put(q,a);
@@ -79,6 +81,7 @@ public class Complaint {
                 Integer.toString(vote),
                 String.join(",", usersId),
                 "",
+                (teacher == null ? "null" : teacher.getId()),
         };
     }
 
@@ -126,6 +129,10 @@ public class Complaint {
         return date;
     }
 
+    public String getSimpleDate() {
+        return new SimpleDateFormat().format(date);
+    }
+
     public String getAnswerTeacher() {
         return answerTeacher;
     }
@@ -154,13 +161,28 @@ public class Complaint {
         this.answerTeacher = answerTeacher;
     }
 
-    public void addUserVote(User user) {
+    public User getTeacher() {
+        return teacher;
+    }
+
+    public void setTeacher(User teacher) {
+        this.teacher = teacher;
+    }
+    public boolean addUserVote(User user) {
+        boolean isAdd = false;
         if (userVote.contains(user)) {
             userVote.remove(user);
+
         } else {
             userVote.add(user);
+            isAdd = true;
         }
         vote = userVote.size();
+        return isAdd;
+    }
+
+    public boolean containUserVote(User user) {
+        return userVote.contains(user);
     }
 
     @Override

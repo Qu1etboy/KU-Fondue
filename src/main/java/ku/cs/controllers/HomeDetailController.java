@@ -52,14 +52,9 @@ public class HomeDetailController {
         questionAnswer = new ListMap<>();
         categorySelector.getItems().addAll(complaintCategoryList.getComplaintCategoryList());
         categorySelector.setOnAction(e -> handleSelection());
-//        formContainer.getChildren().add(new Label("1."));
-//        formContainer.getChildren().add(new TextField());
-//        formContainer.getChildren().add(new Label("2."));
-//        formContainer.getChildren().add(new TextField());
-//        formContainer.getChildren().add(new Label("3."));
-//        formContainer.getChildren().add(new TextField());
+
         this.user = user;
-        nameLabel.setText(user.getUsername());
+        nameLabel.setText("ยินดีต้อนรับ " + user.getUsername());
 
     }
 
@@ -110,34 +105,51 @@ public class HomeDetailController {
         formContainer.getChildren().add(sendButton);
     }
 
-    public void handleSendButton(){
+    public void handleSendButton() {
 
-        for(TextField textField : textFieldList){
+        boolean valid = !topicTextField.getText().isEmpty() && !detailTextArea.getText().isEmpty();
+
+        for(TextField textField : textFieldList) {
+            if (textField.getText().isEmpty()) {
+                valid = false;
+                continue;
+            }
             questionAnswer.put(textField.getId(),textField.getText());
         }
 
         for(ComboBox comboBox: comboBoxList){
+            if (comboBox.getValue() == null) {
+                valid = false;
+                continue;
+            }
             questionAnswer.put(comboBox.getId(),(String) comboBox.getValue());
         }
 
-//        for (String q : questionAnswer.keyList()) {
-//            System.out.println(q + " => " + questionAnswer.get(q));
-//        }
+        if (!valid) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText("กรุณากรอกข้อมูลให้ครบ");
+            alert.show();
+            return;
+        }
 
         complaintCategory = categorySelector.getSelectionModel().getSelectedItem();
         Complaint sendComplaint = new Complaint(user, topicTextField.getText(), detailTextArea.getText().replaceAll("\n", " "), complaintCategory.getName());
         for (String q : questionAnswer.keyList()) {
             sendComplaint.addQuestionAnswer(q, questionAnswer.get(q));
         }
+
         complaintList.addComplaint(sendComplaint);
         data.writeData(complaintList);
 
+        clearInput();
+    }
+
+    public void clearInput() {
         topicTextField.clear();
         detailTextArea.clear();
         formContainer.getChildren().clear();
         comboBoxList.clear();
         textFieldList.clear();
         questionAnswer.clear();
-        System.out.println("send test");
     }
 }

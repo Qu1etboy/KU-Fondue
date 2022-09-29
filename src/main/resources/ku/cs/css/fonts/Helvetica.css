@@ -1,4 +1,5 @@
 .root {
     /* font already have in the os system so no need to import */
     -fx-font-family: 'Helvetica', Arial, sans-serif;
+    -fx-tick-label-font-family: "Helvetica", Arial, sans-serif;
 }

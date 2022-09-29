@@ -15,6 +15,7 @@ public class RenameChoiceDialogController {
     public void initData(String oldChoiceName, CategoryAttribute categoryAttribute) {
         this.categoryAttribute = categoryAttribute;
         this.oldChoiceName = oldChoiceName;
+        choiceNameTextField.setText(oldChoiceName);
     }
 
     @FXML
