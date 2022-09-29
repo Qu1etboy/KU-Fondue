@@ -5,6 +5,10 @@ import ku.cs.datastructure.ListMap;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import java.util.*;
 
 public class Complaint {
@@ -15,14 +19,15 @@ public class Complaint {
     private String complaintCategoryName;
     private ComplaintCategory complaintCategory;
     private String status;
-    private Date date;
+    private LocalDateTime date;
     private String answerTeacher;
     private ListMap<String,String> additionalDetail;
     private int vote;
     private List<User> userVote;
     private List<Image> imagesAnswer;
+    private User teacher;
 
-    public Complaint(String id, User user, String topic, String detail, String complaintCategoryName, String status, Date date, String answerTeacher, int vote, List<User> userVote) {
+    public Complaint(String id, User user, String topic, String detail, String complaintCategoryName, String status, LocalDateTime date, String answerTeacher, int vote, List<User> userVote, User teacher, List<Image> imagesAnswer) {
         this.id = id;
         this.user = user;
         this.topic = topic;
@@ -43,11 +48,12 @@ public class Complaint {
             this.imagesAnswer = imagesAnswer;
         }
         additionalDetail = new ListMap<>();
+        this.teacher = teacher;
 
     }
 
     public Complaint(User user, String topic, String detail,String complaintCategoryName) {
-        this(UUID.randomUUID().toString(),user,topic,detail,complaintCategoryName,"report",new Date(),"",0,new ArrayList<>());
+        this(UUID.randomUUID().toString(),user,topic,detail,complaintCategoryName,"report", LocalDateTime.now(),"",0,new ArrayList<>(), null, new ArrayList<>());
     }
     public void addQuestionAnswer(String q,String a){
         additionalDetail.put(q,a);
@@ -68,7 +74,6 @@ public class Complaint {
         List<String> imagePath = new ArrayList<>();
         for (Image image : imagesAnswer) {
             String[] fileSplit = image.getUrl().split("/");
-            System.out.println(fileSplit[fileSplit.length - 1]);
             imagePath.add(fileSplit[fileSplit.length - 1]);
         }
 
@@ -81,10 +86,12 @@ public class Complaint {
                 status,
                 String.join(",", questions),
                 String.join(",", answers),
-                new SimpleDateFormat().format(date),
+                date.toString(),
                 answerTeacher,
                 Integer.toString(vote),
                 String.join(",", usersId),
+                "",
+                (teacher == null ? "null" : teacher.getId()),
                 String.join(",", imagePath),
         };
     }
@@ -129,8 +136,13 @@ public class Complaint {
         return "เสร็จสิ้น";
     }
 
-    public Date getDate() {
+    public LocalDateTime getDate() {
         return date;
+    }
+
+    public String getSimpleDate() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM, FormatStyle.SHORT);
+        return date.format(formatter);
     }
 
     public String getAnswerTeacher() {
@@ -149,7 +161,7 @@ public class Complaint {
         setStatus("In Progress");
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDateTime date) {
         this.date = date;
     }
 
@@ -165,13 +177,28 @@ public class Complaint {
         this.answerTeacher = answerTeacher;
     }
 
-    public void addUserVote(User user) {
+    public User getTeacher() {
+        return teacher;
+    }
+
+    public void setTeacher(User teacher) {
+        this.teacher = teacher;
+    }
+    public boolean addUserVote(User user) {
+        boolean isAdd = false;
         if (userVote.contains(user)) {
             userVote.remove(user);
+
         } else {
             userVote.add(user);
+            isAdd = true;
         }
         vote = userVote.size();
+        return isAdd;
+    }
+
+    public boolean containUserVote(User user) {
+        return userVote.contains(user);
     }
 
     @Override
