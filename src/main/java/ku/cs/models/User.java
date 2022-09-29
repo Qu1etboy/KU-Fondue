@@ -1,6 +1,7 @@
 package ku.cs.models;
 
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
@@ -21,6 +22,8 @@ public class User {
     private String font;
     private int fontSize;
     private Image profileImage;
+
+    private ImageView profileImageView;
     private String status; // online , offline
     private boolean isSuspend;
     private LocalDateTime lastOnline;
@@ -93,6 +96,14 @@ public class User {
 
     public String getStatus() {
         return status;
+    }
+
+    public ImageView getProfileImageView() {
+        ImageView imageView = new ImageView(profileImage);
+        imageView.setFitHeight(100);
+        imageView.setFitWidth(100);
+
+        return imageView;
     }
 
     public boolean isSuspend() {
