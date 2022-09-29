@@ -2,6 +2,7 @@ package ku.cs.controllers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import ku.cs.models.AppProblem;
 import ku.cs.models.AppProblemList;
@@ -20,8 +21,6 @@ public class HelpController {
 
     private  String appProblem;
 
-
-
     @FXML private TextField reportProblemTextField;
 
     public void initialize() {
@@ -32,9 +31,15 @@ public class HelpController {
     @FXML
     public void handleSubmitButton(ActionEvent actionEvent) throws IOException {
         appProblem = reportProblemTextField.getText();
-        appProblemList.addAppProblem(new AppProblem(appProblem));
-        data.writeData(appProblemList);
-        reportProblemTextField.clear();
+        if(appProblem.isEmpty()){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText("กรุณากรอกข้อมูล");
+            alert.show();
+        }else {
+            appProblemList.addAppProblem(new AppProblem(appProblem));
+            data.writeData(appProblemList);
+            reportProblemTextField.clear();
+        }
 
     }
 }

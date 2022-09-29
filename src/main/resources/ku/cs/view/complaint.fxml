@@ -1,10 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 
-<VBox xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ku.cs.controllers.ComplaintDetailController">
+<VBox xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ku.cs.controllers.ComplaintDetailController">
    <children>
       <ScrollPane fitToWidth="true" prefHeight="400.0" prefWidth="600.0" VBox.vgrow="ALWAYS">
          <content>
@@ -56,9 +63,42 @@
                         <ComboBox prefWidth="150.0" promptText="ทุกสถานะ" />
                         <Label text="เรียงจาก" />
                         <ComboBox fx:id="sortSelector" prefWidth="150.0" promptText="เรียงโดย" />
-                        <Label text="เลือกแสดงตามคะแนนโหวต" />
-                        <TextField maxWidth="-Infinity" prefWidth="100.0" />
-                        <Button mnemonicParsing="false" text="ล้างการค้นหา" />
+                        <Label text="หมวดหมู่" />
+                        <ComboBox fx:id="categorySelector" prefWidth="150.0" promptText="เลือกหมวดหมู่" />
+                        <HBox prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <Label text="เลือกแสดงตามคะแนนโหวต">
+                                 <HBox.margin>
+                                    <Insets right="20.0" top="5.0" />
+                                 </HBox.margin>
+                              </Label>
+                              <HBox prefHeight="26.0" prefWidth="397.0">
+                                 <children>
+                                    <Label text="ตั้งแต่">
+                                       <HBox.margin>
+                                          <Insets right="10.0" top="5.0" />
+                                       </HBox.margin>
+                                    </Label>
+                                    <TextField fx:id="atLeastTextField" maxWidth="-Infinity" onKeyReleased="#atLeastVote" prefWidth="50.0">
+                                       <HBox.margin>
+                                          <Insets right="10.0" />
+                                       </HBox.margin>
+                                    </TextField>
+                                    <Label text="ถึง">
+                                       <HBox.margin>
+                                          <Insets right="10.0" top="5.0" />
+                                       </HBox.margin>
+                                    </Label>
+                                    <TextField fx:id="atMostTextField" maxWidth="-Infinity" onKeyReleased="#atMostVote" prefWidth="50.0">
+                                       <HBox.margin>
+                                          <Insets right="10.0" />
+                                       </HBox.margin>
+                                    </TextField>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </HBox>
+                        <Button mnemonicParsing="false" onAction="#handleClearSearchButton" text="ล้างการค้นหา" />
                      </children>
                   </VBox>
                   <TableView fx:id="complaintTable">
@@ -66,6 +106,7 @@
                         <TableColumn fx:id="number" prefWidth="75.0" text="ลำดับ" />
                         <TableColumn fx:id="category" prefWidth="165.0" text="หมวดหมู่" />
                         <TableColumn fx:id="detail" prefWidth="257.0" text="รายละเอียด" />
+                        <TableColumn fx:id="vote" prefWidth="75.0" text="คะแนนโหวต" />
                         <TableColumn fx:id="status" prefWidth="172.0" text="สถานะ" />
                      </columns>
                      <columnResizePolicy>

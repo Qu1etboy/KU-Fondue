@@ -25,4 +25,16 @@ public class ComplaintList {
                 .collect(Collectors.toList());
     }
 
+    public ComplaintList filterBy(Filterer<Complaint> filterer) {
+        ComplaintList filteredCategory = new ComplaintList();
+        for (Complaint complaint : complaintList) {
+            if (filterer.filter(complaint)) {
+                filteredCategory.addComplaint(complaint);
+            }
+        }
+        return filteredCategory;
+    }
+
+
+
 }

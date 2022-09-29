@@ -3,20 +3,21 @@ package ku.cs.controllers;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Alert;
-import javafx.scene.control.TableColumn;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
-import javafx.scene.control.TableView;
 import ku.cs.models.*;
+import ku.cs.services.ComplaintCategoryListDataSource;
 import ku.cs.services.ComplaintListDataSource;
 import ku.cs.services.DataSource;
 
@@ -24,6 +25,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.Comparator;
 import java.util.ResourceBundle;
+import java.util.function.Predicate;
 
 
 public class ComplaintDetailController implements Initializable {
@@ -41,37 +43,40 @@ public class ComplaintDetailController implements Initializable {
     @FXML
     private TableColumn<Complaint, String> status;
     @FXML
+    private TableColumn<Complaint, Integer> vote;
+    @FXML
     private ComboBox<String> sortSelector;
+    private DataSource<ComplaintCategoryList> CategoryData;
+    private ComplaintCategoryList complaintCategoryList;
+
+    private ComplaintCategory complaintCategory;
+    @FXML
+    private ComboBox<ComplaintCategory> categorySelector;
+    @FXML
+    private TextField atLeastTextField;
+    @FXML
+    private TextField atMostTextField;
 
     private ComplaintList complaintList;
     private DataSource<ComplaintList> data;
 
-//    ObservableList<Complaint> list = FXCollections.observableArrayList(
-//            new Complaint("1","category1","aaa","in progress"),
-//            new Complaint("2","category2","bbb","in progress"),
-//            new Complaint("3","category3","ccc","finish"),
-//            new Complaint("4","category4","ddd","finish")
-//
-//    );
-
-//    public void initialize(){
-//
-//        number.setCellValueFactory(new PropertyValueFactory<Complaint, String>("number"));
-//        category.setCellValueFactory(new PropertyValueFactory<Complaint, String>("category"));
-//        detail.setCellValueFactory(new PropertyValueFactory<Complaint, String>("detail"));
-//        status.setCellValueFactory(new PropertyValueFactory<Complaint, String>("status"));
-//
-////        complaintTable.setItems(list);
-//    }
+    final private ObservableList<Complaint> dataTable = FXCollections.observableArrayList();
 
     public void initData(User user) {
         this.user = user;
     }
 
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         data = new ComplaintListDataSource("data", "complaint.csv");
         complaintList = data.readData();
+
+
+        CategoryData = new ComplaintCategoryListDataSource("data","complaint_category.csv");
+        complaintCategoryList = CategoryData.readData();
+        categorySelector.getItems().addAll(complaintCategoryList.getComplaintCategoryList());
+        categorySelector.setOnAction(e -> handleSelectCategory());
 
         sorter = new Sorter();
         if (sortSelector != null) {
@@ -79,29 +84,65 @@ public class ComplaintDetailController implements Initializable {
             sortSelector.setOnAction(e -> handleSort(e));
         }
 
+//        category.setCellValueFactory(cellData ->
+//                new SimpleStringProperty(cellData.getValue().getComplaintCategoryName()));
+//        detail.setCellValueFactory(new PropertyValueFactory<>("detail"));
+//        status.setCellValueFactory(new PropertyValueFactory<>("status"));
+//        vote.setCellValueFactory(new PropertyValueFactory<>("vote"));
+//
+//
+//        ObservableList<Complaint> dataTable = FXCollections.observableArrayList();
+//        dataTable.addAll(complaintList.getComplaintList());
+//        complaintTable.setItems(dataTable);
+//
+//        FilteredList<Complaint> filteredVote = new FilteredList<>(dataTable, b-> true);
+//
+//        atMostTextField.textProperty().addListener((observableValue, oldValue, newValue) -> {
+//            filteredVote.setPredicate(complaint -> {
+//                if (newValue == null || newValue.isEmpty()) {
+//                    return true;
+//                }
+//                if (complaint.getVote() <= Integer.parseInt(newValue)) {
+//                    return true;
+//                } else
+//                    return false;
+//            });
+//        });
+//
+//        atLeastTextField.textProperty().addListener((observableValue, oldValue, newValue) -> {
+//            filteredVote.setPredicate(complaint -> {
+//                if (newValue == null || newValue.isEmpty()) {
+//                    return true;
+//                }
+//                if (complaint.getVote() >= Integer.parseInt(newValue)) {
+//                    return true;
+//                } else
+//                    return false;
+//            });
+//        });
+//        SortedList<Complaint> sortedVote = new SortedList<>(filteredVote);
+//
+//        sortedVote.comparatorProperty().bind(complaintTable.comparatorProperty());
+//
+//        complaintTable.setItems(sortedVote);
+
         initColumn();
         loadData();
     }
 
+
     private void initColumn(){
 
-//        number.setCellValueFactory(new PropertyValueFactory<>("number"));
+        //number.setCellValueFactory(new PropertyValueFactory<>("number"));
         category.setCellValueFactory(cellData ->
                 new SimpleStringProperty(cellData.getValue().getComplaintCategoryName()));
         detail.setCellValueFactory(new PropertyValueFactory<>("detail"));
         status.setCellValueFactory(new PropertyValueFactory<>("status"));
+        vote.setCellValueFactory(new PropertyValueFactory<>("vote"));
     }
     private void loadData() {
         ObservableList<Complaint> dataTable = FXCollections.observableArrayList();
         dataTable.addAll(complaintList.getComplaintList());
-//            for (Complaint complaint : complaintList.getComplaintList()) {
-//                dataTable.add(complaint);
-//            }
-//            for(int i = 1;i < 7; i++){
-//                dataTable.add(new Complaint(String.valueOf(i),"category " + i,"detail " + i,
-//                        "status " + i));
-//            }
-
         complaintTable.setItems(dataTable);
 
     }
@@ -117,18 +158,6 @@ public class ComplaintDetailController implements Initializable {
             case "โหวตน้อยสุด" -> sorter.sortByLow(complaintList, new VoteComparator());
         }
         loadData();
-    }
-
-    @FXML
-    public void handleBackButton(ActionEvent actionEvent) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/ku/cs/view/dashboard.fxml"));
-        BorderPane borderPane = (BorderPane) ((StackPane)((Node) actionEvent.getSource()).getScene().getRoot()).
-                getChildren().get(0);
-        Parent pane = loader.load();
-
-        DashboardDetailController controller = loader.getController();
-        controller.initData(user);
-        borderPane.setCenter(pane);
     }
 
     @FXML
@@ -153,6 +182,80 @@ public class ComplaintDetailController implements Initializable {
         borderPane.setCenter(pane);
 
     }
+    public void handleSelectCategory() {
 
+        ComplaintList filterComplaintCategory = complaintList.filterBy(new Filterer<Complaint>() {
+            @Override
+            public boolean filter(Complaint o) {
+                System.out.println(o.getComplaintCategoryName());
+                System.out.println(o.getComplaintCategoryName().equals("อาคารสถานที่ชํารุด"));
+
+                if (o.getComplaintCategoryName().equals(categorySelector.getValue().getName())) return true;
+
+                return false;
+            }
+
+        });
+        //complaintTable.setItems((ObservableList<Complaint>) filterComplaintCategory.getComplaintList());
+        ObservableList<Complaint> dataTable = FXCollections.observableArrayList();
+        dataTable.addAll(filterComplaintCategory.getComplaintList());
+        complaintTable.setItems(dataTable);
+
+    }
+    public void atLeastVote(KeyEvent keyEvent){
+        ComplaintList filteredVote = complaintList.filterBy(new Filterer<Complaint>(){
+            @Override
+            public boolean filter(Complaint o) {
+                if (atLeastTextField.getText().isEmpty()) {
+                    return true;
+                }
+                if (o.getVote() >= Integer.parseInt(atLeastTextField.getText())) {
+                    return true;
+                } else
+                    return false;
+            }
+                });
+
+        ObservableList<Complaint> dataTable = FXCollections.observableArrayList();
+        dataTable.addAll(filteredVote.getComplaintList());
+        complaintTable.setItems(dataTable);
+
+    }
+
+    public void atMostVote(KeyEvent keyEvent){
+        ComplaintList filteredVote = complaintList.filterBy(new Filterer<Complaint>(){
+            @Override
+            public boolean filter(Complaint o) {
+                if (atMostTextField.getText().isEmpty()) {
+                    return true;
+                }
+                if (o.getVote() <= Integer.parseInt(atMostTextField.getText())) {
+                    return true;
+                } else
+                    return false;
+            }
+        });
+
+        ObservableList<Complaint> dataTable = FXCollections.observableArrayList();
+        dataTable.addAll(filteredVote.getComplaintList());
+        complaintTable.setItems(dataTable);
+
+    }
+    @FXML
+    public void handleClearSearchButton(ActionEvent actionEvent){
+
+    }
+
+    @FXML
+    public void handleBackButton(ActionEvent actionEvent) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/ku/cs/view/dashboard.fxml"));
+        BorderPane borderPane = (BorderPane) ((StackPane)((Node) actionEvent.getSource()).getScene().getRoot()).
+                getChildren().get(0);
+        Parent pane = loader.load();
+
+        DashboardDetailController controller = loader.getController();
+        controller.initData(user);
+        borderPane.setCenter(pane);
+    }
 
 }
