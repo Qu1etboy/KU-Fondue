@@ -3,17 +3,32 @@ package ku.cs.controllers;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import ku.cs.models.User;
 import ku.cs.models.UserList;
 import ku.cs.services.DataSource;
 import ku.cs.services.UserListDataSource;
 
+import java.io.File;
 import java.io.IOException;
+import java.nio.file.FileSystems;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
+import java.time.LocalDate;
 
 public class RegisterController {
     @FXML protected TextField usernameTextField;
@@ -21,12 +36,15 @@ public class RegisterController {
     @FXML protected TextField passwordTextField;
     @FXML protected TextField confirmPasswordTextField;
 
+    @FXML protected VBox fileContent;
+
     protected UserList userList;
     protected DataSource<UserList> data;
     protected String username;
     protected String name;
     protected String password;
     protected String confirmPassword;
+    protected Image image;
 
     public void initialize() {
         data = new UserListDataSource("data", "user.csv");
@@ -34,8 +52,41 @@ public class RegisterController {
     }
 
     @FXML
-    public void handleUploadImage() {
+    public void handleUploadImage(ActionEvent event) {
+        FileChooser chooser = new FileChooser();
+        // SET FILECHOOSER INITIAL DIRECTORY
+        chooser.setInitialDirectory(new File(System.getProperty("user.dir")));
+        // DEFINE ACCEPTABLE FILE EXTENSION
+        chooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("images PNG JPG", "*.png", "*.jpg", "*.jpeg"));
+        // GET FILE FROM FILECHOOSER WITH JAVAFX COMPONENT WINDOW
+        Node source = (Node) event.getSource();
+        File file = chooser.showOpenDialog(source.getScene().getWindow());
+        image = new Image(file.toURI().toString());
 
+        String[] fileSplit = file.toURI().toString().split("/");
+
+        fileContent.getChildren().clear();
+
+        HBox box = new HBox(new Label(fileSplit[fileSplit.length - 1]));
+        box.setPrefWidth(Region.USE_COMPUTED_SIZE);
+        box.setPrefHeight(50);
+        box.setMaxWidth(200);
+        box.setPadding(new Insets(3, 10, 3, 10));
+        box.getStyleClass().add("file-box");
+        box.setAlignment(Pos.CENTER);
+        box.setSpacing(10);
+
+        Button removeImage = new Button("X");
+        removeImage.setOnAction(e -> handleRemoveImage(box));
+        removeImage.getStyleClass().add("transparent-button");
+        box.getChildren().add(removeImage);
+
+        fileContent.getChildren().add(box);
+    }
+
+    private void handleRemoveImage(HBox box) {
+        image = null;
+        fileContent.getChildren().remove(box);
     }
 
     @FXML
@@ -60,12 +111,36 @@ public class RegisterController {
         }
 
         // create new user and add it to user list
-        userList.addUser(new User(username, name, password));
-        data.writeData(userList);
+        User user = new User(username, name, password);
+//        System.out.println(image);
+        File file = null;
+        if (image != null) {
+            file = new File(image.getUrl().substring(5));
+        }
+        if (file != null) {
+            try {
+                // CREATE FOLDER IF NOT EXIST
+                File destDir = new File("images");
+                if (!destDir.exists()) destDir.mkdirs();
+                // RENAME FILE
+                String[] fileSplit = file.getName().split("\\.");
+                String filename = user.getId() + "."
+                        + fileSplit[fileSplit.length - 1];
+                Path target = FileSystems.getDefault().getPath(
+                        destDir.getAbsolutePath() + System.getProperty("file.separator") + filename
+                );
+                // COPY WITH FLAG REPLACE FILE IF FILE IS EXIST
+                Files.copy(file.toPath(), target, StandardCopyOption.REPLACE_EXISTING);
+                // SET NEW FILE PATH TO IMAGE
+                user.setProfileImage(new Image(target.toUri().toString()));
 
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setContentText("Register successfully");
-        alert.show();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        System.out.println(user.getProfileImage());
+        userList.addUser(user);
+        data.writeData(userList);
 
         // go back to login page if register successfully
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/ku/cs/view/login.fxml"));
@@ -74,7 +149,11 @@ public class RegisterController {
         stage.setScene(scene);
         stage.show();
 
-        System.out.println("register successfully");
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setContentText("Register successfully");
+        alert.show();
+
+//        System.out.println("register successfully");
     }
 
     /**

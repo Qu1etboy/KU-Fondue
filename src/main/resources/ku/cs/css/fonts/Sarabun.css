@@ -10,4 +10,5 @@
 
 .root {
     -fx-font-family: "Sarabun";
+    -fx-tick-label-font-family: "Sarabun";
 }

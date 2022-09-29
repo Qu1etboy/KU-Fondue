@@ -15,6 +15,7 @@ public class RenameAgencyDialogController {
     Agency agency;
     public void initData(Agency agency) {
         this.agency = agency;
+        agencyNameTextField.setText(agency.getName());
     }
 
     @FXML

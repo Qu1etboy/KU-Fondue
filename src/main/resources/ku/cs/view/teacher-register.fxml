@@ -19,7 +19,7 @@
             <Insets bottom="10.0" />
          </VBox.margin>
       </HBox>
-      <Label text="Register" />
+      <Label styleClass="title" text="Register" />
       <VBox maxWidth="800.0" spacing="10.0">
          <children>
             <Label text="Username" />
@@ -30,6 +30,7 @@
             <PasswordField fx:id="passwordTextField" />
             <Label text="Confirm Password" />
             <PasswordField fx:id="confirmPasswordTextField" />
+            <VBox fx:id="fileContent" alignment="CENTER" />
             <HBox alignment="TOP_CENTER" spacing="20.0">
                <children>
                   <ComboBox fx:id="agencySelector" prefHeight="25.0" promptText="Select Agency" />

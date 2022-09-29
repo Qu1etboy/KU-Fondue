@@ -37,4 +37,12 @@ public class ComplaintList {
 
 
 
+    public int countCategory(ComplaintCategory complaintCategory) {
+        return complaintList
+                .stream()
+                .filter(c -> c.getComplaintCategoryName().equals(complaintCategory.getName()))
+                .toList()
+                .size();
+    }
+
 }

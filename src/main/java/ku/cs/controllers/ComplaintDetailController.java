@@ -9,13 +9,21 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.Parent;
+
+import javafx.scene.chart.*;
+
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
+
+import javafx.scene.layout.VBox;
+
 import ku.cs.models.*;
 import ku.cs.services.ComplaintCategoryListDataSource;
 import ku.cs.services.ComplaintListDataSource;
@@ -23,7 +31,6 @@ import ku.cs.services.DataSource;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.Comparator;
 import java.util.ResourceBundle;
 import java.util.function.Predicate;
 
@@ -39,11 +46,15 @@ public class ComplaintDetailController implements Initializable {
     @FXML
     private TableColumn<Complaint, String> category;
     @FXML
+    private TableColumn<Complaint, String> topic;
+    @FXML
     private TableColumn<Complaint, String> detail;
     @FXML
-    private TableColumn<Complaint, String> status;
-    @FXML
     private TableColumn<Complaint, Integer> vote;
+    @FXML
+    private TableColumn<Complaint, String> date;
+    @FXML
+    private TableColumn<Complaint, String> status;
     @FXML
     private ComboBox<String> sortSelector;
     private DataSource<ComplaintCategoryList> CategoryData;
@@ -62,6 +73,19 @@ public class ComplaintDetailController implements Initializable {
 
     final private ObservableList<Complaint> dataTable = FXCollections.observableArrayList();
 
+    @FXML private Label reportCount;
+    @FXML private Label inProgressCount;
+    @FXML private Label doneCount;
+    @FXML private VBox barChartContainer;
+    private BarChart<Number, String> complaintBarChart;
+
+
+
+    private DataSource<ComplaintList> complaintData;
+
+    private DataSource<ComplaintCategoryList> categoryData;
+
+
     public void initData(User user) {
         this.user = user;
     }
@@ -69,8 +93,10 @@ public class ComplaintDetailController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        data = new ComplaintListDataSource("data", "complaint.csv");
-        complaintList = data.readData();
+        complaintData = new ComplaintListDataSource("data", "complaint.csv");
+        complaintList = complaintData.readData();
+        categoryData = new ComplaintCategoryListDataSource("data", "complaint_category.csv");
+        complaintCategoryList = categoryData.readData();
 
 
         CategoryData = new ComplaintCategoryListDataSource("data","complaint_category.csv");
@@ -83,6 +109,7 @@ public class ComplaintDetailController implements Initializable {
             sortSelector.getItems().addAll(sorter.getAllTSortList());
             sortSelector.setOnAction(e -> handleSort(e));
         }
+
 
 //        category.setCellValueFactory(cellData ->
 //                new SimpleStringProperty(cellData.getValue().getComplaintCategoryName()));
@@ -126,8 +153,22 @@ public class ComplaintDetailController implements Initializable {
 //
 //        complaintTable.setItems(sortedVote);
 
+//        complaintTable.setRowFactory( tv -> {
+//            TableRow<Complaint> row = new TableRow<>();
+//            row.setOnMouseClicked(event -> {
+//                if (event.getClickCount() == 2 && (! row.isEmpty()) ) {
+//                    Complaint rowData = row.getItem();
+//                    handleViewDetail(event);
+//                }
+//            });
+//            return row ;
+//        });
+
+
         initColumn();
         loadData();
+        setStatusCount();
+        initBarChart();
     }
 
 
@@ -138,7 +179,14 @@ public class ComplaintDetailController implements Initializable {
                 new SimpleStringProperty(cellData.getValue().getComplaintCategoryName()));
         detail.setCellValueFactory(new PropertyValueFactory<>("detail"));
         status.setCellValueFactory(new PropertyValueFactory<>("status"));
+
         vote.setCellValueFactory(new PropertyValueFactory<>("vote"));
+
+        topic.setCellValueFactory(new PropertyValueFactory<>("topic"));
+        vote.setCellValueFactory(new PropertyValueFactory<>("vote"));
+        date.setCellValueFactory(cellData ->
+                new SimpleStringProperty(cellData.getValue().getSimpleDate()));
+
     }
     private void loadData() {
         ObservableList<Complaint> dataTable = FXCollections.observableArrayList();
@@ -160,6 +208,23 @@ public class ComplaintDetailController implements Initializable {
         loadData();
     }
 
+    public void setStatusCount() {
+        int report = 0, inProgress = 0, done = 0;
+        for (Complaint complaint : complaintList.getComplaintList()) {
+            if (complaint.getStatus().equals("รอรับเรื่อง")) {
+                report++;
+            } else if (complaint.getStatus().equals("รอดําเนินการ")) {
+                inProgress++;
+            } else {
+                done++;
+            }
+        }
+
+        reportCount.setText(Integer.toString(report));
+        inProgressCount.setText(Integer.toString(inProgress));
+        doneCount.setText(Integer.toString(done));
+    }
+
     @FXML
     public void handleViewDetail(ActionEvent actionEvent) throws IOException {
         Complaint selectedComplaint = complaintTable.getSelectionModel().getSelectedItem();
@@ -175,7 +240,7 @@ public class ComplaintDetailController implements Initializable {
         Parent pane = loader.load();
 
         ComplaintInfoController controller = loader.getController();
-        controller.initData(user, selectedComplaint);
+        controller.initData(user, selectedComplaint, false);
 
         BorderPane borderPane = (BorderPane) ((StackPane)((Node) actionEvent.getSource()).getScene().getRoot()).
                 getChildren().get(0);
@@ -184,11 +249,10 @@ public class ComplaintDetailController implements Initializable {
     }
     public void handleSelectCategory() {
 
+
         ComplaintList filterComplaintCategory = complaintList.filterBy(new Filterer<Complaint>() {
             @Override
             public boolean filter(Complaint o) {
-                System.out.println(o.getComplaintCategoryName());
-                System.out.println(o.getComplaintCategoryName().equals("อาคารสถานที่ชํารุด"));
 
                 if (o.getComplaintCategoryName().equals(categorySelector.getValue().getName())) return true;
 
@@ -256,6 +320,29 @@ public class ComplaintDetailController implements Initializable {
         DashboardDetailController controller = loader.getController();
         controller.initData(user);
         borderPane.setCenter(pane);
+    }
+
+    public void initBarChart() {
+        NumberAxis xAxis = new NumberAxis();
+        CategoryAxis yAxis = new CategoryAxis();
+
+        complaintBarChart = new BarChart<>(xAxis, yAxis);
+        complaintBarChart.getXAxis().setTickLabelRotation(360);
+        complaintBarChart.setCategoryGap(10);
+        complaintBarChart.setBarGap(1);
+        complaintBarChart.setTitle("สถิติการแจ้งเรื่องร้องเรียนในแต่ละหมวดหมู่");
+        complaintBarChart.setPadding(new Insets(10, 10, 10, 10));
+        xAxis.setLabel("จํานวนเรื่องร้องเรียน");
+
+        for (ComplaintCategory category : complaintCategoryList.getComplaintCategoryList()) {
+            XYChart.Series<Number, String> series = new XYChart.Series<>();
+            series.getData().add(new XYChart.Data<>(complaintList.countCategory(category), category.getName()));
+            series.setName(category.getName());
+            complaintBarChart.getData().add(series);
+        }
+
+        barChartContainer.getChildren().add(complaintBarChart);
+
     }
 
 }

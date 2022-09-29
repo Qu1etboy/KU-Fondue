@@ -15,6 +15,7 @@ public class RenameCategoryDialogController {
 
     public void initData(ComplaintCategory complaintCategory) {
         this.complaintCategory = complaintCategory;
+        categoryNameTextField.setText(complaintCategory.getName());
     }
 
     @FXML

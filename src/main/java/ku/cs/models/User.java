@@ -3,6 +3,9 @@ package ku.cs.models;
 import javafx.scene.image.Image;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import java.util.Date;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
@@ -20,10 +23,10 @@ public class User {
     private Image profileImage;
     private String status; // online , offline
     private boolean isSuspend;
-    private Date lastOnline;
+    private LocalDateTime lastOnline;
 
     public User(String id, String username, String name, String password, Role role, Agency agency, String theme, String font,
-                int fontSize, Image profileImage, String status, boolean isSuspend, Date lastOnline) {
+                int fontSize, Image profileImage, String status, boolean isSuspend, LocalDateTime lastOnline) {
         this.id = id;
         this.username = username;
         this.name = name;
@@ -41,17 +44,17 @@ public class User {
 
     public User(String username, String name, String password, Role role, Agency agency) {
         this(UUID.randomUUID().toString(), username, name, password, role, agency, "dark", "Kanit",
-                16, null, "online", false, new Date());
+                16, new Image("file:images/default.png"), "online", false, LocalDateTime.now());
     }
 
     public User(String username, String name, String password, Role role) {
         this(UUID.randomUUID().toString(), username, name, password, role, null, "dark", "Kanit",
-                16, null, "online", false, new Date());
+                16, new Image("file:images/default.png"), "online", false, LocalDateTime.now());
     }
 
     public User(String username, String name, String password) {
         this(UUID.randomUUID().toString(), username, name, password, Role.STUDENT, null, "dark", "Kanit",
-                16, null, "online", false, new Date());
+                16, new Image("file:images/default.png"), "online", false, LocalDateTime.now());
     }
 
     public String getId() {
@@ -96,8 +99,9 @@ public class User {
         return isSuspend;
     }
     public String getLastOnline() {
-        long diff = new Date().getTime() - lastOnline.getTime();
-        return TimeUnit.SECONDS.convert(diff, TimeUnit.MILLISECONDS) + " sec";
+        return lastOnline.format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM, FormatStyle.SHORT));
+//        long diff = new Date().getTime() - lastOnline.getTime();
+//        return TimeUnit.SECONDS.convert(diff, TimeUnit.MILLISECONDS) + " sec";
     }
 
     public void setUsername(String username) {
@@ -131,15 +135,25 @@ public class User {
     public void setSuspend(boolean isSuspend) {
         this.isSuspend = isSuspend;
     }
-    public void setLastOnline(Date date) {
+    public void setLastOnline(LocalDateTime date) {
         this.lastOnline = date;
     }
 
+    public Image getProfileImage() {
+        return profileImage;
+    }
+
+    public void setProfileImage(Image image) {
+        this.profileImage = image;
+    }
 
     public void setAgency(Agency agency) {
         this.agency = agency;
     }
     public String[] toStringArray() {
+        String[] fileSplit = profileImage.getUrl().split("/");
+        String imagePath = fileSplit[fileSplit.length - 1];
+
         return new String[] {
                 id,
                 username,
@@ -150,10 +164,10 @@ public class User {
                 theme,
                 font,
                 Integer.toString(fontSize),
-                "null",
+                imagePath,
                 status,
                 Boolean.toString(isSuspend),
-                new SimpleDateFormat().format(lastOnline)
+                lastOnline.toString()
         };
     }
 
