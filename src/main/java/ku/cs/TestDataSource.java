@@ -44,22 +44,22 @@ public class TestDataSource {
 //        complaintList.addComplaint(new Complaint("123","456"));
 //        data.writeData(complaintList);
 
-        DataSource<ComplaintCategoryList> data = new ComplaintCategoryListDataSource("data", "complaint_category.csv");
-        ComplaintCategoryList complaintCategoryList = data.readData();
-
-        DataSource<ComplaintList> complaintData = new ComplaintListDataSource("data", "complaint.csv");
-        ComplaintList complaintList = complaintData.readData();
-
-        for (Complaint complaint : complaintList.getComplaintList()) {
-            System.out.println(complaint.getComplaintCategoryName());
-        }
+//        DataSource<ComplaintCategoryList> data = new ComplaintCategoryListDataSource("data", "complaint_category.csv");
+//        ComplaintCategoryList complaintCategoryList = data.readData();
+//
+//        DataSource<ComplaintList> complaintData = new ComplaintListDataSource("data", "complaint.csv");
+//        ComplaintList complaintList = complaintData.readData();
+//
+//        for (Complaint complaint : complaintList.getComplaintList()) {
+//            System.out.println(complaint.getComplaintCategoryName());
+//        }
         // อาคารสถานที่ชำรุด
         // อาคารสถานที่ชํารุด
         String name = "อาคารสถานที่ชํารุด";
         System.out.println(name.equals("อาคารสถานที่ชํารุด"));
-        for (ComplaintCategory category : complaintCategoryList.getComplaintCategoryList()) {
-            System.out.println(category.getName() + " : " + complaintList.countCategory(category));
-        }
+//        for (ComplaintCategory category : complaintCategoryList.getComplaintCategoryList()) {
+//            System.out.println(category.getName() + " : " + complaintList.countCategory(category));
+//        }
 
 
 //        for (ComplaintCategory complaintCategory : complaintCategoryList.getComplaintCategoryList()) {
