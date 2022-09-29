@@ -9,6 +9,8 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -100,6 +102,11 @@ public class ComplaintInfoController {
 
         contentContainer.getChildren().add(new Label("รายละเอียด"));
         contentContainer.getChildren().add(detail);
+
+        for (Image image : complaint.getImagesAnswer()) {
+            ImageView imageView = new ImageView(image);
+            contentContainer.getChildren().add(imageView);
+        }
 
         if (complaint.containUserVote(user)) {
             voteButton.getStyleClass().add("voted");

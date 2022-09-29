@@ -61,24 +61,6 @@ public class ComplaintDetailController implements Initializable {
     private ComplaintCategoryList complaintCategoryList;
     private DataSource<ComplaintCategoryList> categoryData;
 
-//    ObservableList<Complaint> list = FXCollections.observableArrayList(
-//            new Complaint("1","category1","aaa","in progress"),
-//            new Complaint("2","category2","bbb","in progress"),
-//            new Complaint("3","category3","ccc","finish"),
-//            new Complaint("4","category4","ddd","finish")
-//
-//    );
-
-//    public void initialize(){
-//
-//        number.setCellValueFactory(new PropertyValueFactory<Complaint, String>("number"));
-//        category.setCellValueFactory(new PropertyValueFactory<Complaint, String>("category"));
-//        detail.setCellValueFactory(new PropertyValueFactory<Complaint, String>("detail"));
-//        status.setCellValueFactory(new PropertyValueFactory<Complaint, String>("status"));
-//
-////        complaintTable.setItems(list);
-//    }
-
     public void initData(User user) {
         this.user = user;
     }
@@ -128,14 +110,6 @@ public class ComplaintDetailController implements Initializable {
     private void loadData() {
         ObservableList<Complaint> dataTable = FXCollections.observableArrayList();
         dataTable.addAll(complaintList.getComplaintList());
-//            for (Complaint complaint : complaintList.getComplaintList()) {
-//                dataTable.add(complaint);
-//            }
-//            for(int i = 1;i < 7; i++){
-//                dataTable.add(new Complaint(String.valueOf(i),"category " + i,"detail " + i,
-//                        "status " + i));
-//            }
-
         complaintTable.setItems(dataTable);
 
     }
@@ -144,14 +118,11 @@ public class ComplaintDetailController implements Initializable {
     public  void  handleSort(ActionEvent actionEvent) {
         // TODO: implement the sort method that use comparator to sort complaint.csv
         String sortType = sortSelector.getValue();
-        if (sortType.equals("ล่าสุด")) {
-            sorter.sortByMost(complaintList, new DateComparator());
-        } else if (sortType.equals("เก่าสุด")) {
-            sorter.sortByLow(complaintList, new DateComparator());
-        } else if (sortType.equals("โหวตมากสุด")) {
-            sorter.sortByMost(complaintList, new VoteComparator());
-        } else if (sortType.equals("โหวตน้อยสุด")) {
-            sorter.sortByLow(complaintList, new VoteComparator());
+        switch (sortType) {
+            case "ล่าสุด" -> sorter.sortByMost(complaintList, new DateComparator());
+            case "เก่าสุด" -> sorter.sortByLow(complaintList, new DateComparator());
+            case "โหวตมากสุด" -> sorter.sortByMost(complaintList, new VoteComparator());
+            case "โหวตน้อยสุด" -> sorter.sortByLow(complaintList, new VoteComparator());
         }
         loadData();
     }

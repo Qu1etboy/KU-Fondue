@@ -1,8 +1,17 @@
 package ku.cs.controllers;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
+import javafx.stage.FileChooser;
 import ku.cs.datastructure.ListMap;
 import ku.cs.datastructure.Pair;
 import ku.cs.models.*;
@@ -10,10 +19,15 @@ import ku.cs.services.ComplaintCategoryListDataSource;
 import ku.cs.services.ComplaintListDataSource;
 import ku.cs.services.DataSource;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.FileSystems;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class HomeDetailController {
     @FXML
@@ -38,10 +52,12 @@ public class HomeDetailController {
     private List<TextField> textFieldList;
     private List<ComboBox> comboBoxList;
     private ListMap<String,String> questionAnswer ;
+    private List <Image> imageList;
+
 
 
     @FXML
-    public void initData(User user){
+    public void initData(User user) {
         data = new ComplaintListDataSource("data","complaint.csv") ;
         complaintList =  data.readData();
         data2 = new ComplaintCategoryListDataSource("data","complaint_category.csv");
@@ -50,6 +66,7 @@ public class HomeDetailController {
         textFieldList = new ArrayList<>();
         comboBoxList = new ArrayList<>();
         questionAnswer = new ListMap<>();
+        imageList = new ArrayList<>();
         categorySelector.getItems().addAll(complaintCategoryList.getComplaintCategoryList());
         categorySelector.setOnAction(e -> handleSelection());
 
@@ -59,10 +76,44 @@ public class HomeDetailController {
     }
 
 
-    @FXML
-    public void handleUploadImageButton(){
+    public void handleUploadImageButton(ActionEvent event, FlowPane flowPane) {
+        FileChooser chooser = new FileChooser();
+        // SET FILECHOOSER INITIAL DIRECTORY
+        chooser.setInitialDirectory(new File(System.getProperty("user.dir")));
+        // DEFINE ACCEPTABLE FILE EXTENSION
+        chooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("images PNG JPG", "*.png", "*.jpg", "*.jpeg"));
+        // GET FILE FROM FILECHOOSER WITH JAVAFX COMPONENT WINDOW
+        Node source = (Node) event.getSource();
+        File file = chooser.showOpenDialog(source.getScene().getWindow());
+        Image image = new Image(file.toURI().toString());
+        imageList.add(image);
+
+        String[] fileSplit = file.toURI().toString().split("/");
+
+        HBox box = new HBox(new Label(fileSplit[fileSplit.length - 1]));
+        box.setPrefWidth(Region.USE_COMPUTED_SIZE);
+        box.setPrefHeight(50);
+        box.setMaxWidth(200);
+        box.setPadding(new Insets(3, 10, 3, 10));
+        box.getStyleClass().add("file-box");
+        box.setAlignment(Pos.CENTER);
+        box.setSpacing(10);
+
+        Button removeImage = new Button("X");
+        removeImage.setOnAction(e -> handleRemoveImage(image, box, flowPane));
+        removeImage.getStyleClass().add("transparent-button");
+        box.getChildren().add(removeImage);
+
+        flowPane.getChildren().add(box);
 
     }
+
+    private void handleRemoveImage(Image image, HBox box, FlowPane flowPane) {
+        imageList.remove(image);
+        flowPane.getChildren().remove(box);
+
+    }
+
 
     public void handleSelection() {
         complaintCategory = categorySelector.getSelectionModel().getSelectedItem();
@@ -90,8 +141,14 @@ public class HomeDetailController {
                 comboBoxList.add(selector);
                 selector.setId(categoryAttribute.getNameAttribute());
             } else {
+                FlowPane flowPane = new FlowPane();
+                flowPane.setHgap(10);
+                flowPane.setVgap(10);
                 Button button = new Button("Upload Image");
-                formContainer.getChildren().add(button);
+                button.setOnAction(e -> handleUploadImageButton(e, flowPane));
+                VBox vBox = new VBox(flowPane, button);
+                vBox.setSpacing(10);
+                formContainer.getChildren().add(vBox);
             }
         }
 
@@ -139,6 +196,31 @@ public class HomeDetailController {
         }
 
         complaintList.addComplaint(sendComplaint);
+        for(Image image : imageList){
+            System.out.println(image.getUrl());
+            File file = new File(image.getUrl().substring(5));
+            if (file != null){
+                try {
+                    // CREATE FOLDER IF NOT EXIST
+                    File destDir = new File("images");
+                    if (!destDir.exists()) destDir.mkdirs();
+                    // RENAME FILE
+                    String[] fileSplit = file.getName().split("\\.");
+                    String filename = LocalDate.now() + "_"+System.currentTimeMillis() + "."
+                            + fileSplit[fileSplit.length - 1];
+                    Path target = FileSystems.getDefault().getPath(
+                            destDir.getAbsolutePath()+System.getProperty("file.separator")+filename
+                    );
+                    // COPY WITH FLAG REPLACE FILE IF FILE IS EXIST
+                    Files.copy(file.toPath(), target, StandardCopyOption.REPLACE_EXISTING);
+                    // SET NEW FILE PATH TO IMAGE
+                   sendComplaint.addImageAnswer((new Image(target.toUri().toString())));
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
         data.writeData(complaintList);
 
         clearInput();

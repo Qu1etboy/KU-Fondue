@@ -3,11 +3,13 @@ package ku.cs.services;
 import com.opencsv.*;
 
 import com.opencsv.exceptions.CsvException;
+import javafx.scene.image.Image;
 import ku.cs.models.*;
 
 import java.io.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -54,8 +56,8 @@ public class UserListDataSource implements DataSource<UserList> {
 
             for (String[] data : allData) {
                 Agency agency = agencyList.findAgencyById(data[5]);
-                SimpleDateFormat formatter = new SimpleDateFormat();
-                Date lastOnline = formatter.parse(data[12]);
+//                SimpleDateFormat formatter = new SimpleDateFormat();
+                LocalDateTime lastOnline = LocalDateTime.parse(data[12]);
                 userList.addUser(new User(
                         data[0],
                         data[1],
@@ -66,7 +68,7 @@ public class UserListDataSource implements DataSource<UserList> {
                         data[6],
                         data[7],
                         Integer.parseInt(data[8]),
-                        null,
+                        new Image("file:images/" + data[9]),
                         data[10],
                         Boolean.parseBoolean(data[11]),
                         lastOnline
@@ -74,7 +76,7 @@ public class UserListDataSource implements DataSource<UserList> {
                 );
             }
 
-        } catch (CsvException | IOException | ParseException e) {
+        } catch (CsvException | IOException e) {
             throw new RuntimeException(e);
         }
 

@@ -20,6 +20,7 @@ import ku.cs.services.DataSource;
 import ku.cs.services.UserListDataSource;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 public class SettingDetailController {
@@ -187,7 +188,7 @@ public class SettingDetailController {
 
     @FXML
     private void handleLogOutButton(ActionEvent actionEvent) throws IOException {
-        user.setLastOnline(new Date());
+        user.setLastOnline(LocalDateTime.now());
         userList.updateUser(user);
         data.writeData(userList);
 

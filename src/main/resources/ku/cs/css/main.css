@@ -338,3 +338,8 @@
 .done {
     -fx-background-color: #62D538;
 }
+
+.file-box {
+    -fx-border-color: gray;
+    -fx-border-radius: 5px;
+}

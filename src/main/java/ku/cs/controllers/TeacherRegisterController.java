@@ -7,6 +7,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
+import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import ku.cs.models.*;
@@ -14,7 +15,12 @@ import ku.cs.services.AgencyListDataSource;
 import ku.cs.services.DataSource;
 import ku.cs.services.UserListDataSource;
 
+import java.io.File;
 import java.io.IOException;
+import java.nio.file.FileSystems;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 
 public class TeacherRegisterController extends RegisterController {
     @FXML private User user;
@@ -65,7 +71,36 @@ public class TeacherRegisterController extends RegisterController {
         }
 
         // create new user and add it to user list
-        userList.addUser(new User(username, name, password, Role.TEACHER, agency));
+        User user = new User(username, name, password, Role.TEACHER, agency);
+
+        File file = null;
+        if (image != null) {
+            file = new File(image.getUrl().substring(5));
+        }
+        if (file != null) {
+            try {
+                // CREATE FOLDER IF NOT EXIST
+                File destDir = new File("images");
+                if (!destDir.exists()) destDir.mkdirs();
+                // RENAME FILE
+                String[] fileSplit = file.getName().split("\\.");
+                String filename = user.getId() + "."
+                        + fileSplit[fileSplit.length - 1];
+                Path target = FileSystems.getDefault().getPath(
+                        destDir.getAbsolutePath() + System.getProperty("file.separator") + filename
+                );
+                // COPY WITH FLAG REPLACE FILE IF FILE IS EXIST
+                Files.copy(file.toPath(), target, StandardCopyOption.REPLACE_EXISTING);
+                // SET NEW FILE PATH TO IMAGE
+                user.setProfileImage(new Image(target.toUri().toString()));
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        System.out.println(user.getProfileImage().getUrl());
+        userList.addUser(user);
         data.writeData(userList);
 
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -82,5 +117,6 @@ public class TeacherRegisterController extends RegisterController {
         nameTextField.clear();
         passwordTextField.clear();
         confirmPasswordTextField.clear();
+        fileContent.getChildren().clear();
     }
 }
