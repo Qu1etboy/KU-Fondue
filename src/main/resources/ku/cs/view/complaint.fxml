@@ -71,9 +71,42 @@
                         <ComboBox prefWidth="150.0" promptText="ทุกสถานะ" />
                         <Label text="เรียงจาก" />
                         <ComboBox fx:id="sortSelector" prefWidth="150.0" promptText="เรียงโดย" />
-                        <Label text="เลือกแสดงตามคะแนนโหวต" />
-                        <TextField maxWidth="-Infinity" prefWidth="100.0" />
-                        <Button mnemonicParsing="false" text="ล้างการค้นหา" />
+                        <Label text="หมวดหมู่" />
+                        <ComboBox fx:id="categorySelector" prefWidth="150.0" promptText="เลือกหมวดหมู่" />
+                        <HBox prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <Label text="เลือกแสดงตามคะแนนโหวต">
+                                 <HBox.margin>
+                                    <Insets right="20.0" top="5.0" />
+                                 </HBox.margin>
+                              </Label>
+                              <HBox prefHeight="26.0" prefWidth="397.0">
+                                 <children>
+                                    <Label text="ตั้งแต่">
+                                       <HBox.margin>
+                                          <Insets right="10.0" top="5.0" />
+                                       </HBox.margin>
+                                    </Label>
+                                    <TextField fx:id="atLeastTextField" maxWidth="-Infinity" onKeyReleased="#atLeastVote" prefWidth="50.0">
+                                       <HBox.margin>
+                                          <Insets right="10.0" />
+                                       </HBox.margin>
+                                    </TextField>
+                                    <Label text="ถึง">
+                                       <HBox.margin>
+                                          <Insets right="10.0" top="5.0" />
+                                       </HBox.margin>
+                                    </Label>
+                                    <TextField fx:id="atMostTextField" maxWidth="-Infinity" onKeyReleased="#atMostVote" prefWidth="50.0">
+                                       <HBox.margin>
+                                          <Insets right="10.0" />
+                                       </HBox.margin>
+                                    </TextField>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </HBox>
+                        <Button mnemonicParsing="false" onAction="#handleClearSearchButton" text="ล้างการค้นหา" />
                      </children>
                   </VBox>
                   <TabPane tabClosingPolicy="UNAVAILABLE">

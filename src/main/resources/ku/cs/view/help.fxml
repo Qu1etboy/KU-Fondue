@@ -5,6 +5,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
@@ -24,7 +25,7 @@
             </Pane>
             <VBox layoutY="50.0">
                <children>
-                  <Label prefHeight="34.0" prefWidth="193.0" text="วิธีใช้งานโปรแกรมเบื้องต้น:">
+                  <Label prefHeight="34.0" prefWidth="585.0" text="วิธีใช้งานโปรแกรมเบื้องต้น:">
                      <VBox.margin>
                         <Insets left="20.0" top="20.0" />
                      </VBox.margin>
@@ -36,16 +37,27 @@
             </VBox>
             <Pane layoutY="394.0" prefHeight="123.0" prefWidth="800.0">
                <children>
-                  <Label alignment="CENTER" layoutX="50.0" layoutY="59.0" text="รายงานปัญหา:">
-                     <padding>
-                        <Insets right="20.0" />
-                     </padding>
-                     <font>
-                        <Font size="15.0" />
-                     </font>
-                  </Label>
-                  <TextField fx:id="reportProblemTextField" layoutX="153.0" layoutY="59.0" prefHeight="25.0" prefWidth="313.0" />
-                  <Button layoutX="481.0" layoutY="59.0" mnemonicParsing="false" onAction="#handleSubmitButton" prefHeight="25.0" prefWidth="45.0" text="ส่ง" />
+                  <HBox prefHeight="123.0" prefWidth="971.0">
+                     <children>
+                        <Label alignment="CENTER" text="รายงานปัญหา:">
+                           <padding>
+                              <Insets right="20.0" />
+                           </padding>
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets left="20.0" top="5.0" />
+                           </HBox.margin>
+                        </Label>
+                        <TextField fx:id="reportProblemTextField" prefHeight="25.0" prefWidth="313.0">
+                           <HBox.margin>
+                              <Insets right="10.0" />
+                           </HBox.margin>
+                        </TextField>
+                        <Button mnemonicParsing="false" onAction="#handleSubmitButton" prefHeight="25.0" prefWidth="45.0" text="ส่ง" />
+                     </children>
+                  </HBox>
                </children>
             </Pane>
          </children>
