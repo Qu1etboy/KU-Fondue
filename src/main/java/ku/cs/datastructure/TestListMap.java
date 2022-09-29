@@ -57,9 +57,9 @@ public class TestListMap {
 //        System.out.println(date2);
 //        DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM, FormatStyle.SHORT);
 
-//        Date date = new  Date();
-//        SimpleDateFormat formatter = new SimpleDateFormat("M/dd/yyyy HH:mm:ss");
-//        System.out.println(formatter.format(date));
+        Date date = new  Date();
+        SimpleDateFormat formatter = new SimpleDateFormat("M/dd/yyyy HH:mm:ss");
+        System.out.println(formatter.format(date));
 
 
     }
