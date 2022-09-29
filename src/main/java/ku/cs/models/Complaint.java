@@ -3,6 +3,7 @@ package ku.cs.models;
 import javafx.scene.image.Image;
 import ku.cs.datastructure.ListMap;
 
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -64,6 +65,12 @@ public class Complaint {
         for (User user : userVote) {
             usersId.add(user.getId());
         }
+        List<String> imagePath = new ArrayList<>();
+        for (Image image : imagesAnswer) {
+            String[] fileSplit = image.getUrl().split("/");
+            System.out.println(fileSplit[fileSplit.length - 1]);
+            imagePath.add(fileSplit[fileSplit.length - 1]);
+        }
 
         return new String[]{
                 id,
@@ -78,7 +85,7 @@ public class Complaint {
                 answerTeacher,
                 Integer.toString(vote),
                 String.join(",", usersId),
-                "",
+                String.join(",", imagePath),
         };
     }
 
@@ -148,6 +155,10 @@ public class Complaint {
 
     public List<Image> getImagesAnswer() {
         return imagesAnswer;
+    }
+
+    public void addImageAnswer(Image image) {
+        imagesAnswer.add(image);
     }
 
     public void setAnswerTeacher(String answerTeacher) {

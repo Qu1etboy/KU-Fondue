@@ -7,6 +7,8 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import ku.cs.models.Register;
 import ku.cs.models.User;
@@ -14,7 +16,13 @@ import ku.cs.models.UserList;
 import ku.cs.services.DataSource;
 import ku.cs.services.UserListDataSource;
 
+import java.io.File;
 import java.io.IOException;
+import java.nio.file.FileSystems;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
+import java.time.LocalDate;
 
 public class RegisterController {
     @FXML protected TextField usernameTextField;
@@ -29,6 +37,7 @@ public class RegisterController {
     protected String name;
     protected String password;
     protected String confirmPassword;
+    protected Image image;
 
     public void initialize() {
         data = new UserListDataSource("data", "user.csv");
@@ -37,8 +46,16 @@ public class RegisterController {
     }
 
     @FXML
-    public void handleUploadImage() {
-
+    public void handleUploadImage(ActionEvent event) {
+        FileChooser chooser = new FileChooser();
+        // SET FILECHOOSER INITIAL DIRECTORY
+        chooser.setInitialDirectory(new File(System.getProperty("user.dir")));
+        // DEFINE ACCEPTABLE FILE EXTENSION
+        chooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("images PNG JPG", "*.png", "*.jpg", "*.jpeg"));
+        // GET FILE FROM FILECHOOSER WITH JAVAFX COMPONENT WINDOW
+        Node source = (Node) event.getSource();
+        File file = chooser.showOpenDialog(source.getScene().getWindow());
+        image = new Image(file.toURI().toString());
     }
 
     @FXML
@@ -63,7 +80,35 @@ public class RegisterController {
         }
 
         // create new user and add it to user list
-        userList.addUser(new User(username, name, password));
+        User user = new User(username, name, password);
+//        System.out.println(image);
+        File file = null;
+        if (image != null) {
+            file = new File(image.getUrl().substring(5));
+        }
+        if (file != null) {
+            try {
+                // CREATE FOLDER IF NOT EXIST
+                File destDir = new File("images");
+                if (!destDir.exists()) destDir.mkdirs();
+                // RENAME FILE
+                String[] fileSplit = file.getName().split("\\.");
+                String filename = user.getId() + "."
+                        + fileSplit[fileSplit.length - 1];
+                Path target = FileSystems.getDefault().getPath(
+                        destDir.getAbsolutePath() + System.getProperty("file.separator") + filename
+                );
+                // COPY WITH FLAG REPLACE FILE IF FILE IS EXIST
+                Files.copy(file.toPath(), target, StandardCopyOption.REPLACE_EXISTING);
+                // SET NEW FILE PATH TO IMAGE
+                user.setProfileImage(new Image(target.toUri().toString()));
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        System.out.println(user.getProfileImage());
+        userList.addUser(user);
         data.writeData(userList);
 
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
