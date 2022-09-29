@@ -2,6 +2,7 @@ package ku.cs;
 
 import ku.cs.models.*;
 import ku.cs.services.ComplaintCategoryListDataSource;
+import ku.cs.services.ComplaintListDataSource;
 import ku.cs.services.DataSource;
 
 public class TestDataSource {
@@ -46,9 +47,24 @@ public class TestDataSource {
         DataSource<ComplaintCategoryList> data = new ComplaintCategoryListDataSource("data", "complaint_category.csv");
         ComplaintCategoryList complaintCategoryList = data.readData();
 
-        for (ComplaintCategory complaintCategory : complaintCategoryList.getComplaintCategoryList()) {
-            System.out.println(complaintCategory.getId() + " " + complaintCategory.getName());
+        DataSource<ComplaintList> complaintData = new ComplaintListDataSource("data", "complaint.csv");
+        ComplaintList complaintList = complaintData.readData();
+
+        for (Complaint complaint : complaintList.getComplaintList()) {
+            System.out.println(complaint.getComplaintCategoryName());
         }
+        // อาคารสถานที่ชำรุด
+        // อาคารสถานที่ชํารุด
+        String name = "อาคารสถานที่ชํารุด";
+        System.out.println(name.equals("อาคารสถานที่ชํารุด"));
+        for (ComplaintCategory category : complaintCategoryList.getComplaintCategoryList()) {
+            System.out.println(category.getName() + " : " + complaintList.countCategory(category));
+        }
+
+
+//        for (ComplaintCategory complaintCategory : complaintCategoryList.getComplaintCategoryList()) {
+//            System.out.println(complaintCategory.getId() + " " + complaintCategory.getName());
+//        }
 //        complaintCategoryList.addComplaintCatergory(new ComplaintCategory("123","I","e,r,o"));
 //        data.writeData(complaintCategoryList);
 

@@ -3,14 +3,12 @@ package ku.cs.services;
 import com.opencsv.CSVReader;
 import com.opencsv.CSVWriter;
 import com.opencsv.exceptions.CsvException;
+import javafx.scene.image.Image;
 import ku.cs.models.*;
 
 import java.io.*;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 
 public class ComplaintListDataSource implements DataSource<ComplaintList>{
@@ -55,17 +53,20 @@ public class ComplaintListDataSource implements DataSource<ComplaintList>{
             for (String[] data : allData) {
                 if (data.length > 0) {
                     User user = userList.findUserById(data[1]);
-//                    String[] inputData = { "q1", "q2"};
-//                    List<String> inputDataList = Arrays.asList(inputData);
                     // ComplaintCategory complaintCategory = complaintCategoryList.findComplaintCategoryById(data[3]);
                     List<User> userVote = new ArrayList<>();
                     for (String userId : data[11].split(",")) {
                         if (userId.isEmpty()) continue;
                         userVote.add(userList.findUserById(userId));
                     }
-                    SimpleDateFormat formatter = new SimpleDateFormat();
-                    Date date = formatter.parse(data[8]);
-                    Complaint complaint = new Complaint(data[0], user, data[2], data[3], data[4], data[5], date, data[9], Integer.valueOf(data[10]), userVote);
+
+                    LocalDateTime date = LocalDateTime.parse(data[8]);
+                    User teacher = userList.findUserById(data[13]);
+                    List<Image> imageList = new ArrayList<>();
+                    for (String path : data[14].split(",")) {
+                        imageList.add(new Image("file:images/" + path));
+                    }
+                    Complaint complaint = new Complaint(data[0], user, data[2], data[3], data[4], data[5], date, data[9], Integer.parseInt(data[10]), userVote, teacher, imageList);
 
                     String[] question = data[6].split(",");
                     String[] answer = data[7].split(",");
@@ -78,7 +79,7 @@ public class ComplaintListDataSource implements DataSource<ComplaintList>{
                 }
             }
 
-        } catch (IOException | CsvException | ParseException e) {
+        } catch (IOException | CsvException e) {
             throw new RuntimeException(e);
         }
         return  complaintList;

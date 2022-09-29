@@ -2,9 +2,14 @@ package ku.cs.controllers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
+import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import ku.cs.datastructure.ListMap;
@@ -52,7 +57,7 @@ public class HomeDetailController {
 
 
     @FXML
-    public void initData(User user){
+    public void initData(User user) {
         data = new ComplaintListDataSource("data","complaint.csv") ;
         complaintList =  data.readData();
         data2 = new ComplaintCategoryListDataSource("data","complaint_category.csv");
@@ -64,19 +69,14 @@ public class HomeDetailController {
         imageList = new ArrayList<>();
         categorySelector.getItems().addAll(complaintCategoryList.getComplaintCategoryList());
         categorySelector.setOnAction(e -> handleSelection());
-//        formContainer.getChildren().add(new Label("1."));
-//        formContainer.getChildren().add(new TextField());
-//        formContainer.getChildren().add(new Label("2."));
-//        formContainer.getChildren().add(new TextField());
-//        formContainer.getChildren().add(new Label("3."));
-//        formContainer.getChildren().add(new TextField());
+
         this.user = user;
-        nameLabel.setText(user.getUsername());
+        nameLabel.setText("ยินดีต้อนรับ " + user.getUsername());
 
     }
 
 
-    public void handleUploadImageButton(ActionEvent event){
+    public void handleUploadImageButton(ActionEvent event, FlowPane flowPane) {
         FileChooser chooser = new FileChooser();
         // SET FILECHOOSER INITIAL DIRECTORY
         chooser.setInitialDirectory(new File(System.getProperty("user.dir")));
@@ -85,28 +85,34 @@ public class HomeDetailController {
         // GET FILE FROM FILECHOOSER WITH JAVAFX COMPONENT WINDOW
         Node source = (Node) event.getSource();
         File file = chooser.showOpenDialog(source.getScene().getWindow());
-        imageList.add(new Image(file.toURI().toString()));
-//        if (file != null){
-//            try {
-//                // CREATE FOLDER IF NOT EXIST
-//                File destDir = new File("images");
-//                if (!destDir.exists()) destDir.mkdirs();
-//                // RENAME FILE
-//                String[] fileSplit = file.getName().split("\\.");
-//                String filename = LocalDate.now() + "_"+System.currentTimeMillis() + "."
-//                        + fileSplit[fileSplit.length - 1];
-//                Path target = FileSystems.getDefault().getPath(
-//                        destDir.getAbsolutePath()+System.getProperty("file.separator")+filename
-//                );
-//                // COPY WITH FLAG REPLACE FILE IF FILE IS EXIST
-//                Files.copy(file.toPath(), target, StandardCopyOption.REPLACE_EXISTING);
-//                // SET NEW FILE PATH TO IMAGE
-//               imageList.add((new Image(target.toUri().toString()));
-//
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-        }
+        Image image = new Image(file.toURI().toString());
+        imageList.add(image);
+
+        String[] fileSplit = file.toURI().toString().split("/");
+
+        HBox box = new HBox(new Label(fileSplit[fileSplit.length - 1]));
+        box.setPrefWidth(Region.USE_COMPUTED_SIZE);
+        box.setPrefHeight(50);
+        box.setMaxWidth(200);
+        box.setPadding(new Insets(3, 10, 3, 10));
+        box.getStyleClass().add("file-box");
+        box.setAlignment(Pos.CENTER);
+        box.setSpacing(10);
+
+        Button removeImage = new Button("X");
+        removeImage.setOnAction(e -> handleRemoveImage(image, box, flowPane));
+        removeImage.getStyleClass().add("transparent-button");
+        box.getChildren().add(removeImage);
+
+        flowPane.getChildren().add(box);
+
+    }
+
+    private void handleRemoveImage(Image image, HBox box, FlowPane flowPane) {
+        imageList.remove(image);
+        flowPane.getChildren().remove(box);
+
+    }
 
 
     public void handleSelection() {
@@ -135,9 +141,14 @@ public class HomeDetailController {
                 comboBoxList.add(selector);
                 selector.setId(categoryAttribute.getNameAttribute());
             } else {
+                FlowPane flowPane = new FlowPane();
+                flowPane.setHgap(10);
+                flowPane.setVgap(10);
                 Button button = new Button("Upload Image");
-                button.setOnAction(e -> handleUploadImageButton(e));
-                formContainer.getChildren().add(button);
+                button.setOnAction(e -> handleUploadImageButton(e, flowPane));
+                VBox vBox = new VBox(flowPane, button);
+                vBox.setSpacing(10);
+                formContainer.getChildren().add(vBox);
             }
         }
 
@@ -151,25 +162,39 @@ public class HomeDetailController {
         formContainer.getChildren().add(sendButton);
     }
 
-    public void handleSendButton(){
+    public void handleSendButton() {
 
-        for(TextField textField : textFieldList){
+        boolean valid = !topicTextField.getText().isEmpty() && !detailTextArea.getText().isEmpty();
+
+        for(TextField textField : textFieldList) {
+            if (textField.getText().isEmpty()) {
+                valid = false;
+                continue;
+            }
             questionAnswer.put(textField.getId(),textField.getText());
         }
 
         for(ComboBox comboBox: comboBoxList){
+            if (comboBox.getValue() == null) {
+                valid = false;
+                continue;
+            }
             questionAnswer.put(comboBox.getId(),(String) comboBox.getValue());
         }
 
-//        for (String q : questionAnswer.keyList()) {
-//            System.out.println(q + " => " + questionAnswer.get(q));
-//        }
+        if (!valid) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText("กรุณากรอกข้อมูลให้ครบ");
+            alert.show();
+            return;
+        }
 
         complaintCategory = categorySelector.getSelectionModel().getSelectedItem();
         Complaint sendComplaint = new Complaint(user, topicTextField.getText(), detailTextArea.getText().replaceAll("\n", " "), complaintCategory.getName());
         for (String q : questionAnswer.keyList()) {
             sendComplaint.addQuestionAnswer(q, questionAnswer.get(q));
         }
+
         complaintList.addComplaint(sendComplaint);
         for(Image image : imageList){
             System.out.println(image.getUrl());
@@ -198,13 +223,15 @@ public class HomeDetailController {
         }
         data.writeData(complaintList);
 
+        clearInput();
+    }
 
+    public void clearInput() {
         topicTextField.clear();
         detailTextArea.clear();
         formContainer.getChildren().clear();
         comboBoxList.clear();
         textFieldList.clear();
         questionAnswer.clear();
-        System.out.println("send test");
     }
 }

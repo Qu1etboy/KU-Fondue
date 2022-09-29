@@ -3,11 +3,18 @@ package ku.cs.controllers;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import ku.cs.models.User;
@@ -28,6 +35,8 @@ public class RegisterController {
     @FXML protected TextField nameTextField;
     @FXML protected TextField passwordTextField;
     @FXML protected TextField confirmPasswordTextField;
+
+    @FXML protected VBox fileContent;
 
     protected UserList userList;
     protected DataSource<UserList> data;
@@ -53,6 +62,31 @@ public class RegisterController {
         Node source = (Node) event.getSource();
         File file = chooser.showOpenDialog(source.getScene().getWindow());
         image = new Image(file.toURI().toString());
+
+        String[] fileSplit = file.toURI().toString().split("/");
+
+        fileContent.getChildren().clear();
+
+        HBox box = new HBox(new Label(fileSplit[fileSplit.length - 1]));
+        box.setPrefWidth(Region.USE_COMPUTED_SIZE);
+        box.setPrefHeight(50);
+        box.setMaxWidth(200);
+        box.setPadding(new Insets(3, 10, 3, 10));
+        box.getStyleClass().add("file-box");
+        box.setAlignment(Pos.CENTER);
+        box.setSpacing(10);
+
+        Button removeImage = new Button("X");
+        removeImage.setOnAction(e -> handleRemoveImage(box));
+        removeImage.getStyleClass().add("transparent-button");
+        box.getChildren().add(removeImage);
+
+        fileContent.getChildren().add(box);
+    }
+
+    private void handleRemoveImage(HBox box) {
+        image = null;
+        fileContent.getChildren().remove(box);
     }
 
     @FXML
@@ -108,10 +142,6 @@ public class RegisterController {
         userList.addUser(user);
         data.writeData(userList);
 
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setContentText("Register successfully");
-        alert.show();
-
         // go back to login page if register successfully
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/ku/cs/view/login.fxml"));
         Stage stage = (Stage)((Node) actionEvent.getSource()).getScene().getWindow();
@@ -119,7 +149,11 @@ public class RegisterController {
         stage.setScene(scene);
         stage.show();
 
-        System.out.println("register successfully");
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setContentText("Register successfully");
+        alert.show();
+
+//        System.out.println("register successfully");
     }
 
     /**

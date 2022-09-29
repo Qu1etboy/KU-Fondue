@@ -16,16 +16,7 @@
                <children>
                   <HBox alignment="TOP_CENTER">
                      <children>
-                        <Label alignment="CENTER" styleClass="welcome-title" text="ยินดีต้อนรับ " wrapText="true">
-                           <font>
-                              <Font size="31.0" />
-                           </font>
-                        </Label>
-                        <Label fx:id="nameLabel" alignment="CENTER" styleClass="welcome-title" text="nameLabel">
-                           <font>
-                              <Font size="31.0" />
-                           </font>
-                        </Label>
+                        <Label fx:id="nameLabel" alignment="CENTER" styleClass="welcome-title" text="nameLabel" />
                         <Label>
                            <font>
                               <Font size="31.0" />
@@ -33,8 +24,8 @@
                         </Label>
                      </children>
                   </HBox>
-                  <HBox alignment="TOP_CENTER" spacing="10.0" />
-                  <HBox alignment="TOP_CENTER" spacing="10.0">
+                  <Label styleClass="title" text="กรุณาเลือกหมวดหมู่ที่ต้องการร้องเรียน" />
+                  <HBox alignment="CENTER" spacing="10.0">
                      <children>
                         <Label alignment="CENTER_RIGHT" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" text="หมวดหมู่ของคำร้อง" textAlignment="RIGHT" wrapText="true">
                            <font>
@@ -43,6 +34,9 @@
                         </Label>
                         <ComboBox fx:id="categorySelector" prefHeight="26.0" prefWidth="311.0" />
                      </children>
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
                   </HBox>
                   <VBox fx:id="formContainer" />
                </children>

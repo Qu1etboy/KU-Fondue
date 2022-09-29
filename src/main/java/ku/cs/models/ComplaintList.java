@@ -25,4 +25,12 @@ public class ComplaintList {
                 .collect(Collectors.toList());
     }
 
+    public int countCategory(ComplaintCategory complaintCategory) {
+        return complaintList
+                .stream()
+                .filter(c -> c.getComplaintCategoryName().equals(complaintCategory.getName()))
+                .toList()
+                .size();
+    }
+
 }
