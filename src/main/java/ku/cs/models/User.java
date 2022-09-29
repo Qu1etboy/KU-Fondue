@@ -41,17 +41,17 @@ public class User {
 
     public User(String username, String name, String password, Role role, Agency agency) {
         this(UUID.randomUUID().toString(), username, name, password, role, agency, "dark", "Kanit",
-                16, null, "online", false, new Date());
+                16, new Image("file:images/default.png"), "online", false, new Date());
     }
 
     public User(String username, String name, String password, Role role) {
         this(UUID.randomUUID().toString(), username, name, password, role, null, "dark", "Kanit",
-                16, null, "online", false, new Date());
+                16, new Image("file:images/default.png"), "online", false, new Date());
     }
 
     public User(String username, String name, String password) {
         this(UUID.randomUUID().toString(), username, name, password, Role.STUDENT, null, "dark", "Kanit",
-                16, null, "online", false, new Date());
+                16, new Image("file:images/default.png"), "online", false, new Date());
     }
 
     public String getId() {
@@ -135,11 +135,21 @@ public class User {
         this.lastOnline = date;
     }
 
+    public Image getProfileImage() {
+        return profileImage;
+    }
+
+    public void setProfileImage(Image image) {
+        this.profileImage = image;
+    }
 
     public void setAgency(Agency agency) {
         this.agency = agency;
     }
     public String[] toStringArray() {
+        String[] fileSplit = profileImage.getUrl().split("/");
+        String imagePath = fileSplit[fileSplit.length - 1];
+
         return new String[] {
                 id,
                 username,
@@ -150,7 +160,7 @@ public class User {
                 theme,
                 font,
                 Integer.toString(fontSize),
-                "null",
+                imagePath,
                 status,
                 Boolean.toString(isSuspend),
                 new SimpleDateFormat().format(lastOnline)

@@ -1,8 +1,12 @@
 package ku.cs.controllers;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
+import javafx.stage.FileChooser;
 import ku.cs.datastructure.ListMap;
 import ku.cs.datastructure.Pair;
 import ku.cs.models.*;
@@ -10,10 +14,15 @@ import ku.cs.services.ComplaintCategoryListDataSource;
 import ku.cs.services.ComplaintListDataSource;
 import ku.cs.services.DataSource;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.FileSystems;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class HomeDetailController {
     @FXML
@@ -38,6 +47,8 @@ public class HomeDetailController {
     private List<TextField> textFieldList;
     private List<ComboBox> comboBoxList;
     private ListMap<String,String> questionAnswer ;
+    private List <Image> imageList;
+
 
 
     @FXML
@@ -50,6 +61,7 @@ public class HomeDetailController {
         textFieldList = new ArrayList<>();
         comboBoxList = new ArrayList<>();
         questionAnswer = new ListMap<>();
+        imageList = new ArrayList<>();
         categorySelector.getItems().addAll(complaintCategoryList.getComplaintCategoryList());
         categorySelector.setOnAction(e -> handleSelection());
 //        formContainer.getChildren().add(new Label("1."));
@@ -64,10 +76,38 @@ public class HomeDetailController {
     }
 
 
-    @FXML
-    public void handleUploadImageButton(){
+    public void handleUploadImageButton(ActionEvent event){
+        FileChooser chooser = new FileChooser();
+        // SET FILECHOOSER INITIAL DIRECTORY
+        chooser.setInitialDirectory(new File(System.getProperty("user.dir")));
+        // DEFINE ACCEPTABLE FILE EXTENSION
+        chooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("images PNG JPG", "*.png", "*.jpg", "*.jpeg"));
+        // GET FILE FROM FILECHOOSER WITH JAVAFX COMPONENT WINDOW
+        Node source = (Node) event.getSource();
+        File file = chooser.showOpenDialog(source.getScene().getWindow());
+        imageList.add(new Image(file.toURI().toString()));
+//        if (file != null){
+//            try {
+//                // CREATE FOLDER IF NOT EXIST
+//                File destDir = new File("images");
+//                if (!destDir.exists()) destDir.mkdirs();
+//                // RENAME FILE
+//                String[] fileSplit = file.getName().split("\\.");
+//                String filename = LocalDate.now() + "_"+System.currentTimeMillis() + "."
+//                        + fileSplit[fileSplit.length - 1];
+//                Path target = FileSystems.getDefault().getPath(
+//                        destDir.getAbsolutePath()+System.getProperty("file.separator")+filename
+//                );
+//                // COPY WITH FLAG REPLACE FILE IF FILE IS EXIST
+//                Files.copy(file.toPath(), target, StandardCopyOption.REPLACE_EXISTING);
+//                // SET NEW FILE PATH TO IMAGE
+//               imageList.add((new Image(target.toUri().toString()));
+//
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+        }
 
-    }
 
     public void handleSelection() {
         complaintCategory = categorySelector.getSelectionModel().getSelectedItem();
@@ -96,6 +136,7 @@ public class HomeDetailController {
                 selector.setId(categoryAttribute.getNameAttribute());
             } else {
                 Button button = new Button("Upload Image");
+                button.setOnAction(e -> handleUploadImageButton(e));
                 formContainer.getChildren().add(button);
             }
         }
@@ -130,7 +171,33 @@ public class HomeDetailController {
             sendComplaint.addQuestionAnswer(q, questionAnswer.get(q));
         }
         complaintList.addComplaint(sendComplaint);
+        for(Image image : imageList){
+            System.out.println(image.getUrl());
+            File file = new File(image.getUrl().substring(5));
+            if (file != null){
+                try {
+                    // CREATE FOLDER IF NOT EXIST
+                    File destDir = new File("images");
+                    if (!destDir.exists()) destDir.mkdirs();
+                    // RENAME FILE
+                    String[] fileSplit = file.getName().split("\\.");
+                    String filename = LocalDate.now() + "_"+System.currentTimeMillis() + "."
+                            + fileSplit[fileSplit.length - 1];
+                    Path target = FileSystems.getDefault().getPath(
+                            destDir.getAbsolutePath()+System.getProperty("file.separator")+filename
+                    );
+                    // COPY WITH FLAG REPLACE FILE IF FILE IS EXIST
+                    Files.copy(file.toPath(), target, StandardCopyOption.REPLACE_EXISTING);
+                    // SET NEW FILE PATH TO IMAGE
+                   sendComplaint.addImageAnswer((new Image(target.toUri().toString())));
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
         data.writeData(complaintList);
+
 
         topicTextField.clear();
         detailTextArea.clear();

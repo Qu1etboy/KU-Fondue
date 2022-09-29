@@ -3,6 +3,7 @@ package ku.cs.services;
 import com.opencsv.*;
 
 import com.opencsv.exceptions.CsvException;
+import javafx.scene.image.Image;
 import ku.cs.models.*;
 
 import java.io.*;
@@ -66,7 +67,7 @@ public class UserListDataSource implements DataSource<UserList> {
                         data[6],
                         data[7],
                         Integer.parseInt(data[8]),
-                        null,
+                        new Image("file:images/" + data[9]),
                         data[10],
                         Boolean.parseBoolean(data[11]),
                         lastOnline
