@@ -201,6 +201,32 @@
     -fx-text-fill: -primary-text-color;
 }
 
+.list-view {
+    -fx-background-color: -primary-background-color;
+    -fx-border-color: -secondary-background-100;
+}
+
+.list-view:focused {
+    -fx-background-color: transparent;
+}
+
+.list-view .list-cell {
+    -fx-text-fill: -primary-text-color;
+}
+
+.list-view .list-cell:even {
+    -fx-background-color: -primary-background-200;
+}
+
+.list-view .list-cell:odd {
+    -fx-background-color: -primary-background-300;
+}
+
+.list-view .list-cell:selected {
+    -fx-background-color: -primary-button-color;
+    -fx-text-fill: white;
+}
+
 .main-bg {
     -fx-background-color: -primary-background-color;
 }
@@ -222,22 +248,22 @@
 }
 
 .sidebar-menu-btn:hover {
-    -fx-text-fill: -primary-text-color-hover;
+    -fx-text-fill: -primary-button-color-hover;
     -fx-background-color: transparent;
 }
 
 .sidebar-menu-btn:hover > .glyph-icon {
-    -fx-fill: -primary-text-color-hover;
+    -fx-fill: -primary-button-color-hover;
 }
 
 .active {
-    -fx-text-fill: -primary-text-color-hover;
+    -fx-text-fill: -primary-button-color;
     -fx-border-width: 0 0 0 2px;
-    -fx-border-color: -primary-text-color-hover;
+    -fx-border-color: -primary-button-color;
 }
 
 .active > .glyph-icon {
-    -fx-fill: -primary-text-color-hover;
+    -fx-fill: -primary-button-color;
 }
 
 .logo-title {
@@ -273,6 +299,7 @@
 .combo-box .list-view .list-cell {
     -fx-background-color: -primary-background-color;
     -fx-cursor: hand;
+    -fx-text-fill: -primary-text-color;
 }
 
 .combo-box .list-view .list-cell:hover {
@@ -308,11 +335,11 @@
 
 .transparent-button:hover {
     -fx-background-color: transparent;
-    -fx-text-fill: -primary-text-color-hover;
+    -fx-text-fill: -primary-button-color-hover;
 }
 
 .transparent-button:hover > .glyph-icon {
-    -fx-fill: -primary-text-color-hover;
+    -fx-fill: -primary-button-color-hover;
 }
 
 .voted {
@@ -321,6 +348,10 @@
 
 .voted .glyph-icon {
     -fx-fill: -primary-button-color;
+}
+
+.vote:hover .label {
+    -fx-text-fill: -primary-button-color-hover;
 }
 
 .status {
@@ -339,7 +370,7 @@
     -fx-background-color: #62D538;
 }
 
-.file-box {
+.border-box {
     -fx-border-color: gray;
     -fx-border-radius: 5px;
 }

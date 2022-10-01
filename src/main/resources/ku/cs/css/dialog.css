@@ -28,15 +28,57 @@
     -fx-background-color: -primary-button-color-hover;
 }
 
+/* text field */
 .text-field {
     -fx-background-color: -fx-text-box-border, -secondary-background-200;
-    -fx-background-radius: 5px;
+    -fx-background-insets: 0, 0 0 0 0;
+    -fx-background-radius: 0;
     -fx-prompt-text-fill: derive(-primary-text-color, -30%);
     -fx-text-fill: -primary-text-color;
 }
 
 .text-field:focused {
-    -fx-background-color: -fx-focus-color, -secondary-background-200;
-    -fx-background-radius: 5px;
+    /*-fx-background-color: black, -secondary-background-200;*/
+    -fx-effect: dropshadow( three-pass-box, black , 5 , 0, 0, 0);
     -fx-prompt-text-fill: derive(-primary-text-color, -30%);
+}
+
+.text-area {
+    -fx-text-fill: -primary-text-color;
+}
+
+.text-area .content {
+    -fx-background-color: -secondary-background-200;
+}
+
+.text-area:focused {
+    -fx-background-color: transparent, -secondary-background-200;
+    -fx-effect: dropshadow( three-pass-box, black , 5 , 0, 0, 0);
+    -fx-prompt-text-fill: derive(-primary-text-color, -30%);
+}
+
+.list-view {
+    -fx-background-color: -primary-background-color;
+    -fx-border-color: -secondary-background-100;
+}
+
+.list-view:focused {
+    -fx-background-color: transparent;
+}
+
+.list-view .list-cell {
+    -fx-text-fill: -primary-text-color;
+}
+
+.list-view .list-cell:even {
+    -fx-background-color: -primary-background-200;
+}
+
+.list-view .list-cell:odd {
+    -fx-background-color: -primary-background-300;
+}
+
+.list-view .list-cell:selected {
+    -fx-background-color: -primary-button-color;
+    -fx-text-fill: white;
 }

@@ -4,14 +4,17 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import ku.cs.models.SuspendUserList;
 import ku.cs.models.User;
 import ku.cs.models.UserList;
 import ku.cs.services.DataSource;
+import ku.cs.services.SuspendUserListDataSource;
 import ku.cs.services.UserListDataSource;
 
 import java.io.IOException;
@@ -21,11 +24,14 @@ public class LoginController {
     @FXML private TextField passwordTextField;
     private UserList userList;
     private DataSource<UserList> data;
-
+    private SuspendUserList suspendUserList;
+    private DataSource<SuspendUserList> suspendUserData;
     @FXML
     public void initialize() {
         data = new UserListDataSource("data", "user.csv");
         userList = data.readData();
+        suspendUserData = new SuspendUserListDataSource("data", "suspend_user.csv");
+        suspendUserList = suspendUserData.readData();
     }
 
     @FXML
@@ -47,26 +53,34 @@ public class LoginController {
 
         if (username.isEmpty() || password.isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setContentText("Please fill in all the field");
+            alert.setContentText("กรุณากรอกรายละเอียดให้ครบ");
             alert.show();
             return;
         }
         if (user == null) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setContentText("User doesn't exist");
+            alert.setContentText("ไม่พบผู้ใช้ในระบบ");
             alert.show();
             return;
         }
         if (!user.getPassword().equals(password)) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setContentText("Password is incorrect");
+            alert.setContentText("รหัสผ่านไม่ถูกต้อง");
             alert.show();
             return;
         }
         if (user.isSuspend()) {
+            usernameTextField.clear();
+            passwordTextField.clear();
+
             // a dialog that tell the user that they got suspend and make a button to request unsuspend
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/ku/cs/view/suspendDialog.fxml"));
-            Scene scene = new Scene(loader.load());
+            Parent root = loader.load();
+
+            SuspendDialogController suspendDialogController = loader.getController();
+            suspendDialogController.initData(user);
+
+            Scene scene = new Scene(root);
             Stage parentStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
             Stage dialog = new Stage();
             dialog.setScene(scene);
@@ -74,9 +88,12 @@ public class LoginController {
             dialog.initOwner(parentStage);
             dialog.showAndWait();
 
-            // TODO: increment number of tries user try to sign in when being suspended
+            // update suspend user list from file
+            suspendUserList = suspendUserData.readData();
+            // increment number of tries user try to sign in when being suspended
+            suspendUserList.incrementSuspendUserLoginCount(user);
+            suspendUserData.writeData(suspendUserList);
 
-            System.out.println("You have been suspended from the app");
             return;
         }
 

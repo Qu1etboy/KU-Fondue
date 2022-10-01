@@ -7,15 +7,13 @@ import ku.cs.models.*;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
-public class CategoryAttributeListDataSource implements DataSource <CategoryAttributeList> {
+public class ReportListDataSource implements DataSource<ReportList> {
     String directoryName;
     String fileName;
 
-    public CategoryAttributeListDataSource(String directoryName, String fileName) {
+    public ReportListDataSource(String directoryName, String fileName) {
         this.directoryName = directoryName;
         this.fileName = fileName;
         checkFileIsExisted();
@@ -38,22 +36,26 @@ public class CategoryAttributeListDataSource implements DataSource <CategoryAttr
     }
 
     @Override
-    public CategoryAttributeList readData() {
-        CategoryAttributeList categoryAttributeList = new CategoryAttributeList();
+    public ReportList readData() {
+        ReportList reportList = new ReportList();
         String filePath = directoryName + File.separator + fileName;
 
         try {
             CSVReader reader = new CSVReader(new FileReader(filePath, StandardCharsets.UTF_8));
             List<String[]> allData = reader.readAll();
 
+            DataSource<ComplaintList> complaintData = new ComplaintListDataSource("data", "complaint.csv");
+            ComplaintList complaintList = complaintData.readData();
+            DataSource<UserList> userData = new UserListDataSource("data", "user.csv");
+            UserList userList = userData.readData();
+
             for (String[] data : allData) {
                 if (data.length > 0) {
-                    List<String> inputData = new ArrayList<>(Arrays.asList(data[4].split(",")));
-                    List<String> inputAnswer = new ArrayList<>(Arrays.asList(data[5].split(",")));
-                    // List<String> inputImage = Arrays.asList(data[5].split(","));
+                    User user = userList.findUserById(data[1]);
+                    Complaint complaint = complaintList.findComplaintById(data[2]);
 
-                    categoryAttributeList.addCategoryAttribute(
-                            new CategoryAttribute(data[0], data[1],data[2], data[3], inputData, inputAnswer,null)
+                    reportList.addReport(
+                            new Report(data[0], user, complaint, data[3], data[4])
                     );
                 }
             }
@@ -61,11 +63,11 @@ public class CategoryAttributeListDataSource implements DataSource <CategoryAttr
         } catch (IOException | CsvException e) {
             throw new RuntimeException(e);
         }
-        return categoryAttributeList;
+        return reportList;
     }
 
     @Override
-    public void writeData(CategoryAttributeList data) {
+    public void writeData(ReportList reportList) {
         String filePath = directoryName + File.separator + fileName;
         CSVWriter writer = null;
         try {
@@ -73,19 +75,16 @@ public class CategoryAttributeListDataSource implements DataSource <CategoryAttr
             OutputStreamWriter osw = new OutputStreamWriter(fos, StandardCharsets.UTF_8);
             writer = new CSVWriter(osw);
 
-            for(CategoryAttribute categoryAttribute : data.getCategoryAttributeList()){
-                String[] row = categoryAttribute.toStringArray();
+            for (Report report : reportList.getReportList()) {
+                String[] row = report.toStringArray();
                 writer.writeNext(row);
             }
-
         } catch (IOException e) {
             throw new RuntimeException(e);
-        }
-        finally {
+        } finally {
             try {
-                if(writer != null){
+                if (writer != null)
                     writer.close();
-                }
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }

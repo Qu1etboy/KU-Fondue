@@ -30,34 +30,34 @@ public class AddAttributeDialogController {
     }
 
     @FXML
-    public void handleTextCheckBox() {
+    private void handleTextCheckBox() {
         choiceCheckBox.setSelected(false);
         imageCheckBox.setSelected(false);
         type = "textfield";
     }
 
     @FXML
-    public void handleChoiceCheckBox() {
+    private void handleChoiceCheckBox() {
         textCheckBox.setSelected(false);
         imageCheckBox.setSelected(false);
         type = "combobox";
     }
 
     @FXML
-    public void handleImageCheckBox() {
+    private void handleImageCheckBox() {
         textCheckBox.setSelected(false);
         choiceCheckBox.setSelected(false);
         type = "image";
     }
 
     @FXML
-    public void handleCancelButton(ActionEvent actionEvent) {
+    private void handleCancelButton(ActionEvent actionEvent) {
         Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         stage.close();
     }
 
     @FXML
-    public void handleDoneButton(ActionEvent actionEvent) {
+    private void handleDoneButton(ActionEvent actionEvent) {
 
         Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         String attributeName = attributeNameTextField.getText();

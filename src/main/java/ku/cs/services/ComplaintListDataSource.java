@@ -7,6 +7,7 @@ import javafx.scene.image.Image;
 import ku.cs.models.*;
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -42,7 +43,7 @@ public class ComplaintListDataSource implements DataSource<ComplaintList>{
         ComplaintList complaintList = new ComplaintList();
         String filePath = directoryName+ File.separator + fileName;
         try {
-            CSVReader reader = new CSVReader(new FileReader(filePath));
+            CSVReader reader = new CSVReader(new FileReader(filePath, StandardCharsets.UTF_8));
             List<String[]> allData = reader.readAll();
             DataSource<UserList> userData = new UserListDataSource("data", "user.csv");
             UserList userList = userData.readData();
@@ -90,7 +91,10 @@ public class ComplaintListDataSource implements DataSource<ComplaintList>{
         String filePath = directoryName + File.separator + fileName;
         CSVWriter writer = null;
         try {
-            writer = new CSVWriter(new FileWriter(filePath));
+            FileOutputStream fos = new FileOutputStream(filePath);
+            OutputStreamWriter osw = new OutputStreamWriter(fos, StandardCharsets.UTF_8);
+            writer = new CSVWriter(osw);
+
             for(Complaint complaint : complaintList.getComplaintList()){
                 String[] row = complaint.toStringArray();
                 writer.writeNext(row);

@@ -8,14 +8,14 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="200.0" minWidth="300.0" styleClass="dialog-box" stylesheets="@../css/dialog.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ku.cs.controllers.ReportDialogController">
+<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="200.0" minWidth="300.0" spacing="10.0" styleClass="dialog-box" stylesheets="@../css/dialog.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ku.cs.controllers.ReportDialogController">
    <children>
       <Label text="รายงาน" />
       <VBox spacing="10.0">
          <children>
             <Label text="รูปแบบการรายงาน" />
-            <CheckBox mnemonicParsing="false" text="เรื่องร้องเรียน" />
-            <CheckBox mnemonicParsing="false" text="ผู้ใช้" />
+            <CheckBox fx:id="isComplaint" mnemonicParsing="false" onAction="#handleSelectComplaint" text="เรื่องร้องเรียน" />
+            <CheckBox fx:id="isUser" mnemonicParsing="false" onAction="#handleSelectUser" text="ผู้ใช้" />
             <Label text="ประเภท" />
             <VBox fx:id="typeContainer" />
             <TextArea fx:id="detailTextArea" prefHeight="200.0" prefWidth="200.0" />

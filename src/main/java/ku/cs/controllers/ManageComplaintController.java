@@ -9,21 +9,21 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
-import ku.cs.models.Complaint;
-import ku.cs.models.ComplaintList;
-import ku.cs.models.User;
+import javafx.scene.layout.VBox;
+import ku.cs.models.*;
 import ku.cs.services.ComplaintListDataSource;
 import ku.cs.services.DataSource;
 
 import java.io.IOException;
 
 public class ManageComplaintController {
-    User user;
+    private User user;
 
     @FXML
     private TableView<Complaint> complaintTable;
@@ -42,8 +42,10 @@ public class ManageComplaintController {
     @FXML
     private TableColumn<Complaint, String> status;
 
-    DataSource<ComplaintList> data;
-    ComplaintList complaintList;
+    @FXML private VBox agencyDetail;
+
+    private DataSource<ComplaintList> data;
+    private ComplaintList complaintList;
 
     public void initData(User user) {
         this.user = user;
@@ -52,6 +54,7 @@ public class ManageComplaintController {
 
         initColumn();
         loadData();
+        showAgencyDetail();
     }
 
     private void initColumn(){
@@ -68,7 +71,21 @@ public class ManageComplaintController {
     }
     private void loadData() {
         ObservableList<Complaint> dataTable = FXCollections.observableArrayList();
-        dataTable.addAll(complaintList.getComplaintList());
+        ComplaintList filteredComplaintList = complaintList.filterBy(new Filterer<Complaint>() {
+            @Override
+            public boolean filter(Complaint o) {
+                // admin can view every complaint
+                if (user.getRole() == Role.ADMIN) return true;
+                if (user.getAgency() == null) return false;
+                return user
+                        .getAgency()
+                        .getManagedCategoryName()
+                        .contains(o.getComplaintCategoryName());
+            }
+        });
+
+
+        dataTable.addAll(filteredComplaintList.getComplaintList());
 //            for (Complaint complaint : complaintList.getComplaintList()) {
 //                dataTable.add(complaint);
 //            }
@@ -102,6 +119,19 @@ public class ManageComplaintController {
                 getChildren().get(0);
         borderPane.setCenter(pane);
 
+    }
+
+    private void showAgencyDetail() {
+        if (user.getAgency() == null) {
+            return;
+        }
+        agencyDetail.setSpacing(10);
+        agencyDetail.getChildren().add(new Label("หน่วยงาน : " + user.getAgency().getName()));
+        agencyDetail.getChildren().add(new Label("หมวดหมู่เรื่องร้องเรียนที่ดูแล"));
+        for (ComplaintCategory category : user.getAgency().getManagedCategory()) {
+            agencyDetail.getChildren().add(new Label(" - " + category.getName()));
+
+        }
     }
 
     @FXML

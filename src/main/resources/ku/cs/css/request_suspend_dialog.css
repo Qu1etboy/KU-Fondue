@@ -1,0 +1,47 @@
+.button {
+    -fx-background-color: #00ADB5;
+    -fx-cursor: hand;
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+    -fx-width: 50px;
+}
+
+.button:hover {
+    -fx-background-color: rgba(0, 173, 181, 0.8);
+}
+
+/* text field */
+.text-field {
+    -fx-background-color: -fx-text-box-border, -fx-background;
+    -fx-background-radius: 0;
+    -fx-prompt-text-fill: derive(-fx-control-inner-background, -30%);
+    -fx-text-fill: black;
+}
+
+.text-field:focused {
+    /*-fx-background-color: black, -secondary-background-200;*/
+    -fx-effect: dropshadow( three-pass-box, black , 5 , 0, 0, 0);
+    -fx-prompt-text-fill: derive(-fx-control-inner-background, -30%);
+}
+
+.text-area {
+    -fx-text-fill: black;
+}
+
+.text-area .content {
+    -fx-background-color: -fx-background;
+}
+
+.text-area:focused {
+    -fx-background-color: transparent, -fx-background;
+    -fx-effect: dropshadow( three-pass-box, black , 5 , 0, 0, 0);
+    -fx-prompt-text-fill: derive(-fx-control-inner-background, -30%);
+}
+
+.label {
+    -fx-font-size: 16px;
+}
+
+.title {
+    -fx-font-size: 24px;
+}

@@ -7,6 +7,7 @@ import javafx.scene.image.Image;
 import ku.cs.models.*;
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
@@ -48,7 +49,7 @@ public class UserListDataSource implements DataSource<UserList> {
         UserList userList = new UserList();
         String filePath = directoryName + File.separator + fileName;
         try {
-            CSVReader reader = new CSVReader(new FileReader(filePath));
+            CSVReader reader = new CSVReader(new FileReader(filePath, StandardCharsets.UTF_8));
 
             List<String[]> allData = reader.readAll();
             DataSource<AgencyList> agencyData = new AgencyListDataSource("data", "agency.csv");
@@ -88,7 +89,10 @@ public class UserListDataSource implements DataSource<UserList> {
         String filePath = directoryName + File.separator + fileName;
         CSVWriter writer = null;
         try {
-            writer = new CSVWriter(new FileWriter(filePath));
+            FileOutputStream fos = new FileOutputStream(filePath);
+            OutputStreamWriter osw = new OutputStreamWriter(fos, StandardCharsets.UTF_8);
+            writer = new CSVWriter(osw);
+
             for (User user : userList.getUserList()) {
                 String[] row = user.toStringArray();
                 writer.writeNext(row);

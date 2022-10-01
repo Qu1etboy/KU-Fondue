@@ -50,6 +50,20 @@ public class Sorter {
         }
     }
 
+    public void sortByLow(UserList userList, Comparator comparator)  {
+        for (int i = 0; i < userList.getUserList().size(); i++) {
+            int minimum = i;
+            for (int j = i + 1; j < userList.getUserList().size(); j++) {
+                if (comparator.compare(userList.getUserList().get(j), userList.getUserList().get(minimum)) > 0) {
+                    minimum = j;
+                }
+            }
+            User temp = userList.getUserList().get(i);
+            userList.getUserList().set(i, userList.getUserList().get(minimum));
+            userList.getUserList().set(minimum, temp);
+        }
+    }
+
     public void sortByLow(ComplaintList complaintList, Comparator comparator)  {
         for (int i = 0; i < complaintList.getComplaintList().size(); i++) {
             int maximum = i;

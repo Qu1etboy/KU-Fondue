@@ -25,11 +25,16 @@
                   <VBox fx:id="contentContainer" />
                   <HBox alignment="CENTER_LEFT" spacing="10.0" style="-fx-border-color: -primary-text-color; -fx-border-width: 1 0 0 0;">
                      <children>
-                        <Button fx:id="voteButton" mnemonicParsing="false" onAction="#handleVoteButton" styleClass="transparent-button" text="โหวต">
-                           <graphic>
-                              <FontAwesomeIconView glyphName="THUMBS_UP" />
-                           </graphic></Button>
-                        <Label fx:id="voteLabel" text="0" />
+                        <HBox alignment="CENTER" styleClass="vote">
+                           <children>
+                              <Button fx:id="voteButton" mnemonicParsing="false" onAction="#handleVoteButton" styleClass="transparent-button" text="โหวต">
+                                 <graphic>
+                                    <FontAwesomeIconView glyphName="THUMBS_UP" />
+                                 </graphic>
+                              </Button>
+                              <Label fx:id="voteLabel" text="0" />
+                           </children>
+                        </HBox>
                         <Button mnemonicParsing="false" onAction="#handleReportButton" styleClass="transparent-button" text="รายงาน">
                            <graphic>
                               <FontAwesomeIconView glyphName="EXCLAMATION_TRIANGLE" />
@@ -49,7 +54,7 @@
                         </VBox>
                         <VBox fx:id="replyContent" visible="false">
                            <children>
-                              <Label fx:id="agencyNameLabel" text="Label" />
+                              <HBox fx:id="nameLabel" spacing="10.0" />
                               <Label fx:id="answerTeacherLabel" text="Label" wrapText="true">
                                  <padding>
                                     <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />

@@ -16,19 +16,20 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
-import ku.cs.models.Agency;
-import ku.cs.models.User;
-import ku.cs.models.UserList;
+import javafx.scene.shape.Circle;
+import ku.cs.models.*;
 import ku.cs.services.DataSource;
 import ku.cs.services.UserListDataSource;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.ResourceBundle;
 
 public class ShowUserDetailController implements Initializable {
 
-    User user;
+    private User user;
     @FXML
     private TableView<User> userTable;
     @FXML
@@ -60,20 +61,30 @@ public class ShowUserDetailController implements Initializable {
     private void initColumn(){
 
         profileImage.setCellValueFactory(new PropertyValueFactory<>("profileImageView"));
+
+
         name.setCellValueFactory(new PropertyValueFactory<>("username"));
 //        category.setCellValueFactory(cellData ->
 //                new SimpleStringProperty(cellData.getValue().getComplaintCategory().getName()));
         agency.setCellValueFactory(cellData -> {
             Agency agency = cellData.getValue().getAgency();
-            return new SimpleStringProperty(agency == null ? "null" : agency.getName());
+            return new SimpleStringProperty(agency == null ? "ไม่มี" : agency.getName());
         });
         role.setCellValueFactory(new PropertyValueFactory<>("role"));
         lastOnline.setCellValueFactory(new PropertyValueFactory<>("lastOnline"));
     }
     private void loadData() {
         ObservableList<User> dataTable = FXCollections.observableArrayList();
-        dataTable.addAll(userList.getUserList());
 
+        Sorter sorter = new Sorter();
+        sorter.sortByLow(userList, new Comparator<User>() {
+            @Override
+            public int compare(User o1, User o2) {
+                return o1.getDate().compareTo(o2.getDate());
+            }
+        });
+
+        dataTable.addAll(userList.getUserList());
 
         userTable.setItems(dataTable);
 

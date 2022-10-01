@@ -85,7 +85,7 @@ public class ComplaintCategoryDetailController {
 
     }
 
-    public void showComplaintCategoryDetail(ComplaintCategory complaintCategory) {
+    private void showComplaintCategoryDetail(ComplaintCategory complaintCategory) {
         defaultContent.setVisible(false);
         detailContent.setVisible(true);
 
@@ -103,7 +103,7 @@ public class ComplaintCategoryDetailController {
         categoryNameLabel.setText(complaintCategory.getName());
     }
 
-    public void showAttributeDetail(CategoryAttribute attribute) {
+    private void showAttributeDetail(CategoryAttribute attribute) {
         if (attribute == null) {
             return;
         }
@@ -161,20 +161,20 @@ public class ComplaintCategoryDetailController {
 
     }
 
-    public void showCategoryListView(ComplaintCategoryList complaintCategoryList) {
+    private void showCategoryListView(ComplaintCategoryList complaintCategoryList) {
         complaintCategoryListView.getItems().setAll(complaintCategoryList.getComplaintCategoryList());
     }
 
-    public void showAttributeListView(ComplaintCategory complaintCategory) {
+    private void showAttributeListView(ComplaintCategory complaintCategory) {
         attributeListView.getItems().setAll(complaintCategory.getCategoryAttributeList());
     }
 
-    public void showChoiceListView(CategoryAttribute categoryAttribute) {
+    private void showChoiceListView(CategoryAttribute categoryAttribute) {
         choiceListView.getItems().setAll(categoryAttribute.getInputData());
     }
 
     @FXML
-    public void handleAddComplaintCategory(ActionEvent actionEvent) throws IOException {
+    private void handleAddComplaintCategory(ActionEvent actionEvent) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/ku/cs/view/complaintCategory/addCategoryDialog.fxml"));
         Parent root = loader.load();
 
@@ -190,7 +190,7 @@ public class ComplaintCategoryDetailController {
     }
 
     @FXML
-    public void handleAddAttribute(ActionEvent actionEvent) throws IOException {
+    private void handleAddAttribute(ActionEvent actionEvent) throws IOException {
 
         if (complaintCategory == null) {
             return;
@@ -210,7 +210,7 @@ public class ComplaintCategoryDetailController {
 
     }
 
-    public void handleAddChoice(ActionEvent actionEvent) throws IOException{
+    private void handleAddChoice(ActionEvent actionEvent) throws IOException{
 
         if (categoryAttribute == null) {
             return;
@@ -232,9 +232,10 @@ public class ComplaintCategoryDetailController {
     }
 
     @FXML
-    public void handleChangeCategoryName(ActionEvent actionEvent) throws IOException {
+    private void handleChangeCategoryName(ActionEvent actionEvent) throws IOException {
 
         if (complaintCategory == null) {
+            alert("กรุณาเลือกหมวดหมู่");
             return;
         }
 
@@ -255,9 +256,10 @@ public class ComplaintCategoryDetailController {
     }
 
     @FXML
-    public void handleChangeAttribute(ActionEvent actionEvent) throws IOException {
+    private void handleChangeAttribute(ActionEvent actionEvent) throws IOException {
 
         if (categoryAttribute == null) {
+            alert("กรุณาเลือกคุณลักษณะ");
             return;
         }
 
@@ -276,9 +278,10 @@ public class ComplaintCategoryDetailController {
 
     }
 
-    public void handleChangeChoiceName(ActionEvent actionEvent) throws IOException {
+    private void handleChangeChoiceName(ActionEvent actionEvent) throws IOException {
 
         if (choiceName == null) {
+            alert("กรุณาเลือกตัวเลือก");
             return;
         }
 
@@ -298,7 +301,7 @@ public class ComplaintCategoryDetailController {
     }
 
     @FXML
-    public void handleRemoveComplaintCategory(ActionEvent actionEvent) throws IOException {
+    private void handleRemoveComplaintCategory(ActionEvent actionEvent) throws IOException {
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/ku/cs/view/confirmationDialog.fxml"));
         Parent root = loader.load();
@@ -323,9 +326,9 @@ public class ComplaintCategoryDetailController {
     }
 
     @FXML
-    public void handleRemoveAttribute(ActionEvent actionEvent) throws IOException {
+    private void handleRemoveAttribute(ActionEvent actionEvent) throws IOException {
         if (categoryAttribute == null) {
-            alert();
+            alert("กรุณาเลือกคุณลักษณะ");
             return;
         }
 
@@ -347,9 +350,9 @@ public class ComplaintCategoryDetailController {
 
     }
 
-    public void handleRemoveChoice(ActionEvent actionEvent) {
+    private void handleRemoveChoice(ActionEvent actionEvent) {
         if (choiceName == null) {
-            alert();
+            alert("กรุณาเลือกตัวเลือก");
             return;
         }
 
@@ -376,7 +379,7 @@ public class ComplaintCategoryDetailController {
     }
 
     @FXML
-    public void handleBackButton(ActionEvent actionEvent) throws IOException {
+    private void handleBackButton(ActionEvent actionEvent) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/ku/cs/view/dashboard.fxml"));
         BorderPane borderPane = (BorderPane) ((StackPane) ((Node) actionEvent.getSource()).getScene().getRoot()).
                 getChildren().get(0);
@@ -387,7 +390,7 @@ public class ComplaintCategoryDetailController {
         borderPane.setCenter(pane);
     }
 
-    public void initDialogBox(ActionEvent actionEvent, Parent root) {
+    private void initDialogBox(ActionEvent actionEvent, Parent root) {
 
         Scene scene = new Scene(root);
 
@@ -443,9 +446,9 @@ public class ComplaintCategoryDetailController {
 
     }
 
-    public void alert() {
+    private void alert(String text) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setContentText("กรุณาเลือกสิ่งท่านต้องการจะลบ");
+        alert.setContentText(text);
         alert.show();
     }
 }

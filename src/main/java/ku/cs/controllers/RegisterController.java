@@ -72,7 +72,7 @@ public class RegisterController {
         box.setPrefHeight(50);
         box.setMaxWidth(200);
         box.setPadding(new Insets(3, 10, 3, 10));
-        box.getStyleClass().add("file-box");
+        box.getStyleClass().add("border-box");
         box.setAlignment(Pos.CENTER);
         box.setSpacing(10);
 

@@ -2,6 +2,7 @@ package ku.cs.models;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.shape.Circle;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
@@ -146,6 +147,10 @@ public class User {
     public void setSuspend(boolean isSuspend) {
         this.isSuspend = isSuspend;
     }
+
+    public LocalDateTime getDate() {
+        return lastOnline;
+    }
     public void setLastOnline(LocalDateTime date) {
         this.lastOnline = date;
     }
@@ -201,5 +206,15 @@ public class User {
     @Override
     public int hashCode() {
         return super.hashCode();
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "username='" + username + '\'' +
+                ", role=" + role +
+                ", agency=" + agency +
+                ", isSuspend=" + isSuspend +
+                '}';
     }
 }

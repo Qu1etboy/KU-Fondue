@@ -100,6 +100,10 @@ public class Complaint {
         return id;
     }
 
+    public User getUser() {
+        return user;
+    }
+
     public String getTopic() {
         return topic;
     }
@@ -210,5 +214,26 @@ public class Complaint {
                 ", complaintCategoryName='" + complaintCategoryName + '\'' +
                 ", status='" + status + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+
+        /* Check if o is an instance of Complex or not
+          "null instanceof [type]" also returns false */
+        if (!(obj instanceof Complaint)) {
+            return false;
+        }
+
+        Complaint c = (Complaint) obj;
+        return id.equals(c.getId());
+    }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode();
     }
 }

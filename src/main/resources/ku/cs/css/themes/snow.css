@@ -1,13 +1,13 @@
 .root {
     -primary-background-color: #ffffff;
-    -primary-background-200: #ffffff;
+    -primary-background-200: #f2f3f5;
     -primary-background-300: #ffffff;
     -secondary-background-100: #f2f3f5;
     -secondary-background-200: #e1e5e8;
     -primary-text-color: black;
     -primary-text-color-hover: #0D7377;
     -primary-button-color: #5765f2;
-    -primary-button-color-hover: #4d62ac;
+    -primary-button-color-hover: #4652c4;
     -gradient-title-color-start: #134E5E;
     -gradient-title-color-end: #71B280;
 }

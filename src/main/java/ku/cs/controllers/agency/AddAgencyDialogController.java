@@ -20,13 +20,13 @@ public class AddAgencyDialogController {
     }
 
     @FXML
-    public void handleCancelButton(ActionEvent actionEvent) {
+    private void handleCancelButton(ActionEvent actionEvent) {
         Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         stage.close();
     }
 
     @FXML
-    public void handleDoneButton(ActionEvent actionEvent) {
+    private void handleDoneButton(ActionEvent actionEvent) {
         Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         String agencyName = agencyNameTextField.getText();
 

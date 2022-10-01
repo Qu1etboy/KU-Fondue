@@ -47,7 +47,12 @@ public class Agency {
     public List<ComplaintCategory> getManagedCategory() {
         return managedCategory;
     }
-
+    public List<String> getManagedCategoryName() {
+        return managedCategory
+                .stream()
+                .map(c -> c.getName())
+                .collect(Collectors.toList());
+    }
     @Override
     public String toString() {
         return name;

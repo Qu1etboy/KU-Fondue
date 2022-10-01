@@ -23,7 +23,7 @@ import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
 
 public class TeacherRegisterController extends RegisterController {
-    @FXML private User user;
+    private User user;
     @FXML private ComboBox<Agency> agencySelector;
     @FXML private Agency agency;
 
@@ -40,7 +40,7 @@ public class TeacherRegisterController extends RegisterController {
         userList = data.readData();
     }
 
-    public void handleSelectAgency() {
+    private void handleSelectAgency() {
         agency = agencySelector.getSelectionModel().getSelectedItem();
     }
 
@@ -67,6 +67,13 @@ public class TeacherRegisterController extends RegisterController {
         confirmPassword = confirmPasswordTextField.getText();
 
         if (!isValid()) {
+            return;
+        }
+
+        if (agencySelector.getValue() == null) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText("กรุณาเลือกหน่วยงาน");
+            alert.show();
             return;
         }
 

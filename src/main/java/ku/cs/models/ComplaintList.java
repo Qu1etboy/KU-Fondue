@@ -35,7 +35,22 @@ public class ComplaintList {
         return filteredCategory;
     }
 
+    public Complaint findComplaintById(String id) {
+        for (Complaint complaint : complaintList) {
+            if (complaint.getId().equals(id)) {
+                return complaint;
+            }
+        }
 
+        return null;
+    }
+
+    public void removeComplaint(Complaint complaint) {
+        complaintList = complaintList
+                .stream()
+                .filter(c -> !c.getId().equals(complaint.getId()))
+                .collect(Collectors.toList());
+    }
 
     public int countCategory(ComplaintCategory complaintCategory) {
         return complaintList

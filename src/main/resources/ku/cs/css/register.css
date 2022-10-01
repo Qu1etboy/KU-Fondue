@@ -42,7 +42,7 @@
     -fx-font-size: 16;
 }
 
-.file-box {
+.border-box {
     -fx-border-color: gray;
     -fx-border-radius: 5px;
 }
