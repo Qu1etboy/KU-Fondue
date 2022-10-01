@@ -197,6 +197,14 @@ public class ReportController {
 
     @FXML
     private void handleSuspendUser(ActionEvent actionEvent) throws IOException {
+        Report report = userTable.getSelectionModel().getSelectedItem();
+
+        if (report == null) {
+            return;
+        }
+
+        User user = userTable.getSelectionModel().getSelectedItem().getUser();
+
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/ku/cs/view/confirmationDialog.fxml"));
         Parent root = loader.load();
 
@@ -206,9 +214,6 @@ public class ReportController {
         initDialogBox(actionEvent, root);
 
         if (!controller.getConfirm()) return;
-
-        Report report = userTable.getSelectionModel().getSelectedItem();
-        User user = userTable.getSelectionModel().getSelectedItem().getUser();
 
         // set user suspend to true and remove it from report
         user.setSuspend(true);
