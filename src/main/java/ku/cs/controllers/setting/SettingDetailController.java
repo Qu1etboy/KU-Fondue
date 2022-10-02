@@ -8,8 +8,11 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import ku.cs.controllers.setting.ChangeNameController;
 import ku.cs.controllers.setting.ChangePasswordController;
@@ -19,17 +22,24 @@ import ku.cs.models.UserList;
 import ku.cs.services.DataSource;
 import ku.cs.services.UserListDataSource;
 
+import java.io.File;
 import java.io.IOException;
+import java.nio.file.FileSystems;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 import java.time.LocalDateTime;
 import java.util.Date;
 
 public class SettingDetailController {
     private User user;
     private UserList userList;
+    private Image image;
     private DataSource<UserList> data;
     private Appearance appearance;
     @FXML private Label usernameLabel;
     @FXML private Label nameLabel;
+    @FXML private ImageView profileImage;
     @FXML private ComboBox<String> themeSelector;
 
     @FXML private ComboBox<String> fontSelector;
@@ -43,6 +53,8 @@ public class SettingDetailController {
 
         data = new UserListDataSource("data", "user.csv");
         userList = data.readData();
+        // set user profile image
+        profileImage.setImage(user.getProfileImage());
 
         appearance = new Appearance();
         themeSelector.getItems().addAll(appearance.getAllTheme());
@@ -127,8 +139,34 @@ public class SettingDetailController {
         changeNameController.initData(user);
         borderPane.setCenter(pane);
     }
-    @FXML private void handleChangeProfile (){
+    @FXML private void handleChangeProfile (ActionEvent actionEvent) {
+        FileChooser chooser = new FileChooser();
+        chooser.setTitle("Choose profile image");
+        chooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif"));
+        File file = chooser.showOpenDialog(((Node) actionEvent.getSource()).getScene().getWindow());
+        if (file != null) {
+            try {
+                // CREATE FOLDER IF NOT EXIST
+                File destDir = new File("images");
+                // RENAME FILE
+                String[] fileSplit = file.getName().split("\\.");
+                String filename = user.getId() + "."
+                        + fileSplit[fileSplit.length - 1];
+                Path target = FileSystems.getDefault().getPath(
+                        destDir.getAbsolutePath() + System.getProperty("file.separator") + filename
+                );
+                // COPY WITH FLAG REPLACE FILE IF FILE IS EXIST
+                Files.copy(file.toPath(), target, StandardCopyOption.REPLACE_EXISTING);
+                // SET NEW FILE PATH TO IMAGE
+                user.setProfileImage(new Image(target.toUri().toString()));
+                profileImage.setImage(user.getProfileImage());
+                userList.updateUser(user);
+                data.writeData(userList);
 
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
     @FXML private void handleChangePassword (ActionEvent actionEvent) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/ku/cs/view/changePasswordDialog.fxml"));
