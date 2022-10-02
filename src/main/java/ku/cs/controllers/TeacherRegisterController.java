@@ -71,9 +71,7 @@ public class TeacherRegisterController extends RegisterController {
         }
 
         if (agencySelector.getValue() == null) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setContentText("กรุณาเลือกหน่วยงาน");
-            alert.show();
+            errorMessage.setText("กรุณาเลือกหน่วยงาน");
             return;
         }
 
@@ -116,7 +114,6 @@ public class TeacherRegisterController extends RegisterController {
 
         clearTextField();
 
-        System.out.println("register Teacher successfully");
     }
 
     public void clearTextField() {
@@ -125,5 +122,6 @@ public class TeacherRegisterController extends RegisterController {
         passwordTextField.clear();
         confirmPasswordTextField.clear();
         fileContent.getChildren().clear();
+        errorMessage.setText("");
     }
 }

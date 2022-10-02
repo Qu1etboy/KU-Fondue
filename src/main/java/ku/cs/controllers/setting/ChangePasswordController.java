@@ -45,13 +45,13 @@ public class ChangePasswordController {
             alert.show();
             return;
         }
-        if (user.getUsername().equals(username)) {
+        if (!user.getUsername().equals(username)) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText("ชื่อผู้ใช้ไม่ถูกต้อง");
             alert.show();
             return;
         }
-        if (user.getPassword().equals(password)) {
+        if (!user.getPassword().equals(password)) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText("รหัสผ่านไม่ถูกต้อง");
             alert.show();

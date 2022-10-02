@@ -1,3 +1,7 @@
+.label {
+    -fx-font-size: 16px;
+}
+
 .title {
     -fx-font-size: 24px;
     -fx-font-weight: bold;
@@ -63,4 +67,14 @@
 
 .transparent-button:hover > .glyph-icon {
     -fx-fill: #5765f2;
+}
+
+.error-field {
+    -fx-border-color: red;
+    -fx-border-width: 0 0 1 0;
+    -fx-prompt-text-fill: derive(red, -30%);
+}
+
+.error-text {
+    -fx-text-fill: red;
 }

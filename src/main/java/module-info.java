@@ -2,6 +2,7 @@ module cs.ku {
     requires javafx.controls;
     requires javafx.fxml;
     requires com.opencsv;
+    requires de.jensd.fx.glyphs.fontawesome;
 
     opens ku.cs to javafx.fxml;
     exports ku.cs;

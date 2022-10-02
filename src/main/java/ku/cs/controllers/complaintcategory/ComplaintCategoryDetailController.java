@@ -1,5 +1,7 @@
 package ku.cs.controllers.complaintcategory;
 
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.animation.FadeTransition;
 import javafx.beans.value.ChangeListener;
 import javafx.event.ActionEvent;
@@ -71,7 +73,7 @@ public class ComplaintCategoryDetailController {
         );
         attributeListView.getSelectionModel().selectedItemProperty()
                 .addListener((obs, attribute, newAttribute) -> showAttributeDetail(newAttribute));
-        attributeDetailContainer.setSpacing(5);
+        attributeDetailContainer.setSpacing(10);
 
         choiceListView = new ListView<>();
         choiceListView.setPrefHeight(200);
@@ -93,9 +95,10 @@ public class ComplaintCategoryDetailController {
             return;
         }
 
-        System.out.println(complaintCategory.getName() + " is selected");
+        // System.out.println(complaintCategory.getName() + " is selected");
 
         this.complaintCategory = complaintCategory;
+        categoryAttribute = null;
 
         attributeDetailContainer.getChildren().clear();
         attributeListView.getItems().clear();
@@ -128,8 +131,14 @@ public class ComplaintCategoryDetailController {
             }
             attributeDetailContainer.getChildren().add(choiceListView);
             Button addChoice = new Button("เพิ่มตัวเลือก");
+            addChoice.setGraphic(new FontAwesomeIconView(FontAwesomeIcon.PLUS));
+            addChoice.setWrapText(true);
             Button removeChoice = new Button("ลบตัวเลือก");
+            removeChoice.setGraphic(new FontAwesomeIconView(FontAwesomeIcon.TRASH_ALT));
+            removeChoice.setWrapText(true);
             Button changeChoiceName = new Button("เปลี่ยนชื่อตัวเลือก");
+            changeChoiceName.setGraphic(new FontAwesomeIconView(FontAwesomeIcon.PENCIL));
+            changeChoiceName.setWrapText(true);
 
             removeChoice.getStyleClass().add("danger-button");
 
@@ -275,6 +284,7 @@ public class ComplaintCategoryDetailController {
         attributeData.writeData(categoryAttributeList);
 
         showAttributeListView(complaintCategory);
+        showAttributeDetail(categoryAttribute);
 
     }
 
@@ -297,6 +307,7 @@ public class ComplaintCategoryDetailController {
         attributeData.writeData(categoryAttributeList);
 
         showChoiceListView(categoryAttribute);
+
 
     }
 
@@ -322,6 +333,9 @@ public class ComplaintCategoryDetailController {
 
         detailContent.setVisible(false);
         defaultContent.setVisible(true);
+
+        complaintCategory = null;
+        categoryAttribute = null;
 
     }
 

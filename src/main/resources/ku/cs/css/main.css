@@ -3,9 +3,9 @@
     -fx-font-size: 1em;
 }
 
-.glyph-icon:hover {
-    -fx-fill: -primary-text-color-hover;
-}
+/*.glyph-icon:hover {*/
+/*    -fx-fill: -primary-text-color-hover;*/
+/*}*/
 
 .glyph-icon {
     -fx-fill: -primary-text-color;
@@ -37,8 +37,9 @@
 /* text field */
 .text-field {
     -fx-background-color: -fx-text-box-border, -secondary-background-200;
+    -fx-background-radius: 5px;
     -fx-background-insets: 0, 0 0 0 0;
-    -fx-background-radius: 0;
+    -fx-border-radius: 5px;
     -fx-prompt-text-fill: derive(-primary-text-color, -30%);
     -fx-text-fill: -primary-text-color;
 }
@@ -373,4 +374,13 @@
 .border-box {
     -fx-border-color: gray;
     -fx-border-radius: 5px;
+}
+
+.error-field {
+    -fx-border-color: red;
+    -fx-prompt-text-fill: derive(red, -30%);
+}
+
+.error-text {
+    -fx-text-fill: red;
 }
