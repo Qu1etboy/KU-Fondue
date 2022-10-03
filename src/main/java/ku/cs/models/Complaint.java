@@ -134,7 +134,7 @@ public class Complaint {
         if (status.equals("report")) {
             return "รอรับเรื่อง";
         } else if (status.equals("In Progress")) {
-            return "รอดําเนินการ";
+            return "ดําเนินการ";
         }
 
         return "เสร็จสิ้น";

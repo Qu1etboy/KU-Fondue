@@ -1,5 +1,10 @@
 package ku.cs.controllers;
 
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
+import javafx.animation.FadeTransition;
+import javafx.animation.ParallelTransition;
+import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
@@ -12,6 +17,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
+import javafx.util.Duration;
 import ku.cs.datastructure.ListMap;
 import ku.cs.datastructure.Pair;
 import ku.cs.models.*;
@@ -90,7 +96,10 @@ public class HomeDetailController {
 
         String[] fileSplit = file.toURI().toString().split("/");
 
-        HBox box = new HBox(new Label(fileSplit[fileSplit.length - 1]));
+        HBox box = new HBox();
+
+        box.getChildren().add(new FontAwesomeIconView(FontAwesomeIcon.FILE_IMAGE_ALT));
+        box.getChildren().add(new Label(fileSplit[fileSplit.length - 1]));
         box.setPrefWidth(Region.USE_COMPUTED_SIZE);
         box.setPrefHeight(50);
         box.setMaxWidth(200);
@@ -145,6 +154,7 @@ public class HomeDetailController {
                 flowPane.setHgap(10);
                 flowPane.setVgap(10);
                 Button button = new Button("Upload Image");
+                button.setGraphic(new FontAwesomeIconView(FontAwesomeIcon.UPLOAD));
                 button.setOnAction(e -> handleUploadImageButton(e, flowPane));
                 VBox vBox = new VBox(flowPane, button);
                 vBox.setSpacing(10);
@@ -158,8 +168,25 @@ public class HomeDetailController {
         formContainer.getChildren().add(detailTextArea);
 
         Button sendButton = new Button("Send");
+        sendButton.setGraphic(new FontAwesomeIconView(FontAwesomeIcon.PAPER_PLANE));
         sendButton.setOnAction(e->handleSendButton());
         formContainer.getChildren().add(sendButton);
+
+        FadeTransition fade = new FadeTransition();
+        fade.setNode(formContainer);
+        fade.setDuration(Duration.millis(1000));
+        fade.setFromValue(0);
+        fade.setToValue(1);
+
+        TranslateTransition transition = new TranslateTransition();
+        transition.setNode(formContainer);
+        transition.setFromY(50);
+        transition.setToY(0);
+        transition.setDuration(Duration.millis(1000));
+
+        ParallelTransition pt = new ParallelTransition(transition, fade);
+
+        pt.play();
     }
 
     public void handleSendButton() {

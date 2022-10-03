@@ -226,9 +226,9 @@ public class SettingDetailController {
 
     @FXML
     private void handleLogOutButton(ActionEvent actionEvent) throws IOException {
-        user.setLastOnline(LocalDateTime.now());
-        userList.updateUser(user);
-        data.writeData(userList);
+//        user.setLastOnline(LocalDateTime.now());
+//        userList.updateUser(user);
+//        data.writeData(userList);
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/ku/cs/view/login.fxml"));
         Scene scene = new Scene(loader.load());

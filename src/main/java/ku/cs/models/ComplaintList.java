@@ -6,9 +6,15 @@ import java.util.stream.Collectors;
 
 public class ComplaintList {
     private List<Complaint> complaintList;
+    private int reportCount;
+    private int inProgressCount;
+    private int doneCount;
 
     public ComplaintList() {
         complaintList = new ArrayList<>();
+        reportCount = 0;
+        inProgressCount = 0;
+        doneCount = 0;
 
     }
     public List<Complaint> getComplaintList(){
@@ -58,6 +64,33 @@ public class ComplaintList {
                 .filter(c -> c.getComplaintCategoryName().equals(complaintCategory.getName()))
                 .toList()
                 .size();
+    }
+
+    private void countStatus() {
+        for (Complaint complaint : complaintList) {
+            if (complaint.getStatus().equals("รอรับเรื่อง")) {
+                reportCount++;
+            } else if (complaint.getStatus().equals("ดําเนินการ")) {
+                inProgressCount++;
+            } else {
+                doneCount++;
+            }
+        }
+    }
+
+    public int getReportCount() {
+        countStatus();
+        return reportCount;
+    }
+
+    public int getInProgressCount() {
+        countStatus();
+        return inProgressCount;
+    }
+
+    public int getDoneCount() {
+        countStatus();
+        return doneCount;
     }
 
 }

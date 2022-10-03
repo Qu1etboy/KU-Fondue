@@ -7,6 +7,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -18,10 +19,14 @@ import ku.cs.services.SuspendUserListDataSource;
 import ku.cs.services.UserListDataSource;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
+
+import ku.cs.animatefx.animation.Shake;
 
 public class LoginController {
     @FXML private TextField usernameTextField;
     @FXML private TextField passwordTextField;
+    @FXML private Label errorMessage;
     private UserList userList;
     private DataSource<UserList> data;
     private SuspendUserList suspendUserList;
@@ -51,22 +56,32 @@ public class LoginController {
 
         User user = userList.findUserByUsername(username);
 
+        usernameTextField.getStyleClass().remove("error-field");
+        passwordTextField.getStyleClass().remove("error-field");
+
         if (username.isEmpty() || password.isEmpty()) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setContentText("กรุณากรอกรายละเอียดให้ครบ");
-            alert.show();
+            if (username.isEmpty()) {
+                usernameTextField.getStyleClass().add("error-field");
+                new Shake(usernameTextField).play();
+            }
+            if (password.isEmpty()) {
+                passwordTextField.getStyleClass().add("error-field");
+                new Shake(passwordTextField).play();
+            }
+            errorMessage.setText("กรุณากรอกรายละเอียดให้ครบ");
+
             return;
         }
         if (user == null) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setContentText("ไม่พบผู้ใช้ในระบบ");
-            alert.show();
+            usernameTextField.getStyleClass().add("error-field");
+            new Shake(usernameTextField).play();
+            errorMessage.setText("ไม่พบผู้ใช้ในระบบ");
             return;
         }
         if (!user.getPassword().equals(password)) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setContentText("รหัสผ่านไม่ถูกต้อง");
-            alert.show();
+            passwordTextField.getStyleClass().add("error-field");
+            new Shake(passwordTextField).play();
+            errorMessage.setText("รหัสผ่านไม่ถูกต้อง");
             return;
         }
         if (user.isSuspend()) {
@@ -101,6 +116,10 @@ public class LoginController {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/ku/cs/view/main-application.fxml"));
         Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         Scene scene = new Scene(loader.load(), 900, 600);
+
+        user.setLoginTime(LocalDateTime.now());
+        userList.updateUser(user);
+        data.writeData(userList);
 
         MainApplicationController mainApplicationController = loader.getController();
         mainApplicationController.initData(user);

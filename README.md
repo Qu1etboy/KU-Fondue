@@ -74,6 +74,7 @@ src/main
 ## Library used
 - FontawesomeFX
 - OpenCSV
+- AnimateFX
 
 ## Installation
 
