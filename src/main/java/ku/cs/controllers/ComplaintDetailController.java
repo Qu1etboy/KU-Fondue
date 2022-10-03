@@ -24,6 +24,7 @@ import javafx.scene.layout.StackPane;
 
 import javafx.scene.layout.VBox;
 
+import ku.cs.datastructure.ListMap;
 import ku.cs.models.*;
 import ku.cs.services.ComplaintCategoryListDataSource;
 import ku.cs.services.ComplaintListDataSource;
@@ -31,6 +32,8 @@ import ku.cs.services.DataSource;
 
 import java.io.IOException;
 import java.net.URL;
+import java.security.Key;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -84,6 +87,7 @@ public class ComplaintDetailController implements Initializable {
     private TextField atLeastTextField;
     @FXML
     private TextField atMostTextField;
+    @FXML private TextField wordTextField;
 
     private ComplaintList complaintList;
     private DataSource<ComplaintList> data;
@@ -95,6 +99,8 @@ public class ComplaintDetailController implements Initializable {
     @FXML private Label doneCount;
     @FXML private VBox barChartContainer;
     @FXML private ComboBox<String> statusSelector;
+    @FXML private DatePicker fromDate;
+    @FXML private DatePicker toDate;
     private BarChart<Number, String> complaintBarChart;
 
     private DataSource<ComplaintList> complaintData;
@@ -180,6 +186,7 @@ public class ComplaintDetailController implements Initializable {
         });
 
     }
+
     private void initColumn(){
 
         //number.setCellValueFactory(new PropertyValueFactory<>("number"));
@@ -241,20 +248,9 @@ public class ComplaintDetailController implements Initializable {
     }
 
     public void setStatusCount() {
-        int report = 0, inProgress = 0, done = 0;
-        for (Complaint complaint : complaintList.getComplaintList()) {
-            if (complaint.getStatus().equals("รอรับเรื่อง")) {
-                report++;
-            } else if (complaint.getStatus().equals("ดําเนินการ")) {
-                inProgress++;
-            } else {
-                done++;
-            }
-        }
-
-        reportCount.setText(Integer.toString(report));
-        inProgressCount.setText(Integer.toString(inProgress));
-        doneCount.setText(Integer.toString(done));
+        reportCount.setText(Integer.toString(complaintList.getReportCount()));
+        inProgressCount.setText(Integer.toString(complaintList.getInProgressCount()));
+        doneCount.setText(Integer.toString(complaintList.getDoneCount()));
     }
 
     @FXML
@@ -313,6 +309,7 @@ public class ComplaintDetailController implements Initializable {
     }
 
     private void filter() {
+        // filter by status
         ComplaintList filteredComplaintList = complaintList.filterBy(new Filterer<Complaint>() {
             @Override
             public boolean filter(Complaint o) {
@@ -321,6 +318,7 @@ public class ComplaintDetailController implements Initializable {
             }
         });
 
+        // filter by category
         filteredComplaintList = filteredComplaintList.filterBy(new Filterer<Complaint>() {
             @Override
             public boolean filter(Complaint o) {
@@ -329,6 +327,7 @@ public class ComplaintDetailController implements Initializable {
             }
         });
 
+        // filter by vote
         filteredComplaintList = filteredComplaintList.filterBy(new Filterer<Complaint>() {
             @Override
             public boolean filter(Complaint o) {
@@ -347,12 +346,47 @@ public class ComplaintDetailController implements Initializable {
             }
         });
 
+        // filter by word that contain in topic, detail, additional detail of complaint
+        filteredComplaintList = filteredComplaintList.filterBy(new Filterer<Complaint>() {
+            @Override
+            public boolean filter(Complaint o) {
+                String word = wordTextField.getText();
+                if (word.isEmpty()) return true;
+                if (o.getTopic().contains(word) || o.getDetail().contains(word)) return true;
+                boolean found = false;
+                for (String question : o.getAdditionalDetail().keyList()) {
+                    if (o.getAdditionalDetail().get(question).contains(word)) {
+                        found = true;
+                    }
+                }
+                return found;
+            }
+        });
+
+        // filter by date
+        filteredComplaintList = filteredComplaintList.filterBy(new Filterer<Complaint>() {
+            @Override
+            public boolean filter(Complaint o) {
+                if (fromDate.getValue() == null && toDate.getValue() == null) return true;
+                if (toDate.getValue() == null) {
+                    return o.getDate().toLocalDate().compareTo(fromDate.getValue()) >= 0;
+                }
+                if (fromDate.getValue() == null) {
+                    return o.getDate().toLocalDate().compareTo(toDate.getValue()) <= 0;
+                }
+                return o.getDate().toLocalDate().compareTo(fromDate.getValue()) >= 0 &&
+                        o.getDate().toLocalDate().compareTo(toDate.getValue()) <= 0;
+            }
+        });
+
+        // sort
         if (sortSelector.getValue() != null) {
             handleSort(filteredComplaintList);
         }
 
         loadData(filteredComplaintList);
     }
+
     @FXML
     public void handleClearSearchButton(ActionEvent actionEvent){
         atLeastTextField.clear();
@@ -362,7 +396,20 @@ public class ComplaintDetailController implements Initializable {
         sortSelector.setValue(null);
         categorySelector.setValue(null);
 
+        fromDate.setValue(null);
+        toDate.setValue(null);
+
         loadData(complaintList);
+    }
+
+    @FXML
+    private void handleSearch(KeyEvent keyEvent) {
+        filter();
+    }
+
+    @FXML
+    private void handleSelectDate() {
+        filter();
     }
 
     @FXML
