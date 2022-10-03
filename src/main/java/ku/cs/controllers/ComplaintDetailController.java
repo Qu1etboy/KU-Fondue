@@ -101,6 +101,7 @@ public class ComplaintDetailController implements Initializable {
     @FXML private ComboBox<String> statusSelector;
     @FXML private DatePicker fromDate;
     @FXML private DatePicker toDate;
+    @FXML private Button backButton;
     private BarChart<Number, String> complaintBarChart;
 
     private DataSource<ComplaintList> complaintData;
@@ -108,6 +109,12 @@ public class ComplaintDetailController implements Initializable {
 
     public void initData(User user) {
         this.user = user;
+
+        // student can access this page via dashboard button from sidebar so no need to go back
+        if (user.getRole() == Role.STUDENT) {
+            backButton.setVisible(false);
+        }
+
         loadMyComplaintData();
     }
 

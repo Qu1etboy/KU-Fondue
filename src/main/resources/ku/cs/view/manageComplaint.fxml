@@ -30,7 +30,6 @@
                   <Label text="รายการเรื่องร้องเรียนทั้งหมด" />
                   <TableView fx:id="complaintTable">
                      <columns>
-                        <TableColumn fx:id="number" editable="false" prefWidth="75.0" sortable="false" text="ลำดับ" />
                         <TableColumn fx:id="category" editable="false" prefWidth="165.0" sortable="false" text="หมวดหมู่" />
                         <TableColumn fx:id="topic" editable="false" prefWidth="75.0" sortable="false" text="หัวข้อ" />
                         <TableColumn fx:id="detail" editable="false" prefWidth="257.0" sortable="false" text="รายละเอียด" />

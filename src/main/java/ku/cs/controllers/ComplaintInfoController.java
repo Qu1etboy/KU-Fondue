@@ -221,6 +221,14 @@ public class ComplaintInfoController {
     }
 
     @FXML
+    private void handleCancelButton() {
+        editContent.setVisible(false);
+        defaultContent.setVisible(true);
+
+        showAnswerTeacher();
+    }
+
+    @FXML
     private void handleReportButton(ActionEvent actionEvent) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/ku/cs/view/reportDialog.fxml"));
         Parent root = loader.load();

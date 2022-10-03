@@ -71,7 +71,7 @@ public class ShowUserDetailController implements Initializable {
             return new SimpleStringProperty(agency == null ? "ไม่มี" : agency.getName());
         });
         role.setCellValueFactory(new PropertyValueFactory<>("role"));
-        lastOnline.setCellValueFactory(new PropertyValueFactory<>("lastOnline"));
+        lastOnline.setCellValueFactory(new PropertyValueFactory<>("loginTime"));
     }
     private void loadData() {
         ObservableList<User> dataTable = FXCollections.observableArrayList();

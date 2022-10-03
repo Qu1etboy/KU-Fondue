@@ -2,15 +2,11 @@ package ku.cs.models;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.shape.Circle;
 
-import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
-import java.util.Date;
 import java.util.UUID;
-import java.util.concurrent.TimeUnit;
 
 public class User {
     private final String id; // a random unique id generate with UUID
@@ -27,10 +23,10 @@ public class User {
     private ImageView profileImageView;
     private String status; // online , offline
     private boolean isSuspend;
-    private LocalDateTime lastOnline;
+    private LocalDateTime loginTime;
 
     public User(String id, String username, String name, String password, Role role, Agency agency, String theme, String font,
-                int fontSize, Image profileImage, String status, boolean isSuspend, LocalDateTime lastOnline) {
+                int fontSize, Image profileImage, String status, boolean isSuspend, LocalDateTime loginTime) {
         this.id = id;
         this.username = username;
         this.name = name;
@@ -43,7 +39,7 @@ public class User {
         this.font = font;
         this.fontSize = fontSize;
         this.isSuspend = isSuspend;
-        this.lastOnline = lastOnline;
+        this.loginTime = loginTime;
     }
 
     public User(String username, String name, String password, Role role, Agency agency) {
@@ -110,8 +106,8 @@ public class User {
     public boolean isSuspend() {
         return isSuspend;
     }
-    public String getLastOnline() {
-        return lastOnline.format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM, FormatStyle.SHORT));
+    public String getLoginTime() {
+        return loginTime.format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM, FormatStyle.SHORT));
 //        long diff = new Date().getTime() - lastOnline.getTime();
 //        return TimeUnit.SECONDS.convert(diff, TimeUnit.MILLISECONDS) + " sec";
     }
@@ -149,10 +145,10 @@ public class User {
     }
 
     public LocalDateTime getDate() {
-        return lastOnline;
+        return loginTime;
     }
-    public void setLastOnline(LocalDateTime date) {
-        this.lastOnline = date;
+    public void setLoginTime(LocalDateTime date) {
+        this.loginTime = date;
     }
 
     public Image getProfileImage() {
@@ -183,7 +179,7 @@ public class User {
                 imagePath,
                 status,
                 Boolean.toString(isSuspend),
-                lastOnline.toString()
+                loginTime.toString()
         };
     }
 

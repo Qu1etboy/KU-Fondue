@@ -23,7 +23,7 @@
                <children>
                   <HBox>
                      <children>
-                        <Button mnemonicParsing="false" onAction="#handleBackButton" styleClass="transparent-button" text="Back">
+                        <Button fx:id="backButton" mnemonicParsing="false" onAction="#handleBackButton" styleClass="transparent-button" text="Back">
                            <HBox.margin>
                               <Insets bottom="10.0" />
                            </HBox.margin>
@@ -157,7 +157,6 @@
                                  <children>
                                     <TableView fx:id="complaintTable" maxHeight="-Infinity" prefHeight="400.0">
                                        <columns>
-                                          <TableColumn fx:id="number" editable="false" prefWidth="75.0" sortable="false" text="ลำดับ" />
                                           <TableColumn fx:id="category" editable="false" prefWidth="165.0" sortable="false" text="หมวดหมู่" />
                                           <TableColumn fx:id="topic" editable="false" prefWidth="75.0" sortable="false" text="หัวข้อ" />
                                           <TableColumn fx:id="detail" editable="false" prefWidth="257.0" sortable="false" text="รายละเอียด" />

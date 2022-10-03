@@ -19,6 +19,7 @@ import ku.cs.services.SuspendUserListDataSource;
 import ku.cs.services.UserListDataSource;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 
 import ku.cs.animatefx.animation.Shake;
 
@@ -115,6 +116,10 @@ public class LoginController {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/ku/cs/view/main-application.fxml"));
         Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         Scene scene = new Scene(loader.load(), 900, 600);
+
+        user.setLoginTime(LocalDateTime.now());
+        userList.updateUser(user);
+        data.writeData(userList);
 
         MainApplicationController mainApplicationController = loader.getController();
         mainApplicationController.initData(user);
