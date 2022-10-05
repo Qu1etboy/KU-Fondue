@@ -8,6 +8,11 @@
     src: url("./downloads/Kanit-Bold.ttf");
 }
 
+@font-face {
+    font-family: "Kanit-SemiBold";
+    src: url("./downloads/Kanit-SemiBold.ttf");
+}
+
 .root {
     -fx-font-family: "Kanit";
     -fx-tick-label-font-family: "Kanit";

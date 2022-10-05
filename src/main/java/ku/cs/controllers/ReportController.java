@@ -15,11 +15,14 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -49,14 +52,12 @@ public class ReportController {
     @FXML private TableColumn<SuspendUser, ImageView> profileImage2;
     @FXML private TableColumn<SuspendUser, String> username2;
     @FXML private TableColumn<SuspendUser, String> count;
-
-    @FXML private Label usernameLabel;
     @FXML private Label reasonLabel;
     @FXML private VBox defaultContent;
     @FXML private VBox detailContent;
     @FXML private ListView<SuspendUser> suspendUserListView;
-    @FXML private ImageView profileImageView;
     @FXML private VBox requestDetail;
+    @FXML private HBox userDetailContainer;
 
     private ReportList reportList;
     private DataSource<ReportList> reportData;
@@ -163,8 +164,11 @@ public class ReportController {
     }
 
     private void showRequestDetail(SuspendUser suspendUser) {
-        profileImageView.setImage(suspendUser.getUser().getProfileImage());
-        usernameLabel.setText(suspendUser.getUser().getUsername());
+        Label usernameLabel = new Label(suspendUser.getUser().getUsername());
+
+        userDetailContainer.getChildren().add(suspendUser.getUser().getProfileImageView());
+        userDetailContainer.getChildren().add(usernameLabel);
+
         reasonLabel.setText(suspendUser.getReason());
 
         requestDetail.setVisible(true);
@@ -293,15 +297,15 @@ public class ReportController {
 
     @FXML
     private void handleApproveButton(ActionEvent actionEvent) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/ku/cs/view/confirmationDialog.fxml"));
-        Parent root = loader.load();
-
-        ConfirmationDialogController controller = loader.getController();
-        controller.initData("คุณต้องการคืนสิทธิ์การใช้งานให้กับผู้ใช้คนนี้?");
-
-        initDialogBox(actionEvent, root);
-
-        if (!controller.getConfirm()) return;
+//        FXMLLoader loader = new FXMLLoader(getClass().getResource("/ku/cs/view/confirmationDialog.fxml"));
+//        Parent root = loader.load();
+//
+//        ConfirmationDialogController controller = loader.getController();
+//        controller.initData("คุณต้องการคืนสิทธิ์การใช้งานให้กับผู้ใช้คนนี้?");
+//
+//        initDialogBox(actionEvent, root);
+//
+//        if (!controller.getConfirm()) return;
 
         SuspendUser suspendUser = suspendUserListView.getSelectionModel().getSelectedItem();
         unSuspend(suspendUser.getUser());

@@ -8,6 +8,11 @@
     src: url("./downloads/Sarabun-Bold.ttf");
 }
 
+@font-face {
+    font-family: "Sarabun-SemiBold";
+    src: url("./downloads/Sarabun-SemiBold.ttf");
+}
+
 .root {
     -fx-font-family: "Sarabun";
     -fx-tick-label-font-family: "Sarabun";

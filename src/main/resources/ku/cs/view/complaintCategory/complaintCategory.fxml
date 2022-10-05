@@ -14,95 +14,112 @@
    <children>
       <ScrollPane fitToWidth="true" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" VBox.vgrow="ALWAYS">
          <content>
-            <HBox>
+            <VBox prefHeight="200.0" prefWidth="100.0">
                <children>
-                  <VBox prefWidth="100.0" spacing="10.0" HBox.hgrow="ALWAYS">
+                  <HBox>
                      <children>
-                        <HBox>
-                           <children>
-                              <Button mnemonicParsing="false" onAction="#handleBackButton" styleClass="transparent-button" text="Back">
-                                 <graphic>
-                                    <FontAwesomeIconView glyphName="ARROW_LEFT" />
-                                 </graphic>
-                              </Button>
-                           </children>
-                        </HBox>
-                        <Label text="หมวดหมู่เรื่องร้องเรียนทั้งหมด" />
-                        <ListView fx:id="complaintCategoryListView" />
-                        <Button mnemonicParsing="false" onAction="#handleAddComplaintCategory" text="เพิ่มหมวดหมู่">
+                        <Button mnemonicParsing="false" onAction="#handleBackButton" styleClass="transparent-button" text="Back">
                            <graphic>
-                              <FontAwesomeIconView glyphName="PLUS" />
-                           </graphic></Button>
-                     </children>
-                     <HBox.margin>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                     </HBox.margin>
-                  </VBox>
-                  <VBox prefHeight="200.0" prefWidth="100.0" spacing="10.0" HBox.hgrow="ALWAYS">
-                     <children>
-                        <StackPane VBox.vgrow="ALWAYS">
-                           <children>
-                              <VBox fx:id="detailContent" prefWidth="100.0" spacing="10.0" visible="false">
-                                 <children>
-                                    <HBox>
-                                       <children>
-                                          <Button mnemonicParsing="false" text="Button" visible="false" />
-                                       </children>
-                                    </HBox>
-                                    <Label text="หมวดหมู่เรื่องร้องเรียน" />
-                                    <HBox>
-                                       <children>
-                                          <Label text="ชื่อหมวดหมู่ : " />
-                                          <Label fx:id="categoryNameLabel" text="categoryName" />
-                                       </children>
-                                    </HBox>
-                                    <Label text="คุณลักษณะของหมวดหมู่เรื่องร้องเรียน" />
-                                    <ListView fx:id="attributeListView" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="200.0" />
-                                    <HBox spacing="10.0">
-                                       <children>
-                                          <Button mnemonicParsing="false" onAction="#handleChangeCategoryName" text="แก้ไขชื่อหมวดหมู่" wrapText="true">
-                                             <graphic>
-                                                <FontAwesomeIconView glyphName="PENCIL" />
-                                             </graphic></Button>
-                                          <Button mnemonicParsing="false" onAction="#handleAddAttribute" text="เพิ่มคุณลักษณะ" wrapText="true">
-                                             <graphic>
-                                                <FontAwesomeIconView glyphName="PLUS" />
-                                             </graphic></Button>
-                                          <Button mnemonicParsing="false" onAction="#handleRemoveComplaintCategory" styleClass="danger-button" text="ลบหมวดหมู่" wrapText="true">
-                                             <graphic>
-                                                <FontAwesomeIconView glyphName="TRASH_ALT" />
-                                             </graphic></Button>
-                                       </children>
-                                    </HBox>
-                                    <VBox fx:id="attributeDetailContainer" prefWidth="100.0" />
-                                    <HBox spacing="10.0">
-                                       <children>
-                                          <Button mnemonicParsing="false" onAction="#handleChangeAttribute" text="แก้ไขคุณลักษณะ">
-                                             <graphic>
-                                                <FontAwesomeIconView glyphName="PENCIL" />
-                                             </graphic></Button>
-                                          <Button mnemonicParsing="false" onAction="#handleRemoveAttribute" styleClass="danger-button" text="ลบคุณลักษณะ">
-                                             <graphic>
-                                                <FontAwesomeIconView glyphName="TRASH_ALT" />
-                                             </graphic></Button>
-                                       </children>
-                                    </HBox>
-                                 </children>
-                              </VBox>
-                              <VBox fx:id="defaultContent" alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
-                                 <children>
-                                    <Label text="กรุณาเลือกหมวดหมู่ที่ต้องการแก้ไข" />
-                                 </children>
-                              </VBox>
-                           </children>
-                        </StackPane>
+                              <FontAwesomeIconView glyphName="ARROW_LEFT" />
+                           </graphic>
+                        </Button>
                      </children>
                      <padding>
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </padding>
-                  </VBox>
+                  </HBox>
+                  <Label styleClass="title" text="เพิ่มหมวดหมู่เรื่องร้องเรียน">
+                     <VBox.margin>
+                        <Insets left="10.0" />
+                     </VBox.margin>
+                  </Label>
+                  <HBox>
+                     <children>
+                        <VBox prefWidth="100.0" spacing="10.0" HBox.hgrow="ALWAYS">
+                           <children>
+                              <Label text="หมวดหมู่เรื่องร้องเรียนทั้งหมด" />
+                              <ListView fx:id="complaintCategoryListView" />
+                              <Button mnemonicParsing="false" onAction="#handleAddComplaintCategory" text="เพิ่มหมวดหมู่">
+                                 <graphic>
+                                    <FontAwesomeIconView glyphName="PLUS" />
+                                 </graphic>
+                              </Button>
+                           </children>
+                           <HBox.margin>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </HBox.margin>
+                        </VBox>
+                        <VBox prefHeight="200.0" prefWidth="100.0" spacing="10.0" HBox.hgrow="ALWAYS">
+                           <children>
+                              <StackPane VBox.vgrow="ALWAYS">
+                                 <children>
+                                    <VBox fx:id="detailContent" prefWidth="100.0" spacing="10.0" visible="false">
+                                       <children>
+                                          <Label text="หมวดหมู่เรื่องร้องเรียน" />
+                                          <HBox>
+                                             <children>
+                                                <Label text="ชื่อหมวดหมู่ : " />
+                                                <Label fx:id="categoryNameLabel" text="categoryName" />
+                                             </children>
+                                          </HBox>
+                                          <Label text="คุณลักษณะของหมวดหมู่เรื่องร้องเรียน" />
+                                          <ListView fx:id="attributeListView" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="200.0" />
+                                          <HBox spacing="10.0">
+                                             <children>
+                                                <Button mnemonicParsing="false" onAction="#handleAddAttribute" text="เพิ่มคุณลักษณะ" wrapText="true">
+                                                   <graphic>
+                                                      <FontAwesomeIconView glyphName="PLUS" />
+                                                   </graphic>
+                                                </Button>
+                                                <Button mnemonicParsing="false" onAction="#handleChangeCategoryName" text="แก้ไขชื่อหมวดหมู่" wrapText="true">
+                                                   <graphic>
+                                                      <FontAwesomeIconView glyphName="PENCIL" />
+                                                   </graphic>
+                                                </Button>
+                                                <Button mnemonicParsing="false" onAction="#handleRemoveComplaintCategory" styleClass="danger-button" text="ลบหมวดหมู่" wrapText="true">
+                                                   <graphic>
+                                                      <FontAwesomeIconView glyphName="TRASH_ALT" />
+                                                   </graphic>
+                                                </Button>
+                                             </children>
+                                          </HBox>
+                                          <HBox spacing="10.0">
+                                             <children>
+                                                <Button mnemonicParsing="false" onAction="#handleChangeAttribute" text="แก้ไขคุณลักษณะ">
+                                                   <graphic>
+                                                      <FontAwesomeIconView glyphName="PENCIL" />
+                                                   </graphic>
+                                                </Button>
+                                                <Button mnemonicParsing="false" onAction="#handleRemoveAttribute" styleClass="danger-button" text="ลบคุณลักษณะ">
+                                                   <graphic>
+                                                      <FontAwesomeIconView glyphName="TRASH_ALT" />
+                                                   </graphic>
+                                                </Button>
+                                             </children>
+                                          </HBox>
+                                          <VBox fx:id="attributeDetailContainer" prefWidth="100.0">
+                                             <VBox.margin>
+                                                <Insets top="10.0" />
+                                             </VBox.margin>
+                                          </VBox>
+                                       </children>
+                                    </VBox>
+                                    <VBox fx:id="defaultContent" alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+                                       <children>
+                                          <Label text="กรุณาเลือกหมวดหมู่ที่ต้องการแก้ไข" />
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </StackPane>
+                           </children>
+                           <padding>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </padding>
+                        </VBox>
+                     </children>
+                  </HBox>
                </children>
-            </HBox>
+            </VBox>
          </content>
       </ScrollPane>
    </children>

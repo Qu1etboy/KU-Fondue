@@ -76,14 +76,16 @@ public class ComplaintInfoController {
         Label detail = new Label(complaint.getDetail());
         detail.setWrapText(true);
         contentContainer.getChildren().add(topic);
+        Label date = new Label(complaint.getSimpleDate());
+        contentContainer.getChildren().add(date);
         Label status = new Label(complaint.getStatus());
         status.getStyleClass().add("status");
 
-        if (complaint.getStatus().equals("รอดําเนินการ")) {
+        if (complaint.getStatus().equals("ดําเนินการ")) {
             status.getStyleClass().add("in-progress");
-            status.getStyleClass().remove("done");
+            // status.getStyleClass().remove("done");
         } else if (complaint.getStatus().equals("เสร็จสิ้น")) {
-            status.getStyleClass().remove("in-progress");
+            // status.getStyleClass().remove("in-progress");
             status.getStyleClass().add("done");
         }
 
@@ -111,6 +113,9 @@ public class ComplaintInfoController {
 
         for (Image image : complaint.getImagesAnswer()) {
             ImageView imageView = new ImageView(image);
+            imageView.setFitWidth(Math.min(imageView.getImage().getWidth(), 720));
+            imageView.setFitHeight(Math.min(imageView.getImage().getHeight(), 1024));
+
             flowPane.getChildren().add(imageView);
         }
 

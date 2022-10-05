@@ -9,7 +9,6 @@
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
@@ -135,6 +134,11 @@
                                         </VBox>
                                         <VBox fx:id="detailContent" visible="false">
                                             <children>
+                                    <Label text="คําขอคืนสิทธิ์การใช้งาน">
+                                       <VBox.margin>
+                                          <Insets bottom="10.0" />
+                                       </VBox.margin>
+                                    </Label>
                                                 <HBox prefWidth="200.0" VBox.vgrow="ALWAYS">
                                                     <children>
                                                         <VBox prefWidth="100.0" HBox.hgrow="ALWAYS">
@@ -147,12 +151,7 @@
                                                                 <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                                                             </padding>
                                                             <children>
-                                                                <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0">
-                                                                    <children>
-                                                                        <ImageView fx:id="profileImageView" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" />
-                                                                        <Label fx:id="usernameLabel" text="username" />
-                                                                    </children>
-                                                                </HBox>
+                                                                <HBox fx:id="userDetailContainer" spacing="20.0" />
                                                                 <Label text="เหตุผล" />
                                                                 <Label fx:id="reasonLabel" text="Label" />
                                                                 <HBox spacing="10.0">

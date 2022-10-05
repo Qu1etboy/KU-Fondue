@@ -97,9 +97,11 @@ public class HomeDetailController {
         String[] fileSplit = file.toURI().toString().split("/");
 
         HBox box = new HBox();
+        Label fileNameLabel = new Label(fileSplit[fileSplit.length - 1]);
+        fileNameLabel.setMaxWidth(100);
 
         box.getChildren().add(new FontAwesomeIconView(FontAwesomeIcon.FILE_IMAGE_ALT));
-        box.getChildren().add(new Label(fileSplit[fileSplit.length - 1]));
+        box.getChildren().add(fileNameLabel);
         box.setPrefWidth(Region.USE_COMPUTED_SIZE);
         box.setPrefHeight(50);
         box.setMaxWidth(200);
@@ -110,7 +112,7 @@ public class HomeDetailController {
 
         Button removeImage = new Button("X");
         removeImage.setOnAction(e -> handleRemoveImage(image, box, flowPane));
-        removeImage.getStyleClass().add("transparent-button");
+        removeImage.getStyleClass().add("transparent-danger-button");
         box.getChildren().add(removeImage);
 
         flowPane.getChildren().add(box);

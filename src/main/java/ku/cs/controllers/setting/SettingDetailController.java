@@ -11,7 +11,9 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
+import javafx.scene.shape.Circle;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import ku.cs.controllers.setting.ChangeNameController;
@@ -34,27 +36,24 @@ import java.util.Date;
 public class SettingDetailController {
     private User user;
     private UserList userList;
-    private Image image;
     private DataSource<UserList> data;
     private Appearance appearance;
-    @FXML private Label usernameLabel;
     @FXML private Label nameLabel;
-    @FXML private ImageView profileImage;
     @FXML private ComboBox<String> themeSelector;
 
     @FXML private ComboBox<String> fontSelector;
 
     @FXML private ComboBox<String> fontSizeSelector;
+    @FXML private HBox usernameProfileContainer;
 
     public void initData(User user) {
         this.user = user;
-        usernameLabel.setText(user.getUsername());
+        // set user profile image and username;
+        showUsernameProfile();
         nameLabel.setText(user.getName());
 
         data = new UserListDataSource("data", "user.csv");
         userList = data.readData();
-        // set user profile image
-        profileImage.setImage(user.getProfileImage());
 
         appearance = new Appearance();
         themeSelector.getItems().addAll(appearance.getAllTheme());
@@ -131,6 +130,17 @@ public class SettingDetailController {
     }
 
  */
+
+    private void showUsernameProfile() {
+        usernameProfileContainer.getChildren().clear();
+
+        Label usernameLabel = new Label(user.getUsername());
+        usernameLabel.getStyleClass().add("title");
+        usernameLabel.setStyle("-fx-font-weight: 600");
+
+        usernameProfileContainer.getChildren().add(user.getProfileImageView());
+        usernameProfileContainer.getChildren().add(usernameLabel);
+    }
     @FXML private void handleChangeName(ActionEvent actionEvent) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/ku/cs/view/changeNameDialog.fxml"));
         BorderPane borderPane = (BorderPane) ((StackPane) ((Node) actionEvent.getSource()).getScene().getRoot()).getChildren().get(0);
@@ -142,7 +152,7 @@ public class SettingDetailController {
     @FXML private void handleChangeProfile (ActionEvent actionEvent) {
         FileChooser chooser = new FileChooser();
         chooser.setTitle("Choose profile image");
-        chooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif"));
+        chooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg", "*.gif"));
         File file = chooser.showOpenDialog(((Node) actionEvent.getSource()).getScene().getWindow());
         if (file != null) {
             try {
@@ -159,7 +169,7 @@ public class SettingDetailController {
                 Files.copy(file.toPath(), target, StandardCopyOption.REPLACE_EXISTING);
                 // SET NEW FILE PATH TO IMAGE
                 user.setProfileImage(new Image(target.toUri().toString()));
-                profileImage.setImage(user.getProfileImage());
+                showUsernameProfile();
                 userList.updateUser(user);
                 data.writeData(userList);
 

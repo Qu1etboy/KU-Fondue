@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
@@ -83,12 +84,18 @@
                      <VBox.margin>
                         <Insets top="10.0" />
                      </VBox.margin>
+                     <graphic>
+                        <FontAwesomeIconView fill="WHITE" glyphName="UPLOAD" />
+                     </graphic>
                   </Button>
                </children>
             </VBox>
             <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
                <children>
-                  <Button mnemonicParsing="false" onAction="#handleBackButton" styleClass="back-btn" text="&lt;&lt; Back" />
+                  <Button mnemonicParsing="false" onAction="#handleBackButton" styleClass="back-btn" text="Back">
+                     <graphic>
+                        <FontAwesomeIconView fill="WHITE" glyphName="ARROW_LEFT" />
+                     </graphic></Button>
                   <Button mnemonicParsing="false" onAction="#handleRegisterButton" styleClass="register-btn" text="Register" />
                </children>
             </HBox>

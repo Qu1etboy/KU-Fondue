@@ -24,7 +24,7 @@
             <Insets bottom="10.0" />
          </VBox.margin>
       </HBox>
-      <Label styleClass="title" text="Register" />
+      <Label styleClass="title" text="สมัครเจ้าหน้าที่" />
       <VBox maxWidth="800.0" spacing="10.0">
          <children>
             <Label text="Username" />
@@ -44,7 +44,10 @@
             <HBox alignment="TOP_CENTER" spacing="20.0">
                <children>
                   <ComboBox fx:id="agencySelector" prefHeight="25.0" promptText="Select Agency" />
-                  <Button mnemonicParsing="false" onAction="#handleUploadImage" text="Upload profile image" />
+                  <Button mnemonicParsing="false" onAction="#handleUploadImage" text="Upload profile image">
+                     <graphic>
+                        <FontAwesomeIconView glyphName="UPLOAD" />
+                     </graphic></Button>
                </children>
                <VBox.margin>
                   <Insets bottom="10.0" />

@@ -2,6 +2,7 @@ package ku.cs.models;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.shape.Circle;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -96,9 +97,11 @@ public class User {
     }
 
     public ImageView getProfileImageView() {
+        Circle circle = new Circle(50, 50, 50);
         ImageView imageView = new ImageView(profileImage);
         imageView.setFitHeight(100);
         imageView.setFitWidth(100);
+        imageView.setClip(circle);
 
         return imageView;
     }

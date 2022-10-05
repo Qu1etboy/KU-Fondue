@@ -17,7 +17,7 @@
 
 <VBox xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ku.cs.controllers.ComplaintDetailController">
    <children>
-      <ScrollPane fitToWidth="true" prefHeight="500.0" prefWidth="600.0" VBox.vgrow="ALWAYS">
+      <ScrollPane fitToWidth="true" prefHeight="400.0" prefWidth="600.0" VBox.vgrow="ALWAYS">
          <content>
             <VBox alignment="TOP_CENTER" spacing="10.0">
                <children>
@@ -168,8 +168,14 @@
                                           <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                                        </columnResizePolicy>
                                     </TableView>
-                                    <Button mnemonicParsing="false" onAction="#handleViewDetail" text="ดูรายละเอียด" />
+                                    <Button mnemonicParsing="false" onAction="#handleViewDetail" text="ดูรายละเอียด">
+                                       <VBox.margin>
+                                          <Insets top="10.0" />
+                                       </VBox.margin></Button>
                                  </children>
+                                 <padding>
+                                    <Insets top="10.0" />
+                                 </padding>
                               </VBox>
                            </content>
                         </Tab>
@@ -179,7 +185,6 @@
                                  <children>
                                     <TableView fx:id="myComplaintTable">
                                        <columns>
-                                          <TableColumn fx:id="number1" editable="false" prefWidth="75.0" sortable="false" text="ลำดับ" />
                                           <TableColumn fx:id="category1" editable="false" prefWidth="165.0" sortable="false" text="หมวดหมู่" />
                                           <TableColumn fx:id="topic1" editable="false" prefWidth="75.0" sortable="false" text="หัวข้อ" />
                                           <TableColumn fx:id="detail1" editable="false" prefWidth="257.0" sortable="false" text="รายละเอียด" />
@@ -191,8 +196,14 @@
                                           <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                                        </columnResizePolicy>
                                     </TableView>
-                                    <Button mnemonicParsing="false" onAction="#handleViewMyDetail" text="ดูรายละเอียด" />
+                                    <Button mnemonicParsing="false" onAction="#handleViewMyDetail" text="ดูรายละเอียด">
+                                       <VBox.margin>
+                                          <Insets top="10.0" />
+                                       </VBox.margin></Button>
                                  </children>
+                                 <padding>
+                                    <Insets top="10.0" />
+                                 </padding>
                               </VBox>
                            </content>
                         </Tab>

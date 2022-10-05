@@ -73,9 +73,11 @@ public class RegisterController {
         fileContent.getChildren().clear();
 
         HBox box = new HBox();
+        Label fileNameLabel = new Label(fileSplit[fileSplit.length - 1]);
+        fileNameLabel.setMaxWidth(100);
 
         box.getChildren().add(new FontAwesomeIconView(FontAwesomeIcon.FILE_IMAGE_ALT));
-        box.getChildren().add(new Label(fileSplit[fileSplit.length - 1]));
+        box.getChildren().add(fileNameLabel);
         box.setPrefWidth(Region.USE_COMPUTED_SIZE);
         box.setPrefHeight(50);
         box.setMaxWidth(200);
@@ -86,7 +88,7 @@ public class RegisterController {
 
         Button removeImage = new Button("X");
         removeImage.setOnAction(e -> handleRemoveImage(box));
-        removeImage.getStyleClass().add("transparent-button");
+        removeImage.getStyleClass().add("transparent-danger-button");
         box.getChildren().add(removeImage);
 
         fileContent.getChildren().add(box);
@@ -101,10 +103,9 @@ public class RegisterController {
     public void handleBackButton(ActionEvent actionEvent) throws IOException {
         // go back to login page
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/ku/cs/view/login.fxml"));
-        Stage stage = (Stage)((Node) actionEvent.getSource()).getScene().getWindow();
-        Scene scene = new Scene(loader.load());
-        stage.setScene(scene);
-        stage.show();
+        Scene scene = ((Node) actionEvent.getSource()).getScene();
+        scene.setRoot(loader.load());
+
     }
 
     @FXML

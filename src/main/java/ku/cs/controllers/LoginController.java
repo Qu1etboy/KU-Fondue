@@ -43,10 +43,9 @@ public class LoginController {
     public void handleRegisterButton(ActionEvent actionEvent) throws IOException {
         // go to register page
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/ku/cs/view/register.fxml"));
-        Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-        Scene scene = new Scene(loader.load(), 800, 600);
-        stage.setScene(scene);
-        stage.show();
+        Scene scene = ((Node) actionEvent.getSource()).getScene();
+        scene.setRoot(loader.load());
+
     }
 
     @FXML
@@ -114,8 +113,10 @@ public class LoginController {
 
         // go to main application
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/ku/cs/view/main-application.fxml"));
-        Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-        Scene scene = new Scene(loader.load(), 900, 600);
+        Scene scene = ((Node) actionEvent.getSource()).getScene();
+        // Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        Parent root = loader.load();
+        // Scene scene = new Scene(loader.load(), 900, 600);
 
         user.setLoginTime(LocalDateTime.now());
         userList.updateUser(user);
@@ -124,9 +125,10 @@ public class LoginController {
         MainApplicationController mainApplicationController = loader.getController();
         mainApplicationController.initData(user);
 
-        stage.setScene(scene);
-        stage.setMinWidth(900);
-        stage.show();
+        scene.setRoot(root);
+//        stage.setScene(scene);
+//
+//        stage.show();
 
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setContentText("Login successfully");

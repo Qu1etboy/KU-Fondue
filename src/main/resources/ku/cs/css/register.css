@@ -54,6 +54,7 @@
 .transparent-button {
     -fx-background-color: transparent;
     -fx-text-fill: black;
+    -fx-cursor: HAND;
 }
 
 .transparent-button > .glyph-icon {
@@ -67,6 +68,25 @@
 
 .transparent-button:hover > .glyph-icon {
     -fx-fill: #5765f2;
+}
+
+
+.transparent-danger-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: -primary-text-color;
+}
+
+.transparent-danger-button > .glyph-icon {
+    -fx-fill: -primary-text-color;
+}
+
+.transparent-danger-button:hover {
+    -fx-background-color: transparent;
+    -fx-text-fill: red;
+}
+
+.transparent-danger-button:hover > .glyph-icon {
+    -fx-fill: red;
 }
 
 .error-field {
