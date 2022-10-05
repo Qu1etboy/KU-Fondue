@@ -2,18 +2,19 @@ package ku.cs.controllers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
-import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Region;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
+import javafx.scene.text.Font;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import ku.cs.datastructure.ListMap;
-import ku.cs.datastructure.Pair;
 import ku.cs.models.*;
 import ku.cs.services.ComplaintCategoryListDataSource;
 import ku.cs.services.ComplaintListDataSource;
@@ -34,6 +35,8 @@ public class HomeDetailController {
     private Label nameLabel;
     private User user;
 
+    @FXML
+    private VBox background;
     @FXML
     private ComboBox<ComplaintCategory> categorySelector;
     @FXML
@@ -222,8 +225,8 @@ public class HomeDetailController {
             }
         }
         data.writeData(complaintList);
-
         clearInput();
+        successPage();
     }
 
     public void clearInput() {
@@ -233,5 +236,63 @@ public class HomeDetailController {
         comboBoxList.clear();
         textFieldList.clear();
         questionAnswer.clear();
+        background.getChildren().clear();
+
     }
+
+    public void successPage(){
+        Label successText = new Label("ส่งคำร้องสำเร็จ!");
+        Label backText = new Label("กด \"Back\" หากท่านต้องการจะส่งคำร้องเพิ่มเติม หรือกด \"Complaint\" หากท่านต้องการจะดูเรื่องร้องเรียนทั้งหมด");
+        Button backButton = new Button("Back");
+        Button detailButton = new Button("Complaint");
+        HBox hBox = new HBox();
+        backButton.setOnAction(e -> {
+            try {
+                handleBackButton(e);
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
+        });
+        detailButton.setOnAction(e-> {
+            try {
+                handleDetailButton(e);
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
+        });
+        background.setAlignment(Pos.CENTER);
+        background.getChildren().add(successText);
+        background.getChildren().add(backText);
+        background.getChildren().add(hBox);
+        hBox.setSpacing(50);
+        hBox.setAlignment(Pos.CENTER);
+        hBox.getChildren().add(backButton);
+        hBox.getChildren().add(detailButton);
+        background.setSpacing(20);
+
+    }
+
+
+    public void handleBackButton(ActionEvent actionEvent) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/ku/cs/view/home.fxml"));
+        BorderPane borderPane = (BorderPane) ((StackPane)((Node) actionEvent.getSource()).getScene().getRoot()).
+                getChildren().get(0);
+        Parent pane = loader.load();
+        HomeDetailController controller = loader.getController();
+        controller.initData(user);
+        borderPane.setCenter(pane);
+    }
+
+    public void handleDetailButton(ActionEvent actionEvent)throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/ku/cs/view/complaint.fxml"));
+        BorderPane borderPane = (BorderPane) ((StackPane)((Node) actionEvent.getSource()).getScene().getRoot()).
+                getChildren().get(0);
+        Parent pane = loader.load();
+        ComplaintDetailController controller = loader.getController();
+        controller.initData(user);
+        borderPane.setCenter(pane);
+    }
+
+
+
 }

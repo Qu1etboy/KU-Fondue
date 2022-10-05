@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ku.cs.controllers.HomeDetailController">
+<VBox fx:id="background" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ku.cs.controllers.HomeDetailController">
    <children>
       <ScrollPane fitToWidth="true" prefHeight="400.0" prefWidth="600.0" style="-fx-background: -primary-background-color;" VBox.vgrow="ALWAYS">
          <content>
