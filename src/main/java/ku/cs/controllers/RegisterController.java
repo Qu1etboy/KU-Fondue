@@ -1,5 +1,7 @@
 package ku.cs.controllers;
 
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -30,11 +32,14 @@ import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
 import java.time.LocalDate;
 
+import ku.cs.animatefx.animation.Shake;
+
 public class RegisterController {
     @FXML protected TextField usernameTextField;
     @FXML protected TextField nameTextField;
     @FXML protected TextField passwordTextField;
     @FXML protected TextField confirmPasswordTextField;
+    @FXML protected Label errorMessage;
 
     @FXML protected VBox fileContent;
 
@@ -67,18 +72,23 @@ public class RegisterController {
 
         fileContent.getChildren().clear();
 
-        HBox box = new HBox(new Label(fileSplit[fileSplit.length - 1]));
+        HBox box = new HBox();
+        Label fileNameLabel = new Label(fileSplit[fileSplit.length - 1]);
+        fileNameLabel.setMaxWidth(100);
+
+        box.getChildren().add(new FontAwesomeIconView(FontAwesomeIcon.FILE_IMAGE_ALT));
+        box.getChildren().add(fileNameLabel);
         box.setPrefWidth(Region.USE_COMPUTED_SIZE);
         box.setPrefHeight(50);
         box.setMaxWidth(200);
         box.setPadding(new Insets(3, 10, 3, 10));
-        box.getStyleClass().add("file-box");
+        box.getStyleClass().add("border-box");
         box.setAlignment(Pos.CENTER);
         box.setSpacing(10);
 
         Button removeImage = new Button("X");
         removeImage.setOnAction(e -> handleRemoveImage(box));
-        removeImage.getStyleClass().add("transparent-button");
+        removeImage.getStyleClass().add("transparent-danger-button");
         box.getChildren().add(removeImage);
 
         fileContent.getChildren().add(box);
@@ -93,10 +103,9 @@ public class RegisterController {
     public void handleBackButton(ActionEvent actionEvent) throws IOException {
         // go back to login page
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/ku/cs/view/login.fxml"));
-        Stage stage = (Stage)((Node) actionEvent.getSource()).getScene().getWindow();
-        Scene scene = new Scene(loader.load());
-        stage.setScene(scene);
-        stage.show();
+        Scene scene = ((Node) actionEvent.getSource()).getScene();
+        scene.setRoot(loader.load());
+
     }
 
     @FXML
@@ -166,28 +175,49 @@ public class RegisterController {
      * @return true if valid; false otherwise;
      */
     public boolean isValid() {
+        usernameTextField.getStyleClass().remove("error-field");
+        nameTextField.getStyleClass().remove("error-field");
+        passwordTextField.getStyleClass().remove("error-field");
+        confirmPasswordTextField.getStyleClass().remove("error-field");
+
         if (username.isEmpty() || name.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setContentText("Please fill in all the field");
-            alert.show();
+            if (username.isEmpty()) {
+                usernameTextField.getStyleClass().add("error-field");
+                new Shake(usernameTextField).play();
+            }
+            if (name.isEmpty()) {
+                nameTextField.getStyleClass().add("error-field");
+                new Shake(nameTextField).play();
+            }
+            if (password.isEmpty()) {
+                passwordTextField.getStyleClass().add("error-field");
+                new Shake(passwordTextField).play();
+            }
+            if (confirmPassword.isEmpty()) {
+                confirmPasswordTextField.getStyleClass().add("error-field");
+                new Shake(confirmPasswordTextField).play();
+            }
+            errorMessage.setText("กรุณากรอกข้อมูลให้ครบ");
             return false;
         }
         if (!userList.validUsername(username)) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setContentText("Username can contain only letter and digit with no more than 20 character");
-            alert.show();
+            usernameTextField.getStyleClass().add("error-field");
+            new Shake(usernameTextField).play();
+            errorMessage.setText("ชื่อผู้ใช้ไม่สามารถยาวได้เกิน 20 ตัวและมีได้เฉพาะตัวเลขกับตัวอักษร");
             return false;
         }
         if (userList.findUserByUsername(username) != null) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setContentText("Username already exist");
-            alert.show();
+            usernameTextField.getStyleClass().add("error-field");
+            new Shake(usernameTextField).play();
+            errorMessage.setText("Username already exist");
             return false;
         }
         if (!password.equals(confirmPassword)) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setContentText("Password and Confirm password don't match");
-            alert.show();
+            passwordTextField.getStyleClass().add("error-field");
+            confirmPasswordTextField.getStyleClass().add("error-field");
+            new Shake(passwordTextField).play();
+            new Shake(confirmPasswordTextField).play();
+            errorMessage.setText("Password and Confirm password don't match");
             return false;
         }
         return true;

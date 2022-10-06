@@ -7,6 +7,7 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import ku.cs.controllers.setting.SettingDetailController;
+import ku.cs.models.Role;
 import ku.cs.models.User;
 
 import java.io.IOException;
@@ -66,12 +67,23 @@ public class MainApplicationController {
         helpButton.getStyleClass().remove("active");
         settingButton.getStyleClass().remove("active");
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/ku/cs/view/dashboard.fxml"));;
+//        FXMLLoader loader;
 
-        Parent root = loader.load();
-        DashboardDetailController controller = loader.getController();
-        controller.initData(user);
-        borderPane.setCenter(root);
+        // if user's role is student then go to all complaint page
+        if (user.getRole() == Role.STUDENT) {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ku/cs/view/complaint.fxml"));
+            Parent root = loader.load();
+            ComplaintDetailController complaintController = loader.getController();
+            complaintController.initData(user);
+            borderPane.setCenter(root);
+        } else {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ku/cs/view/dashboard.fxml"));
+            Parent root = loader.load();
+            DashboardDetailController controller = loader.getController();
+            controller.initData(user);
+            borderPane.setCenter(root);
+        }
+
     }
 
     @FXML

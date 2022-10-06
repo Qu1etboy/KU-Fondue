@@ -3,11 +3,14 @@
     -primary-background-200: #2d2d2d;
     -primary-background-300: #282828;
     -secondary-background-100: #212121;
-    -secondary-background-200: #212121;
+    -secondary-background-200: #1a1a1a;
     -primary-text-color: white;
+    -primary-text-200: #cccccc;
     -primary-text-color-hover: #00ADB5;
     -primary-button-color: #7289da;
     -primary-button-color-hover: #4d62ac;
     -gradient-title-color-start: #2193b0;
     -gradient-title-color-end: #6dd5ed;
+    -sidebar-background-color: -secondary-background-100;
+    -sidebar-text-color: -primary-text-color;
 }

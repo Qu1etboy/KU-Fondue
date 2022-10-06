@@ -1,4 +1,4 @@
-package ku.cs.models;
+package ku.cs.services.collection;
 
 public interface Filterer<T> {
     boolean filter(T o);

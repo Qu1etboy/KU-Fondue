@@ -47,6 +47,7 @@
                   </HBox>
                </children>
             </VBox>
+            <Label fx:id="errorMessage" styleClass="error-text" wrapText="true" />
             <Button mnemonicParsing="false" onAction="#handleLoginButton" styleClass="login-btn" text="Login" />
             <Button mnemonicParsing="false" onAction="#handleRegisterButton" styleClass="register-btn" text="Don't have an account? Register now" />
          </children>

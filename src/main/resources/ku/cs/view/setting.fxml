@@ -5,14 +5,12 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
 <VBox xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ku.cs.controllers.setting.SettingDetailController">
    <children>
-      <ScrollPane fitToWidth="true" prefHeight="600.0" prefWidth="600.0" VBox.vgrow="ALWAYS">
+      <ScrollPane fitToWidth="true" prefHeight="400.0" prefWidth="600.0" VBox.vgrow="ALWAYS">
          <content>
             <VBox alignment="TOP_CENTER">
                <children>
@@ -24,18 +22,9 @@
                   </Label>
                   <VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="600.0" prefWidth="500.0" spacing="30.0" styleClass="account-bg">
                      <children>
-                        <HBox alignment="CENTER" prefHeight="51.0" prefWidth="600.0" spacing="10.0">
+                        <HBox alignment="CENTER" prefHeight="66.0" prefWidth="506.0" spacing="10.0">
                            <children>
-                              <HBox alignment="CENTER_LEFT" prefHeight="100.0" spacing="10.0" HBox.hgrow="ALWAYS">
-                                 <children>
-                                    <ImageView fitHeight="77.0" fitWidth="76.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../images/defaultProfileImg.jpeg" />
-                                       </image>
-                                    </ImageView>
-                                    <Label fx:id="usernameLabel" text="Username" />
-                                 </children>
-                              </HBox>
+                              <HBox fx:id="usernameProfileContainer" alignment="CENTER_LEFT" minHeight="100.0" prefHeight="100.0" prefWidth="207.0" spacing="10.0" HBox.hgrow="ALWAYS" />
                               <Button graphicTextGap="0.0" minHeight="25.0" minWidth="145.0" mnemonicParsing="false" onAction="#handleChangeProfile" text="เปลี่ยนรูปโปรไฟล์" wrapText="true" HBox.hgrow="ALWAYS">
                                  <opaqueInsets>
                                     <Insets />
@@ -43,19 +32,28 @@
                               </Button>
                            </children>
                         </HBox>
-                        <HBox alignment="CENTER">
+                        <HBox alignment="CENTER" prefHeight="89.0" prefWidth="515.0">
                            <children>
-                              <VBox prefWidth="100.0" HBox.hgrow="ALWAYS">
+                              <VBox prefHeight="23.0" prefWidth="283.0" HBox.hgrow="ALWAYS">
                                  <children>
-                                    <Label text="Name" />
+                                    <Label styleClass="header" text="Name" />
                                     <Label fx:id="nameLabel" text="nameLabel" />
                                  </children>
                               </VBox>
-                              <Button graphicTextGap="0.0" minHeight="25.0" minWidth="145.0" mnemonicParsing="false" onAction="#handleChangeName" text="เปลี่ยนชื่อ" wrapText="true">
-                                 <opaqueInsets>
-                                    <Insets />
-                                 </opaqueInsets>
-                              </Button>
+                              <VBox prefHeight="70.0" prefWidth="143.0" spacing="10.0">
+                                 <children>
+                                    <Button graphicTextGap="0.0" lineSpacing="10.0" minHeight="25.0" minWidth="108.0" mnemonicParsing="false" onAction="#handleChangeUserName" prefHeight="35.0" prefWidth="142.0" text="เปลี่ยน Username" wrapText="true">
+                                       <opaqueInsets>
+                                          <Insets />
+                                       </opaqueInsets>
+                                    </Button>
+                                    <Button graphicTextGap="0.0" minHeight="25.0" minWidth="108.0" mnemonicParsing="false" onAction="#handleChangeName" prefHeight="35.0" prefWidth="142.0" text="เปลี่ยนชื่อ" wrapText="true">
+                                       <opaqueInsets>
+                                          <Insets />
+                                       </opaqueInsets>
+                                    </Button>
+                                 </children>
+                              </VBox>
                            </children>
                         </HBox>
                         <Button graphicTextGap="0.0" minHeight="25.0" minWidth="145.0" mnemonicParsing="false" onAction="#handleChangePassword" text="เปลี่ยนรหัสผ่าน" wrapText="true">

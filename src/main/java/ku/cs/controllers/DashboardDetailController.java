@@ -56,17 +56,6 @@ public class DashboardDetailController {
     }
 
     @FXML
-    private void handleMyComplaint(ActionEvent actionEvent) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/ku/cs/view/myComplaint.fxml"));
-        BorderPane borderPane = (BorderPane) ((StackPane)((Node) actionEvent.getSource()).getScene().getRoot()).
-                getChildren().get(0);
-        Parent pane = loader.load();
-        ComplaintDetailController controller = loader.getController();
-        controller.initData(user);
-        borderPane.setCenter(pane);
-    }
-
-    @FXML
     private void handleUserList(ActionEvent actionEvent) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/ku/cs/view/showUser.fxml"));
         BorderPane borderPane = (BorderPane) ((StackPane)((Node) actionEvent.getSource()).getScene().getRoot()).

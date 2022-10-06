@@ -1,4 +1,9 @@
-package ku.cs.models;
+package ku.cs.services.collection;
+
+import ku.cs.models.Complaint;
+import ku.cs.models.ComplaintList;
+import ku.cs.models.User;
+import ku.cs.models.UserList;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -47,6 +52,20 @@ public class Sorter {
             Complaint temp = complaintList.getComplaintList().get(i);
             complaintList.getComplaintList().set(i, complaintList.getComplaintList().get(minimum));
             complaintList.getComplaintList().set(minimum, temp);
+        }
+    }
+
+    public void sortByLow(UserList userList, Comparator comparator)  {
+        for (int i = 0; i < userList.getUserList().size(); i++) {
+            int minimum = i;
+            for (int j = i + 1; j < userList.getUserList().size(); j++) {
+                if (comparator.compare(userList.getUserList().get(j), userList.getUserList().get(minimum)) > 0) {
+                    minimum = j;
+                }
+            }
+            User temp = userList.getUserList().get(i);
+            userList.getUserList().set(i, userList.getUserList().get(minimum));
+            userList.getUserList().set(minimum, temp);
         }
     }
 

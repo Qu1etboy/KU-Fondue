@@ -5,16 +5,14 @@ import com.opencsv.CSVWriter;
 import com.opencsv.exceptions.CsvException;
 import ku.cs.models.*;
 
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class CategoryAttributeListDataSource implements DataSource <CategoryAttributeList> {
-    String directoryName;
+    private String directoryName;
     String fileName;
 
     public CategoryAttributeListDataSource(String directoryName, String fileName) {
@@ -45,13 +43,8 @@ public class CategoryAttributeListDataSource implements DataSource <CategoryAttr
         String filePath = directoryName + File.separator + fileName;
 
         try {
-            CSVReader reader = new CSVReader(new FileReader(filePath));
+            CSVReader reader = new CSVReader(new FileReader(filePath, StandardCharsets.UTF_8));
             List<String[]> allData = reader.readAll();
-//            DataSource<UserList> userData = new UserListDataSource("data", "user.csv");
-//            UserList userList = userData.readData();
-
-            // DataSource<CategoryAttributeList> categoryAttributeData = new CategoryAttributeListDataSource("data", "attribute.csv");
-            // CategoryAttributeList complaintCategoryList = new CategoryAttributeList();
 
             for (String[] data : allData) {
                 if (data.length > 0) {
@@ -76,7 +69,10 @@ public class CategoryAttributeListDataSource implements DataSource <CategoryAttr
         String filePath = directoryName + File.separator + fileName;
         CSVWriter writer = null;
         try {
-            writer = new CSVWriter(new FileWriter(filePath));
+            FileOutputStream fos = new FileOutputStream(filePath);
+            OutputStreamWriter osw = new OutputStreamWriter(fos, StandardCharsets.UTF_8);
+            writer = new CSVWriter(osw);
+
             for(CategoryAttribute categoryAttribute : data.getCategoryAttributeList()){
                 String[] row = categoryAttribute.toStringArray();
                 writer.writeNext(row);

@@ -1,5 +1,7 @@
 package ku.cs.models;
 
+import ku.cs.services.collection.Filterer;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;

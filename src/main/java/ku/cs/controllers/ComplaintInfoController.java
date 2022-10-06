@@ -5,15 +5,14 @@ import javafx.beans.value.ChangeListener;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -31,10 +30,10 @@ import java.io.IOException;
 
 public class ComplaintInfoController {
 
-    User user;
-    Complaint complaint;
-    DataSource<ComplaintList> complaintListDataSource;
-    ComplaintList complaintList;
+    private User user;
+    private Complaint complaint;
+    private DataSource<ComplaintList> complaintListDataSource;
+    private ComplaintList complaintList;
 
     @FXML private VBox contentContainer;
     @FXML private Label voteLabel;
@@ -47,7 +46,7 @@ public class ComplaintInfoController {
     @FXML private TextArea answerTextArea;
     @FXML private CheckBox inProgressCheckbox;
     @FXML private CheckBox doneCheckbox;
-    @FXML private Label agencyNameLabel;
+    @FXML private HBox nameLabel;
 
     private boolean manageable;
 
@@ -62,8 +61,11 @@ public class ComplaintInfoController {
             manageComplaintButton.setVisible(false);
         }
 
-        showComplaintData();
         contentContainer.setSpacing(10);
+        replyContent.getStyleClass().add("border-box");
+        replyContent.setPadding(new Insets(10, 10, 10, 10));
+        showComplaintData();
+
     }
 
     private void showComplaintData() {
@@ -74,14 +76,16 @@ public class ComplaintInfoController {
         Label detail = new Label(complaint.getDetail());
         detail.setWrapText(true);
         contentContainer.getChildren().add(topic);
+        Label date = new Label(complaint.getSimpleDate());
+        contentContainer.getChildren().add(date);
         Label status = new Label(complaint.getStatus());
         status.getStyleClass().add("status");
 
-        if (complaint.getStatus().equals("รอดําเนินการ")) {
+        if (complaint.getStatus().equals("ดําเนินการ")) {
             status.getStyleClass().add("in-progress");
-            status.getStyleClass().remove("done");
+            // status.getStyleClass().remove("done");
         } else if (complaint.getStatus().equals("เสร็จสิ้น")) {
-            status.getStyleClass().remove("in-progress");
+            // status.getStyleClass().remove("in-progress");
             status.getStyleClass().add("done");
         }
 
@@ -103,10 +107,19 @@ public class ComplaintInfoController {
         contentContainer.getChildren().add(new Label("รายละเอียด"));
         contentContainer.getChildren().add(detail);
 
+        FlowPane flowPane = new FlowPane();
+        flowPane.setVgap(10);
+        flowPane.setHgap(10);
+
         for (Image image : complaint.getImagesAnswer()) {
             ImageView imageView = new ImageView(image);
-            contentContainer.getChildren().add(imageView);
+            imageView.setFitWidth(Math.min(imageView.getImage().getWidth(), 720));
+            imageView.setFitHeight(Math.min(imageView.getImage().getHeight(), 1024));
+
+            flowPane.getChildren().add(imageView);
         }
+
+        contentContainer.getChildren().add(flowPane);
 
         if (complaint.containUserVote(user)) {
             voteButton.getStyleClass().add("voted");
@@ -122,10 +135,14 @@ public class ComplaintInfoController {
             return;
         }
 
+        nameLabel.getChildren().clear();
         defaultContent.setVisible(false);
         replyContent.setVisible(true);
         editContent.setVisible(false);
         answerTeacherLabel.setText(complaint.getAnswerTeacher());
+
+        Label agencyNameLabel = new Label();
+
         if (complaint.getTeacher() == null) {
             agencyNameLabel.setText("");
         }
@@ -134,6 +151,14 @@ public class ComplaintInfoController {
         } else {
             agencyNameLabel.setText(complaint.getTeacher().getAgency().getName());
         }
+
+        // show staff name if in manage complaint page
+        if (manageable) {
+            nameLabel.getChildren().add(new Label(complaint.getTeacher().getName()));
+            nameLabel.getChildren().add(new Label("|"));
+        }
+
+        nameLabel.getChildren().add(agencyNameLabel);
 
     }
 
@@ -201,11 +226,19 @@ public class ComplaintInfoController {
     }
 
     @FXML
+    private void handleCancelButton() {
+        editContent.setVisible(false);
+        defaultContent.setVisible(true);
+
+        showAnswerTeacher();
+    }
+
+    @FXML
     private void handleReportButton(ActionEvent actionEvent) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/ku/cs/view/reportDialog.fxml"));
         Parent root = loader.load();
         ReportDialogController controller = loader.getController();
-        controller.initData(user);
+        controller.initData(user, complaint);
 
         initDialogBox(actionEvent, root);
 

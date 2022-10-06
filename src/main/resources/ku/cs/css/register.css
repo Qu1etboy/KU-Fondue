@@ -1,3 +1,7 @@
+.label {
+    -fx-font-size: 16px;
+}
+
 .title {
     -fx-font-size: 24px;
     -fx-font-weight: bold;
@@ -42,7 +46,7 @@
     -fx-font-size: 16;
 }
 
-.file-box {
+.border-box {
     -fx-border-color: gray;
     -fx-border-radius: 5px;
 }
@@ -50,6 +54,7 @@
 .transparent-button {
     -fx-background-color: transparent;
     -fx-text-fill: black;
+    -fx-cursor: HAND;
 }
 
 .transparent-button > .glyph-icon {
@@ -63,4 +68,33 @@
 
 .transparent-button:hover > .glyph-icon {
     -fx-fill: #5765f2;
+}
+
+
+.transparent-danger-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: -primary-text-color;
+}
+
+.transparent-danger-button > .glyph-icon {
+    -fx-fill: -primary-text-color;
+}
+
+.transparent-danger-button:hover {
+    -fx-background-color: transparent;
+    -fx-text-fill: red;
+}
+
+.transparent-danger-button:hover > .glyph-icon {
+    -fx-fill: red;
+}
+
+.error-field {
+    -fx-border-color: red;
+    -fx-border-width: 0 0 1 0;
+    -fx-prompt-text-fill: derive(red, -30%);
+}
+
+.error-text {
+    -fx-text-fill: red;
 }

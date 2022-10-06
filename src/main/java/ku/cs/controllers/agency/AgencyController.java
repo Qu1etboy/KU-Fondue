@@ -28,6 +28,7 @@ import ku.cs.services.AgencyListDataSource;
 import ku.cs.services.ComplaintCategoryListDataSource;
 import ku.cs.services.DataSource;
 import ku.cs.services.UserListDataSource;
+import ku.cs.services.collection.Filterer;
 
 import java.io.IOException;
 
@@ -110,7 +111,7 @@ public class AgencyController {
 
     }
 
-    public void showAgencyStaff(UserList userList) {
+    private void showAgencyStaff(UserList userList) {
         UserList staffList = userList.filterBy(new Filterer<User>() {
             @Override
             public boolean filter(User o) {
@@ -121,7 +122,7 @@ public class AgencyController {
 
         teacherListView.getItems().setAll(staffList.getUserList());
     }
-    public void showCategory(Agency agency) {
+    private void showCategory(Agency agency) {
         categoryListView.getItems().setAll(agency.getManagedCategory());
     }
 
@@ -186,6 +187,9 @@ public class AgencyController {
     @FXML
     private void handleChangeAgencyName(ActionEvent actionEvent) throws IOException {
         if (agency == null) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText("กรุณาเลือกหน่วยงาน");
+            alert.show();
             return;
         }
 
@@ -197,6 +201,7 @@ public class AgencyController {
         initDialogBox(actionEvent, root);
 
         agencyData.writeData(agencyList);
+        agencyNameLabel.setText(agency.getName());
         showAgencyList(agencyList);
     }
 
@@ -204,7 +209,7 @@ public class AgencyController {
     private void handleRemoveAgency(ActionEvent actionEvent) throws IOException {
         if (agency == null) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setContentText("กรุณาเลือกสิ่งที่ต้องการจะลบ");
+            alert.setContentText("กรุณาเลือกหน่วยงาน");
             alert.show();
             return;
         }
@@ -267,7 +272,7 @@ public class AgencyController {
         borderPane.setCenter(pane);
     }
 
-    public void initDialogBox(ActionEvent actionEvent, Parent root) {
+    private void initDialogBox(ActionEvent actionEvent, Parent root) {
 
         Scene scene = new Scene(root);
 

@@ -1,5 +1,10 @@
 package ku.cs.controllers;
 
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
+import javafx.animation.FadeTransition;
+import javafx.animation.ParallelTransition;
+import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -14,6 +19,7 @@ import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import ku.cs.datastructure.ListMap;
 import ku.cs.models.*;
 import ku.cs.services.ComplaintCategoryListDataSource;
@@ -93,18 +99,23 @@ public class HomeDetailController {
 
         String[] fileSplit = file.toURI().toString().split("/");
 
-        HBox box = new HBox(new Label(fileSplit[fileSplit.length - 1]));
+        HBox box = new HBox();
+        Label fileNameLabel = new Label(fileSplit[fileSplit.length - 1]);
+        fileNameLabel.setMaxWidth(100);
+
+        box.getChildren().add(new FontAwesomeIconView(FontAwesomeIcon.FILE_IMAGE_ALT));
+        box.getChildren().add(fileNameLabel);
         box.setPrefWidth(Region.USE_COMPUTED_SIZE);
         box.setPrefHeight(50);
         box.setMaxWidth(200);
         box.setPadding(new Insets(3, 10, 3, 10));
-        box.getStyleClass().add("file-box");
+        box.getStyleClass().add("border-box");
         box.setAlignment(Pos.CENTER);
         box.setSpacing(10);
 
         Button removeImage = new Button("X");
         removeImage.setOnAction(e -> handleRemoveImage(image, box, flowPane));
-        removeImage.getStyleClass().add("transparent-button");
+        removeImage.getStyleClass().add("transparent-danger-button");
         box.getChildren().add(removeImage);
 
         flowPane.getChildren().add(box);
@@ -148,6 +159,7 @@ public class HomeDetailController {
                 flowPane.setHgap(10);
                 flowPane.setVgap(10);
                 Button button = new Button("Upload Image");
+                button.setGraphic(new FontAwesomeIconView(FontAwesomeIcon.UPLOAD));
                 button.setOnAction(e -> handleUploadImageButton(e, flowPane));
                 VBox vBox = new VBox(flowPane, button);
                 vBox.setSpacing(10);
@@ -161,11 +173,28 @@ public class HomeDetailController {
         formContainer.getChildren().add(detailTextArea);
 
         Button sendButton = new Button("Send");
-        sendButton.setOnAction(e->handleSendButton());
+        sendButton.setGraphic(new FontAwesomeIconView(FontAwesomeIcon.PAPER_PLANE));
+        sendButton.setOnAction(e->handleSendButton(e));
         formContainer.getChildren().add(sendButton);
+
+        FadeTransition fade = new FadeTransition();
+        fade.setNode(formContainer);
+        fade.setDuration(Duration.millis(1000));
+        fade.setFromValue(0);
+        fade.setToValue(1);
+
+        TranslateTransition transition = new TranslateTransition();
+        transition.setNode(formContainer);
+        transition.setFromY(50);
+        transition.setToY(0);
+        transition.setDuration(Duration.millis(1000));
+
+        ParallelTransition pt = new ParallelTransition(transition, fade);
+
+        pt.play();
     }
 
-    public void handleSendButton() {
+    public void handleSendButton(ActionEvent actionEvent) {
 
         boolean valid = !topicTextField.getText().isEmpty() && !detailTextArea.getText().isEmpty();
 
@@ -226,7 +255,11 @@ public class HomeDetailController {
         }
         data.writeData(complaintList);
         clearInput();
-        successPage();
+        try {
+            successPage(actionEvent);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public void clearInput() {
@@ -240,9 +273,12 @@ public class HomeDetailController {
 
     }
 
-    public void successPage(){
+    public void successPage(ActionEvent actionEvent) throws IOException {
+
         Label successText = new Label("ส่งคำร้องสำเร็จ!");
-        Label backText = new Label("กด \"Back\" หากท่านต้องการจะส่งคำร้องเพิ่มเติม หรือกด \"Complaint\" หากท่านต้องการจะดูเรื่องร้องเรียนทั้งหมด");
+        successText.getStyleClass().add("logo-title");
+        Label backText = new Label("กด \"Back\" หากต้องการจะส่งคำร้องเพิ่มเติม หรือกด \"Complaint\" หากต้องการจะดูเรื่องร้องเรียน");
+        backText.setWrapText(true);
         Button backButton = new Button("Back");
         Button detailButton = new Button("Complaint");
         HBox hBox = new HBox();
@@ -260,16 +296,18 @@ public class HomeDetailController {
                 throw new RuntimeException(ex);
             }
         });
+        VBox container = new VBox(successText, backText);
+        container.setAlignment(Pos.CENTER);
+        container.setPrefWidth(Region.USE_COMPUTED_SIZE);
+        container.setPrefHeight(Region.USE_COMPUTED_SIZE);
         background.setAlignment(Pos.CENTER);
-        background.getChildren().add(successText);
-        background.getChildren().add(backText);
+        background.getChildren().add(container);
         background.getChildren().add(hBox);
         hBox.setSpacing(50);
         hBox.setAlignment(Pos.CENTER);
         hBox.getChildren().add(backButton);
         hBox.getChildren().add(detailButton);
         background.setSpacing(20);
-
     }
 
 
@@ -292,7 +330,6 @@ public class HomeDetailController {
         controller.initData(user);
         borderPane.setCenter(pane);
     }
-
 
 
 }
