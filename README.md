@@ -1,6 +1,8 @@
 # CS211 - Project (LoveAndJava)
 # KU-Complaint
 โปรแกรมแจ้งเรื่องร้องเรียนภายในมหาวิทยาลัยเกษตรศาสตร์
+
+![](readme_image/program_sample.png)
 ## ความก้าวหน้าครั้งที่ 1
 
 - ออกแบบโครงสร้างโปรเจค
@@ -40,16 +42,22 @@
    git clone https://github.com/CS211-651/project211-loveandjava.git
    ```
 2. executable file locate in jar folder.
-3. choose your version to run.
-4. run the file
-   - 4.1. Windows : double-click the jar file to run the program.
-   - 4.2. Macs    : run this command in your terminal or write `java -jar` and drag the file into terminal. Make sure that you are in the same directory as the program locate.
+3. or download the zip file in releases.
+4. choose your version to run.
+5. run the file
+   - double-click the jar file to run the program.
+   - or run manually by write this command in your terminal or write `java -jar` and drag the file into terminal. Make sure that you are in the same directory as the program locate.
    ```
-   java -jar path/to/ku-complaint.jar
+   java -jar path/to/ku-complaint-<mac or windows>-version.jar
    ```
-5. or download the zip file in releases.
+
+## Admin account
+
+- username: admin
+- password: 1234
 
 ## Library used
+
 - FontawesomeFX
 - OpenCSV
 - AnimateFX
@@ -195,10 +203,43 @@ src/main
 ```
 
 ## Contributors
-- [Qu1etboy](https://github.com/Qu1etboy) (Weerawong Vonggatunyu)
-- [ong22280](https://github.com/ong22280) (Sittipong Hemloun)
-- [IceSarun](https://github.com/IceSarun)
-- [nachpolRN](https://github.com/nachpolRN)
+
+<table>
+   <tr>
+      <td>
+         <a href="https://github.com/Qu1etboy">
+           <img src="https://contrib.rocks/image?repo=Qu1etboy/ku-complaint-webpage" />
+         </a>
+         <div>
+            Qu1etboy
+         </div>
+      </td>
+      <td>
+         <a href="https://github.com/IceSarun">
+           <img src="https://contrib.rocks/image?repo=IceSarun/git101" />
+         </a>
+         <div>
+            IceSarun
+         </div>
+      </td>
+      <td>
+         <a href="https://github.com/ong22280">
+           <img src="https://contrib.rocks/image?repo=ong22280/ong22280" />
+         </a>
+         <div>
+            ong22280
+         </div>
+      </td>
+      <td>
+         <a href="https://github.com/nachpolRN">
+           <img src="https://contrib.rocks/image?repo=nachpolRN/git101" />
+         </a>
+         <div>
+            nachpolRN
+         </div>
+      </td>
+   </tr>
+</table>
 
 [//]: # (**วิธีทดสอบการ RUN**)
 
