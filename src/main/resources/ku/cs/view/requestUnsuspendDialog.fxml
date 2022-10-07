@@ -20,6 +20,11 @@
       <TextField fx:id="usernameTextField" />
       <Label text="เหตุผล" />
       <TextArea fx:id="reasonTextArea" prefHeight="200.0" prefWidth="200.0" />
+      <VBox alignment="CENTER">
+         <children>
+            <Label fx:id="errorMessage" styleClass="error-text" />
+         </children>
+      </VBox>
       <HBox spacing="10.0">
          <children>
             <Button mnemonicParsing="false" onAction="#handleBackButton" text="Back" />

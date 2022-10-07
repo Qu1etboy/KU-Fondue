@@ -28,6 +28,7 @@ import ku.cs.services.DataSource;
 import ku.cs.services.collection.DateComparator;
 import ku.cs.services.collection.Filterer;
 import ku.cs.services.collection.Sorter;
+import ku.cs.services.collection.VoteComparator;
 
 import java.io.IOException;
 import java.net.URL;
@@ -248,6 +249,7 @@ public class ComplaintDetailController implements Initializable {
     }
 
     public void setStatusCount() {
+        complaintList.countStatus();
         reportCount.setText(Integer.toString(complaintList.getReportCount()));
         inProgressCount.setText(Integer.toString(complaintList.getInProgressCount()));
         doneCount.setText(Integer.toString(complaintList.getDoneCount()));
@@ -269,7 +271,7 @@ public class ComplaintDetailController implements Initializable {
         Parent pane = loader.load();
 
         ComplaintInfoController controller = loader.getController();
-        controller.initData(user, selectedComplaint, false);
+        controller.initData(user, selectedComplaint, "complaint");
 
         BorderPane borderPane = (BorderPane) ((StackPane)((Node) actionEvent.getSource()).getScene().getRoot()).
                 getChildren().get(0);
@@ -292,7 +294,7 @@ public class ComplaintDetailController implements Initializable {
         Parent pane = loader.load();
 
         ComplaintInfoController controller = loader.getController();
-        controller.initData(user, selectedMyComplaint, false);
+        controller.initData(user, selectedMyComplaint, "complaint");
 
         BorderPane borderPane = (BorderPane) ((StackPane)((Node) actionEvent.getSource()).getScene().getRoot()).
                 getChildren().get(0);

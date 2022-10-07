@@ -63,10 +63,13 @@ public class HomeDetailController {
     private ListMap<String,String> questionAnswer ;
     private List <Image> imageList;
 
+    // mainApplication button
+    private Button homeButton;
+    private Button dashboardButton;
 
 
     @FXML
-    public void initData(User user) {
+    public void initData(User user, Button homeButton, Button dashboardButton) {
         data = new ComplaintListDataSource("data","complaint.csv") ;
         complaintList =  data.readData();
         data2 = new ComplaintCategoryListDataSource("data","complaint_category.csv");
@@ -82,10 +85,13 @@ public class HomeDetailController {
         this.user = user;
         nameLabel.setText("ยินดีต้อนรับ " + user.getUsername());
 
+        this.homeButton = homeButton;
+        this.dashboardButton = dashboardButton;
+
     }
 
 
-    public void handleUploadImageButton(ActionEvent event, FlowPane flowPane) {
+    private void handleUploadImageButton(ActionEvent event, FlowPane flowPane) {
         FileChooser chooser = new FileChooser();
         // SET FILECHOOSER INITIAL DIRECTORY
         chooser.setInitialDirectory(new File(System.getProperty("user.dir")));
@@ -120,6 +126,8 @@ public class HomeDetailController {
 
         flowPane.getChildren().add(box);
 
+//        System.out.println(fileNameLabel.getText());
+
     }
 
     private void handleRemoveImage(Image image, HBox box, FlowPane flowPane) {
@@ -129,10 +137,12 @@ public class HomeDetailController {
     }
 
 
-    public void handleSelection() {
+    private void handleSelection() {
         complaintCategory = categorySelector.getSelectionModel().getSelectedItem();
         formContainer.getChildren().clear();
         formContainer.setSpacing(10);
+
+        detailTextArea.setWrapText(true);
 
 
         Label topicLabel = new Label("หัวข้อ");
@@ -194,7 +204,7 @@ public class HomeDetailController {
         pt.play();
     }
 
-    public void handleSendButton(ActionEvent actionEvent) {
+    private void handleSendButton(ActionEvent actionEvent) {
 
         boolean valid = !topicTextField.getText().isEmpty() && !detailTextArea.getText().isEmpty();
 
@@ -203,7 +213,8 @@ public class HomeDetailController {
                 valid = false;
                 continue;
             }
-            questionAnswer.put(textField.getId(),textField.getText());
+            // replace "," because it is being use as a delimiter
+            questionAnswer.put(textField.getId(),textField.getText().replaceAll(",", " "));
         }
 
         for(ComboBox comboBox: comboBoxList){
@@ -211,7 +222,8 @@ public class HomeDetailController {
                 valid = false;
                 continue;
             }
-            questionAnswer.put(comboBox.getId(),(String) comboBox.getValue());
+            // replace "," because it is being use as a delimiter
+            questionAnswer.put(comboBox.getId(),((String) comboBox.getValue()).replaceAll(",", " "));
         }
 
         if (!valid) {
@@ -249,7 +261,11 @@ public class HomeDetailController {
                    sendComplaint.addImageAnswer((new Image(target.toUri().toString())));
 
                 } catch (IOException e) {
-                    e.printStackTrace();
+                   Alert alert = new Alert(Alert.AlertType.ERROR);
+                   alert.setContentText("หาไฟล์รูปภาพไม่เจอ (ชื่อไฟล์ห้ามมีช่องว่าง)");
+                   alert.show();
+                   return;
+                    // e.printStackTrace();
                 }
             }
         }
@@ -262,7 +278,7 @@ public class HomeDetailController {
         }
     }
 
-    public void clearInput() {
+    private void clearInput() {
         topicTextField.clear();
         detailTextArea.clear();
         formContainer.getChildren().clear();
@@ -273,7 +289,7 @@ public class HomeDetailController {
 
     }
 
-    public void successPage(ActionEvent actionEvent) throws IOException {
+    private void successPage(ActionEvent actionEvent) throws IOException {
 
         Label successText = new Label("ส่งคำร้องสำเร็จ!");
         successText.getStyleClass().add("logo-title");
@@ -311,24 +327,31 @@ public class HomeDetailController {
     }
 
 
-    public void handleBackButton(ActionEvent actionEvent) throws IOException {
+    private void handleBackButton(ActionEvent actionEvent) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/ku/cs/view/home.fxml"));
         BorderPane borderPane = (BorderPane) ((StackPane)((Node) actionEvent.getSource()).getScene().getRoot()).
                 getChildren().get(0);
         Parent pane = loader.load();
         HomeDetailController controller = loader.getController();
-        controller.initData(user);
+        controller.initData(user, homeButton, dashboardButton);
         borderPane.setCenter(pane);
     }
 
-    public void handleDetailButton(ActionEvent actionEvent)throws IOException {
+    private void handleDetailButton(ActionEvent actionEvent)throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/ku/cs/view/complaint.fxml"));
         BorderPane borderPane = (BorderPane) ((StackPane)((Node) actionEvent.getSource()).getScene().getRoot()).
                 getChildren().get(0);
         Parent pane = loader.load();
         ComplaintDetailController controller = loader.getController();
+        removeActive();
+        dashboardButton.getStyleClass().add("active");
         controller.initData(user);
         borderPane.setCenter(pane);
+    }
+
+    private void removeActive() {
+        homeButton.getStyleClass().remove("active");
+        dashboardButton.getStyleClass().remove("active");
     }
 
 

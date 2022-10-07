@@ -20,6 +20,11 @@
             <PasswordField fx:id="passwordPasswordField" />
             <Label text="New Name" />
             <TextField fx:id="userNameNewTextField" />
+            <VBox alignment="CENTER">
+               <children>
+                  <Label fx:id="errorMessage" styleClass="error-text" />
+               </children>
+            </VBox>
          </children>
       </VBox>
       <HBox alignment="TOP_RIGHT" spacing="10.0">

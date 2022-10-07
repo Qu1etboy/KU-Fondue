@@ -47,12 +47,15 @@ public class ComplaintCategoryListDataSource implements DataSource <ComplaintCat
             DataSource<CategoryAttributeList> categoryAttributeData = new CategoryAttributeListDataSource("data", "attribute.csv");
             CategoryAttributeList categoryAttributeList = categoryAttributeData.readData();
             for (String[] data : allData) {
-                if (data.length > 0) {
-                   List<CategoryAttribute> categoryAttributes = categoryAttributeList.findAllCategoryAttributeByCategoryId(data[0]);
-
-                   boolean requireImage = Boolean.parseBoolean(data[2]);
-                    complaintCategoryList.addComplaintCategory(new ComplaintCategory(data[0], data[1],categoryAttributes, requireImage));
+                if (data.length == 1 && data[0].isEmpty()) {
+                    continue;
                 }
+
+               List<CategoryAttribute> categoryAttributes = categoryAttributeList.findAllCategoryAttributeByCategoryId(data[0]);
+
+               boolean requireImage = Boolean.parseBoolean(data[2]);
+                complaintCategoryList.addComplaintCategory(new ComplaintCategory(data[0], data[1],categoryAttributes, requireImage));
+
             }
 
         } catch (IOException | CsvException e) {

@@ -45,3 +45,13 @@
 .title {
     -fx-font-size: 24px;
 }
+
+.error-field {
+    -fx-border-color: red;
+    -fx-border-width: 0 0 1 0;
+    -fx-prompt-text-fill: derive(red, -30%);
+}
+
+.error-text {
+    -fx-text-fill: red;
+}

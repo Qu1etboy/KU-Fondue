@@ -68,7 +68,7 @@ public class ComplaintList {
                 .size();
     }
 
-    private void countStatus() {
+    public void countStatus() {
         for (Complaint complaint : complaintList) {
             if (complaint.getStatus().equals("รอรับเรื่อง")) {
                 reportCount++;
@@ -81,17 +81,14 @@ public class ComplaintList {
     }
 
     public int getReportCount() {
-        countStatus();
         return reportCount;
     }
 
     public int getInProgressCount() {
-        countStatus();
         return inProgressCount;
     }
 
     public int getDoneCount() {
-        countStatus();
         return doneCount;
     }
 

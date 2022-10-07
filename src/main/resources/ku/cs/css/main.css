@@ -490,3 +490,9 @@
 .header {
     -fx-text-fill: -primary-text-200;
 }
+
+.card {
+    -fx-background-color: -secondary-background-100;
+    -fx-background-radius: 10px;
+    -fx-border-radius: 10px;
+}

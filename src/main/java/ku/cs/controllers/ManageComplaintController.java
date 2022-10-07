@@ -114,7 +114,7 @@ public class ManageComplaintController {
         Parent pane = loader.load();
 
         ComplaintInfoController controller = loader.getController();
-        controller.initData(user, selectedComplaint, true);
+        controller.initData(user, selectedComplaint, "manageComplaint");
 
         BorderPane borderPane = (BorderPane) ((StackPane)((Node) actionEvent.getSource()).getScene().getRoot()).
                 getChildren().get(0);

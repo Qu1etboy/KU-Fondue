@@ -50,14 +50,17 @@ public class ReportListDataSource implements DataSource<ReportList> {
             UserList userList = userData.readData();
 
             for (String[] data : allData) {
-                if (data.length > 0) {
-                    User user = userList.findUserById(data[1]);
-                    Complaint complaint = complaintList.findComplaintById(data[2]);
-
-                    reportList.addReport(
-                            new Report(data[0], user, complaint, data[3], data[4])
-                    );
+                if (data.length == 1 && data[0].isEmpty()) {
+                    continue;
                 }
+
+                User user = userList.findUserById(data[1]);
+                Complaint complaint = complaintList.findComplaintById(data[2]);
+
+                reportList.addReport(
+                        new Report(data[0], user, complaint, data[3], data[4])
+                );
+
             }
 
         } catch (IOException | CsvException e) {

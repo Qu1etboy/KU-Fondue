@@ -2,10 +2,14 @@ package ku.cs.controllers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextArea;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import ku.cs.models.Complaint;
@@ -15,6 +19,7 @@ import ku.cs.models.User;
 import ku.cs.services.DataSource;
 import ku.cs.services.ReportListDataSource;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -78,6 +83,8 @@ public class ReportDialogController {
             typeCheckboxes.add(typeCheckBox);
             typeContainer.getChildren().add(typeCheckBox);
         }
+        // make the first one always select to prevent user not selecting anything
+        typeCheckboxes.get(0).setSelected(true);
     }
 
     private void showUserReportType() {
@@ -91,6 +98,8 @@ public class ReportDialogController {
             typeCheckboxes.add(typeCheckBox);
             typeContainer.getChildren().add(typeCheckBox);
         }
+        // make the first one always select to prevent user not selecting anything
+        typeCheckboxes.get(0).setSelected(true);
     }
 
     private void handleSelectType(CheckBox selectedType) {
@@ -137,4 +146,5 @@ public class ReportDialogController {
         Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         stage.close();
     }
+
 }

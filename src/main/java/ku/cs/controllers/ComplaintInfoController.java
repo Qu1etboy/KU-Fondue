@@ -48,16 +48,16 @@ public class ComplaintInfoController {
     @FXML private CheckBox doneCheckbox;
     @FXML private HBox nameLabel;
 
-    private boolean manageable;
+    private String pageFrom;
 
-    public void initData(User user, Complaint complaint, boolean manageable) {
+    public void initData(User user, Complaint complaint, String pageFrom) {
         this.user = user;
         this.complaint = complaint;
-        this.manageable = manageable;
+        this.pageFrom = pageFrom;
         complaintListDataSource = new ComplaintListDataSource("data", "complaint.csv");
         complaintList = complaintListDataSource.readData();
 
-        if (!manageable) {
+        if (pageFrom.equals("manageComplaint")) {
             manageComplaintButton.setVisible(false);
         }
 
@@ -153,7 +153,7 @@ public class ComplaintInfoController {
         }
 
         // show staff name if in manage complaint page
-        if (manageable) {
+        if (pageFrom.equals("manageComplaint")) {
             nameLabel.getChildren().add(new Label(complaint.getTeacher().getName()));
             nameLabel.getChildren().add(new Label("|"));
         }
@@ -249,12 +249,18 @@ public class ComplaintInfoController {
     private void handleBackButton(ActionEvent actionEvent) throws IOException {
         FXMLLoader loader;
         Parent pane;
-        if (manageable) {
+        if (pageFrom.equals("manageComplaint")) {
             loader = new FXMLLoader(getClass().getResource("/ku/cs/view/manageComplaint.fxml"));
             pane = loader.load();
             ManageComplaintController controller = loader.getController();
             controller.initData(user);
-
+        } else if (pageFrom.equals("report")) {
+            loader = new FXMLLoader(getClass().getResource("/ku/cs/view/report.fxml"));
+            pane = loader.load();
+            ReportController controller = loader.getController();
+            controller.initData(user);
+            // set tab to report complaint
+            controller.setTab(1);
         } else {
             loader = new FXMLLoader(getClass().getResource("/ku/cs/view/complaint.fxml"));
             pane = loader.load();

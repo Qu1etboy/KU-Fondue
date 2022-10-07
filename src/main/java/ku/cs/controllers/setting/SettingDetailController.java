@@ -249,10 +249,8 @@ public class SettingDetailController {
 //        data.writeData(userList);
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/ku/cs/view/login.fxml"));
-        Scene scene = new Scene(loader.load());
-        Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-        stage.setScene(scene);
-        stage.show();
+        Scene scene = ((Node) actionEvent.getSource()).getScene();
+        scene.setRoot(loader.load());
 
     }
 }

@@ -56,6 +56,7 @@ public class ReportController {
     @FXML private ListView<SuspendUser> suspendUserListView;
     @FXML private VBox requestDetail;
     @FXML private HBox userDetailContainer;
+    @FXML private TabPane reportTabPane;
 
     private ReportList reportList;
     private DataSource<ReportList> reportData;
@@ -82,6 +83,10 @@ public class ReportController {
         loadSuspendUserTableData();
         loadRequestPage();
         initColumn();
+    }
+
+    public void setTab(int index) {
+        reportTabPane.getSelectionModel().select(index);
     }
 
     private void loadUserTableData() {
@@ -233,6 +238,19 @@ public class ReportController {
     }
 
     @FXML
+    private void handleRemoveReport() {
+        Report report = userTable.getSelectionModel().getSelectedItem();
+
+        if (report == null) {
+            return;
+        }
+
+        reportList.removeReport(report);
+        reportData.writeData(reportList);
+        loadUserTableData();
+    }
+
+    @FXML
     private void handleRemoveComplaint(ActionEvent actionEvent) throws IOException {
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/ku/cs/view/confirmationDialog.fxml"));
@@ -253,6 +271,28 @@ public class ReportController {
         reportData.writeData(reportList);
 
         loadComplaintTableData();
+    }
+
+    @FXML
+    private void handleViewDetailButton(ActionEvent actionEvent) throws IOException {
+        if (complaintTable.getSelectionModel().getSelectedItem() == null) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText("กรุณาเลือกเรื่องร้องเรียน");
+            alert.show();
+            return;
+        }
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/ku/cs/view/complaintDetail.fxml"));
+        Parent pane = loader.load();
+
+        Complaint complaint = complaintTable.getSelectionModel().getSelectedItem().getComplaint();
+
+        ComplaintInfoController controller = loader.getController();
+        controller.initData(user, complaint, "report");
+
+        BorderPane borderPane = (BorderPane) ((StackPane)((Node) actionEvent.getSource()).getScene().getRoot()).
+                getChildren().get(0);
+        borderPane.setCenter(pane);
     }
 
     @FXML

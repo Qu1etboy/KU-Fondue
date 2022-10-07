@@ -47,15 +47,17 @@ public class CategoryAttributeListDataSource implements DataSource <CategoryAttr
             List<String[]> allData = reader.readAll();
 
             for (String[] data : allData) {
-                if (data.length > 0) {
-                    List<String> inputData = new ArrayList<>(Arrays.asList(data[4].split(",")));
-                    List<String> inputAnswer = new ArrayList<>(Arrays.asList(data[5].split(",")));
-                    // List<String> inputImage = Arrays.asList(data[5].split(","));
-
-                    categoryAttributeList.addCategoryAttribute(
-                            new CategoryAttribute(data[0], data[1],data[2], data[3], inputData, inputAnswer,null)
-                    );
+                if (data.length == 1 && data[0].isEmpty()) {
+                    continue;
                 }
+                List<String> inputData = new ArrayList<>(Arrays.asList(data[4].split(",")));
+                List<String> inputAnswer = new ArrayList<>(Arrays.asList(data[5].split(",")));
+                // List<String> inputImage = Arrays.asList(data[5].split(","));
+
+                categoryAttributeList.addCategoryAttribute(
+                        new CategoryAttribute(data[0], data[1],data[2], data[3], inputData, inputAnswer,null)
+                );
+
             }
 
         } catch (IOException | CsvException e) {
