@@ -19,7 +19,6 @@ public class DashboardDetailController {
     private User user;
 
     @FXML private Button complaintListButton;
-    @FXML private Button myComplaintListButton;
     @FXML private Button userListButton;
     @FXML private Button manageCategoryButton;
     @FXML private Button manageComplaintButton;

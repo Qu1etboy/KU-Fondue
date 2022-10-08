@@ -12,13 +12,10 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
-import javafx.scene.text.Font;
 import javafx.stage.FileChooser;
-import javafx.stage.Stage;
 import javafx.util.Duration;
 import ku.cs.datastructure.ListMap;
 import ku.cs.models.*;
@@ -52,10 +49,10 @@ public class HomeDetailController {
     @FXML
     private TextField topicTextField = new TextField();
 
-    private DataSource<ComplaintList> data;
+    private DataSource<ComplaintList> complaintData;
     private ComplaintList complaintList;
 
-    private DataSource<ComplaintCategoryList> data2;
+    private DataSource<ComplaintCategoryList> categoryData;
     private ComplaintCategoryList  complaintCategoryList;
     private ComplaintCategory complaintCategory;
     private List<TextField> textFieldList;
@@ -70,10 +67,10 @@ public class HomeDetailController {
 
     @FXML
     public void initData(User user, Button homeButton, Button dashboardButton) {
-        data = new ComplaintListDataSource("data","complaint.csv") ;
-        complaintList =  data.readData();
-        data2 = new ComplaintCategoryListDataSource("data","complaint_category.csv");
-        complaintCategoryList = data2.readData();
+        complaintData = new ComplaintListDataSource("data","complaint.csv") ;
+        complaintList =  complaintData.readData();
+        categoryData = new ComplaintCategoryListDataSource("data","complaint_category.csv");
+        complaintCategoryList = categoryData.readData();
 
         textFieldList = new ArrayList<>();
         comboBoxList = new ArrayList<>();
@@ -269,7 +266,7 @@ public class HomeDetailController {
                 }
             }
         }
-        data.writeData(complaintList);
+        complaintData.writeData(complaintList);
         clearInput();
         try {
             successPage(actionEvent);

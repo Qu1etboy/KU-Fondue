@@ -79,10 +79,7 @@ public class ShowUserDetailController implements Initializable {
     private void initColumn(){
 
         profileImage.setCellValueFactory(new PropertyValueFactory<>("profileImageView"));
-
         name.setCellValueFactory(new PropertyValueFactory<>("username"));
-//        category.setCellValueFactory(cellData ->
-//                new SimpleStringProperty(cellData.getValue().getComplaintCategory().getName()));
         agency.setCellValueFactory(cellData -> {
             Agency agency = cellData.getValue().getAgency();
             return new SimpleStringProperty(agency == null ? "ไม่มี" : agency.getName());
@@ -95,7 +92,7 @@ public class ShowUserDetailController implements Initializable {
         ObservableList<User> dataTable = FXCollections.observableArrayList();
 
         Sorter sorter = new Sorter();
-        sorter.sortByLow(userList, new Comparator<User>() {
+        sorter.sortByLow(userList.getUserList(), new Comparator<User>() {
             @Override
             public int compare(User o1, User o2) {
                 return o1.getDate().compareTo(o2.getDate());

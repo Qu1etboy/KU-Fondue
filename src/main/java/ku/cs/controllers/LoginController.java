@@ -28,13 +28,13 @@ public class LoginController {
     @FXML private TextField passwordTextField;
     @FXML private Label errorMessage;
     private UserList userList;
-    private DataSource<UserList> data;
+    private DataSource<UserList> userData;
     private SuspendUserList suspendUserList;
     private DataSource<SuspendUserList> suspendUserData;
     @FXML
     public void initialize() {
-        data = new UserListDataSource("data", "user.csv");
-        userList = data.readData();
+        userData = new UserListDataSource("data", "user.csv");
+        userList = userData.readData();
         suspendUserData = new SuspendUserListDataSource("data", "suspend_user.csv");
         suspendUserList = suspendUserData.readData();
     }
@@ -120,7 +120,7 @@ public class LoginController {
 
         user.setLoginTime(LocalDateTime.now());
         userList.updateUser(user);
-        data.writeData(userList);
+        userData.writeData(userList);
 
         MainApplicationController mainApplicationController = loader.getController();
         mainApplicationController.initData(user);

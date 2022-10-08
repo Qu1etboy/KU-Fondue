@@ -58,9 +58,9 @@
 
 ## Library used
 
-- FontawesomeFX
-- OpenCSV
-- AnimateFX
+- [FontawesomeFX](https://mvnrepository.com/artifact/de.jensd/fontawesomefx-fontawesome/4.7.0-9.1.2)
+- [OpenCSV](https://opencsv.sourceforge.net/)
+- [AnimateFX](https://github.com/Typhon0/AnimateFX)
 
 ## Project structure
 
