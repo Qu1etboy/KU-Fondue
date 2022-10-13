@@ -31,14 +31,14 @@ public class DashboardDetailController {
         this.user = user;
 
         // display the content corresponding to user's role
-        if (user.getRole() == Role.STUDENT || user.getRole() == Role.TEACHER) {
+        if (user.isRole(Role.STUDENT) || user.isRole(Role.TEACHER)) {
             userListButton.setVisible(false);
             manageCategoryButton.setVisible(false);
             registerTeacherButton.setVisible(false);
             addAgencyButton.setVisible(false);
             reportButton.setVisible(false);
         }
-        if (user.getRole() == Role.STUDENT) {
+        if (user.isRole(Role.STUDENT)) {
             manageComplaintButton.setVisible(false);
         }
     }

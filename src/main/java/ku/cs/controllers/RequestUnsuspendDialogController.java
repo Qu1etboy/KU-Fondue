@@ -55,7 +55,7 @@ public class RequestUnsuspendDialogController {
             errorMessage.setText("กรุณากรอกข้อมูลให้ครบ");
             return;
         }
-        if (!user.getUsername().equals(username)) {
+        if (!user.checkUsername(username)) {
             errorMessage.setText("ชื่อผู้ใช้ไม่ถูกต้อง");
             return;
         }

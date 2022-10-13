@@ -77,7 +77,7 @@ public class LoginController {
             errorMessage.setText("ไม่พบผู้ใช้ในระบบ");
             return;
         }
-        if (!user.getPassword().equals(password)) {
+        if (!user.checkPassword(password)) {
             passwordTextField.getStyleClass().add("error-field");
             new Shake(passwordTextField).play();
             errorMessage.setText("รหัสผ่านไม่ถูกต้อง");

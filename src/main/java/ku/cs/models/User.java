@@ -186,6 +186,18 @@ public class User {
         };
     }
 
+    public boolean isRole(Role role) {
+        return this.role == role;
+    }
+
+    public boolean checkUsername(String username) {
+        return this.username.equals(username);
+    }
+
+    public boolean checkPassword(String password) {
+        return this.password.equals(password);
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (obj == this) {

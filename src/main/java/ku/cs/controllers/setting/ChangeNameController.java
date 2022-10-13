@@ -61,13 +61,13 @@ public class ChangeNameController {
             }
             return;
         }
-        if (!user.getUsername().equals(username)) {
+        if (!user.checkUsername(username)) {
             errorMessage.setText("ชื่อผู้ใช้ไม่ถูกต้อง");
             userNameTextField.getStyleClass().add("error-field");
             new Shake(userNameTextField).play();
             return;
         }
-        if (!user.getPassword().equals(password)) {
+        if (!user.checkPassword(password)) {
             errorMessage.setText("รหัสผ่านไม่ถูกต้อง");
             passwordPasswordField.getStyleClass().add("error-field");
             new Shake(passwordPasswordField).play();
