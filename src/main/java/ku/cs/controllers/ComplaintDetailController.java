@@ -100,7 +100,7 @@ public class ComplaintDetailController implements Initializable {
         this.user = user;
 
         // student can access this page via dashboard button from sidebar so no need to go back
-        if (user.getRole() == Role.STUDENT) {
+        if (user.isRole(Role.STUDENT)) {
             backButton.setVisible(false);
         }
 

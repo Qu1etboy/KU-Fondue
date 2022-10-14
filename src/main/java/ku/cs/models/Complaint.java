@@ -205,6 +205,16 @@ public class Complaint {
         return userVote.contains(user);
     }
 
+    public String getAgencyName() {
+        if (teacher == null) {
+            return "";
+        } else if (teacher.getAgency() == null) {
+            return "ไม่มีหน่วยงาน";
+        } else {
+            return teacher.getAgency().getName();
+        }
+    }
+
     @Override
     public String toString() {
         return "Complaint{" +

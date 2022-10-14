@@ -143,14 +143,7 @@ public class ComplaintInfoController {
 
         Label agencyNameLabel = new Label();
 
-        if (complaint.getTeacher() == null) {
-            agencyNameLabel.setText("");
-        }
-        else if (complaint.getTeacher().getAgency() == null) {
-            agencyNameLabel.setText("ไม่มีหน่วยงาน");
-        } else {
-            agencyNameLabel.setText(complaint.getTeacher().getAgency().getName());
-        }
+        agencyNameLabel.setText(complaint.getAgencyName());
 
         // show staff name if in manage complaint page
         if (pageFrom.equals("manageComplaint")) {
