@@ -3,6 +3,11 @@
     -fx-font-size: 1em;
 }
 
+.text-color {
+    -fx-fill: -primary-text-color;
+    -fx-font-size: 1em;
+}
+
 /*.glyph-icon:hover {*/
 /*    -fx-fill: -primary-text-color-hover;*/
 /*}*/
