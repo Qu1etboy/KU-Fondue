@@ -94,7 +94,7 @@ public class MainApplicationController {
         removeActive();
         helpButton.getStyleClass().add("active");
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/ku/cs/view/help.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/ku/cs/view/help/help.fxml"));
         borderPane.setCenter(loader.load());
     }
 
