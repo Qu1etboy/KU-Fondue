@@ -138,8 +138,13 @@ public class HomeDetailController {
         complaintCategory = categorySelector.getSelectionModel().getSelectedItem();
         formContainer.getChildren().clear();
         formContainer.setSpacing(10);
-
+        topicTextField.clear();
+        detailTextArea.clear();
         detailTextArea.setWrapText(true);
+        textFieldList = new ArrayList<>();
+        comboBoxList = new ArrayList<>();
+        questionAnswer = new ListMap<>();
+        imageList = new ArrayList<>();
 
 
         Label topicLabel = new Label("หัวข้อ");

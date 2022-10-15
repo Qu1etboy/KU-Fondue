@@ -57,7 +57,7 @@ public class ComplaintInfoController {
         complaintListDataSource = new ComplaintListDataSource("data", "complaint.csv");
         complaintList = complaintListDataSource.readData();
 
-        if (pageFrom.equals("manageComplaint")) {
+        if (!pageFrom.equals("manageComplaint")) {
             manageComplaintButton.setVisible(false);
         }
 
