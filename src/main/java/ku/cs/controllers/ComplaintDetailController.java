@@ -28,8 +28,8 @@ import ku.cs.services.DataSource;
 import ku.cs.services.collection.DateComparator;
 import ku.cs.services.collection.Filterer;
 import ku.cs.services.collection.Sorter;
-import ku.cs.models.VoteComparator;
 
+import ku.cs.services.collection.VoteComparator;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -44,8 +44,6 @@ public class ComplaintDetailController implements Initializable {
     @FXML
     private TableView<Complaint> complaintTable;
     @FXML
-    private TableColumn<Complaint, String> number;
-    @FXML
     private TableColumn<Complaint, String> category;
     @FXML
     private TableColumn<Complaint, String> topic;
@@ -59,8 +57,6 @@ public class ComplaintDetailController implements Initializable {
     private TableColumn<Complaint, String> status;
     @FXML
     private TableView<Complaint> myComplaintTable;
-    @FXML
-    private TableColumn<Complaint, String> number1;
     @FXML
     private TableColumn<Complaint, String> category1;
     @FXML
@@ -77,7 +73,6 @@ public class ComplaintDetailController implements Initializable {
     private ComboBox<String> sortSelector;
     private DataSource<ComplaintCategoryList> categoryData;
     private ComplaintCategoryList complaintCategoryList;
-    private ComplaintCategory complaintCategory;
     @FXML
     private ComboBox<ComplaintCategory> categorySelector;
     @FXML
@@ -87,9 +82,6 @@ public class ComplaintDetailController implements Initializable {
     @FXML private TextField wordTextField;
 
     private ComplaintList complaintList;
-    private DataSource<ComplaintList> data;
-
-    final private ObservableList<Complaint> dataTable = FXCollections.observableArrayList();
 
     @FXML private Label reportCount;
     @FXML private Label inProgressCount;
@@ -108,7 +100,7 @@ public class ComplaintDetailController implements Initializable {
         this.user = user;
 
         // student can access this page via dashboard button from sidebar so no need to go back
-        if (user.getRole() == Role.STUDENT) {
+        if (user.isRole(Role.STUDENT)) {
             backButton.setVisible(false);
         }
 
@@ -190,7 +182,6 @@ public class ComplaintDetailController implements Initializable {
 
     private void initColumn(){
 
-        //number.setCellValueFactory(new PropertyValueFactory<>("number"));
         category.setCellValueFactory(cellData ->
                 new SimpleStringProperty(cellData.getValue().getComplaintCategoryName()));
         detail.setCellValueFactory(new PropertyValueFactory<>("detail"));
@@ -240,15 +231,16 @@ public class ComplaintDetailController implements Initializable {
         // TODO: implement the sort method that use comparator to sort complaint.csv
         String sortType = sortSelector.getValue();
         switch (sortType) {
-            case "ล่าสุด" -> sorter.sortByMost(complaintList, new DateComparator());
-            case "เก่าสุด" -> sorter.sortByLow(complaintList, new DateComparator());
-            case "โหวตมากสุด" -> sorter.sortByMost(complaintList, new VoteComparator());
-            case "โหวตน้อยสุด" -> sorter.sortByLow(complaintList, new VoteComparator());
+            case "ล่าสุด" -> sorter.sortByMost(complaintList.getComplaintList(), new DateComparator());
+            case "เก่าสุด" -> sorter.sortByLow(complaintList.getComplaintList(), new DateComparator());
+            case "โหวตมากสุด" -> sorter.sortByMost(complaintList.getComplaintList(), new VoteComparator());
+            case "โหวตน้อยสุด" -> sorter.sortByLow(complaintList.getComplaintList(), new VoteComparator());
         }
 
     }
 
     public void setStatusCount() {
+        complaintList.countStatus();
         reportCount.setText(Integer.toString(complaintList.getReportCount()));
         inProgressCount.setText(Integer.toString(complaintList.getInProgressCount()));
         doneCount.setText(Integer.toString(complaintList.getDoneCount()));
@@ -270,7 +262,7 @@ public class ComplaintDetailController implements Initializable {
         Parent pane = loader.load();
 
         ComplaintInfoController controller = loader.getController();
-        controller.initData(user, selectedComplaint, false);
+        controller.initData(user, selectedComplaint, "complaint");
 
         BorderPane borderPane = (BorderPane) ((StackPane)((Node) actionEvent.getSource()).getScene().getRoot()).
                 getChildren().get(0);
@@ -293,7 +285,7 @@ public class ComplaintDetailController implements Initializable {
         Parent pane = loader.load();
 
         ComplaintInfoController controller = loader.getController();
-        controller.initData(user, selectedMyComplaint, false);
+        controller.initData(user, selectedMyComplaint, "complaint");
 
         BorderPane borderPane = (BorderPane) ((StackPane)((Node) actionEvent.getSource()).getScene().getRoot()).
                 getChildren().get(0);

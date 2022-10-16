@@ -41,22 +41,36 @@ public class ChangeUserNameController {
         String userNew = userNameNewTextField.getText();
         // User user = login.checkUsername(username);
 
-        if (username.isEmpty() || password.isEmpty()) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setContentText("กรุณากรอกรายละเอียดให้ครบ");
-            alert.show();
+        userNameTextField.getStyleClass().remove("error-field");
+        passwordField.getStyleClass().remove("error-field");
+        userNameNewTextField.getStyleClass().remove("error-field");
+
+        if (username.isEmpty() || password.isEmpty() || userNew.isEmpty()) {
+            errorMessage.setText("กรุณากรอกรายละเอียดให้ครบ");
+            if (username.isEmpty()) {
+                userNameTextField.getStyleClass().add("error-field");
+                new Shake(userNameTextField).play();
+            }
+            if (password.isEmpty()) {
+                passwordField.getStyleClass().add("error-field");
+                new Shake(passwordField).play();
+            }
+            if (userNew.isEmpty()) {
+                userNameNewTextField.getStyleClass().add("error-field");
+                new Shake(userNameNewTextField).play();
+            }
             return;
         }
-        if (!user.getUsername().equals(username)) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setContentText("ชื่อผู้ใช้ไม่ถูกต้อง");
-            alert.show();
+        if (!user.checkUsername(username)) {
+            errorMessage.setText("ชื่อผู้ใช้ไม่ถูกต้อง");
+            userNameTextField.getStyleClass().add("error-field");
+            new Shake(userNameTextField).play();
             return;
         }
-        if (!user.getPassword().equals(password)) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setContentText("รหัสผ่านไม่ถูกต้อง");
-            alert.show();
+        if (!user.checkPassword(password)) {
+            errorMessage.setText("รหัสผ่านไม่ถูกต้อง");
+            passwordField.getStyleClass().add("error-field");
+            new Shake(passwordField).play();
             return;
         }
         if (!isValid()) {

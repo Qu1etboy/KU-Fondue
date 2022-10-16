@@ -19,7 +19,6 @@ public class DashboardDetailController {
     private User user;
 
     @FXML private Button complaintListButton;
-    @FXML private Button myComplaintListButton;
     @FXML private Button userListButton;
     @FXML private Button manageCategoryButton;
     @FXML private Button manageComplaintButton;
@@ -32,14 +31,14 @@ public class DashboardDetailController {
         this.user = user;
 
         // display the content corresponding to user's role
-        if (user.getRole() == Role.STUDENT || user.getRole() == Role.TEACHER) {
+        if (user.isRole(Role.STUDENT) || user.isRole(Role.TEACHER)) {
             userListButton.setVisible(false);
             manageCategoryButton.setVisible(false);
             registerTeacherButton.setVisible(false);
             addAgencyButton.setVisible(false);
             reportButton.setVisible(false);
         }
-        if (user.getRole() == Role.STUDENT) {
+        if (user.isRole(Role.STUDENT)) {
             manageComplaintButton.setVisible(false);
         }
     }

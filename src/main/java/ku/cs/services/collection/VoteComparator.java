@@ -1,4 +1,6 @@
-package ku.cs.models;
+package ku.cs.services.collection;
+
+import ku.cs.models.Complaint;
 
 import ku.cs.models.Complaint;
 

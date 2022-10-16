@@ -52,32 +52,35 @@ public class ComplaintListDataSource implements DataSource<ComplaintList>{
             ComplaintCategoryList complaintCategoryList = categoryData.readData();
 
             for (String[] data : allData) {
-                if (data.length > 0) {
-                    User user = userList.findUserById(data[1]);
-                    // ComplaintCategory complaintCategory = complaintCategoryList.findComplaintCategoryById(data[3]);
-                    List<User> userVote = new ArrayList<>();
-                    for (String userId : data[11].split(",")) {
-                        if (userId.isEmpty()) continue;
-                        userVote.add(userList.findUserById(userId));
-                    }
-
-                    LocalDateTime date = LocalDateTime.parse(data[8]);
-                    User teacher = userList.findUserById(data[13]);
-                    List<Image> imageList = new ArrayList<>();
-                    for (String path : data[14].split(",")) {
-                        imageList.add(new Image("file:images/" + path));
-                    }
-                    Complaint complaint = new Complaint(data[0], user, data[2], data[3], data[4], data[5], date, data[9], Integer.parseInt(data[10]), userVote, teacher, imageList);
-
-                    String[] question = data[6].split(",");
-                    String[] answer = data[7].split(",");
-
-                    for (int i = 0; i < question.length; i++) {
-                        complaint.addQuestionAnswer(question[i], answer[i]);
-                    }
-
-                    complaintList.addComplaint(complaint);
+                if (data.length == 1 && data[0].isEmpty()) {
+                    continue;
                 }
+
+                User user = userList.findUserById(data[1]);
+                // ComplaintCategory complaintCategory = complaintCategoryList.findComplaintCategoryById(data[3]);
+                List<User> userVote = new ArrayList<>();
+                for (String userId : data[11].split(",")) {
+                    if (userId.isEmpty()) continue;
+                    userVote.add(userList.findUserById(userId));
+                }
+
+                LocalDateTime date = LocalDateTime.parse(data[8]);
+                User teacher = userList.findUserById(data[13]);
+                List<Image> imageList = new ArrayList<>();
+                for (String path : data[14].split(",")) {
+                    imageList.add(new Image("file:images/" + path));
+                }
+                Complaint complaint = new Complaint(data[0], user, data[2], data[3], data[4], data[5], date, data[9], Integer.parseInt(data[10]), userVote, teacher, imageList);
+
+                String[] question = data[6].split(",");
+                String[] answer = data[7].split(",");
+
+                for (int i = 0; i < question.length; i++) {
+                    complaint.addQuestionAnswer(question[i], answer[i]);
+                }
+
+                complaintList.addComplaint(complaint);
+
             }
 
         } catch (IOException | CsvException e) {

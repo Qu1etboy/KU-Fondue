@@ -82,3 +82,12 @@
     -fx-background-color: -primary-button-color;
     -fx-text-fill: white;
 }
+
+.error-field {
+    -fx-border-color: red;
+    -fx-prompt-text-fill: derive(red, -30%);
+}
+
+.error-text {
+    -fx-text-fill: red;
+}

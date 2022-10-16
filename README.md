@@ -1,6 +1,8 @@
 # CS211 - Project (LoveAndJava)
 # KU-Complaint
 โปรแกรมแจ้งเรื่องร้องเรียนภายในมหาวิทยาลัยเกษตรศาสตร์
+
+![](readme_image/program_sample.png)
 ## ความก้าวหน้าครั้งที่ 1
 
 - ออกแบบโครงสร้างโปรเจค
@@ -33,49 +35,6 @@
 - ตกแต่งตัวโปรแกรมด้วย css เพิ่มเติม
 - ทดสอบระบบ
 
-## Project structure
-
-```
-src/main
-    ├── java
-           ├── ku/cs
-		├── controllers
-		       ├── LoginDetailController.java
-		       ├── RegisterDetailController.java
-		       ├── MainApplicationDetailController.java
-		       ├── HomeDetailController.java
-		       ├── SettingDetailController.java
-		       ├── DashboardDetailController.java
-		├── models
-		       ├── Login.java
-		       ├── Register.java
-		       ├── User.java
-	   ├── module-info.java
-     ├── resources/ku/cs
-	   ├── view
-		├── Login.fxml
-		├── Register.fxml
-		├── MainApplication.fxml
-		├── Home.fxml
-		├── About.fxml
-		├── Help.fxml
-		├── Setting.fxml
-		├── StudentDashboard.fxml
-		├── TeacherDashboard.fxml
-		├── AdminDashboard.fxml
-	   ├── css
-		├── main.css
-		├── dark.css
-		├── light.css
-	   ├── images
-		├── profile.png
-```
-
-## Library used
-- FontawesomeFX
-- OpenCSV
-- AnimateFX
-
 ## Installation
 
 1. clone project repository.
@@ -83,20 +42,204 @@ src/main
    git clone https://github.com/CS211-651/project211-loveandjava.git
    ```
 2. executable file locate in jar folder.
-3. choose your version to run.
-4. run the file
-   - 4.1. Windows : double-click the jar file to run the program.
-   - 4.2. Macs    : run this command in your terminal or write `java -jar` and drag the file into terminal. Make sure that you are in the same directory as the program locate.
+3. or download the zip file in releases.
+4. choose your version to run.
+5. run the file
+   - double-click the jar file to run the program.
+   - or run manually by write this command in your terminal or write `java -jar` and drag the file into terminal. Make sure that you are in the same directory as the program locate.
    ```
-   java -jar path/to/ku-complaint.jar
+   java -jar path/to/ku-complaint-<mac or windows>-version.jar
    ```
-5. or download the zip file in releases.
-   
+
+## Admin account
+
+- username: admin
+- password: 1234
+
+## Library used
+
+- [FontawesomeFX](https://mvnrepository.com/artifact/de.jensd/fontawesomefx-fontawesome/4.7.0-9.1.2)
+- [OpenCSV](https://opencsv.sourceforge.net/)
+- [AnimateFX](https://github.com/Typhon0/AnimateFX)
+
+## Project structure
+
+```
+src/main
+    ├── java
+           ├── ku/cs
+		├── controllers
+		       ├── agency
+		             ├── AddAgencyDialogController.java
+		             ├── AddCategoryDialogController.java
+		             ├── AgencyController.java
+		             ├── AssignAgencyDialogController.java
+		             ├── RenameAgencyDialogController.java
+		       ├── complaintcategory
+		             ├── AddAttributeDialogController.java
+		             ├── AddCategoryDialogController.java
+		             ├── AddChoiceDialogController.java
+		             ├── ComplaintCategoryDetail.java
+		             ├── RenameAttributeDialogController
+		             ├── RenameCategoryDialogController
+		             ├── RenameChoiceDialogController
+		       ├── setting
+		             ├── ChangeNameController.java
+		             ├── ChangePasswordController.java
+		             ├── ChangeUserNameController.java
+		             ├── SettingDetailController.java
+		       ├── LoginDetailController.java
+		       ├── RegisterDetailController.java
+		       ├── MainApplicationDetailController.java
+		       ├── HomeDetailController.java
+		       ├── SettingDetailController.java
+		       ├── DashboardDetailController.java
+		       ├── ComplaintDetailController.java
+		       ├── ComplaintInfoController.java
+		       ├── ConfirmationDialogController.java
+		       ├── ManageComplaintController.java
+		       ├── ReportController.java
+		       ├── ReportDialogController.java
+		       ├── RequestUnsuspendDialogController.java
+		       ├── ShowUserDetailController.java
+		       ├── SuspendDialogController.java
+		       ├── TeacherRegisterController.java
+		├── models
+		       ├── Agency.java
+		       ├── AgencyList.java
+		       ├── Appearence.java
+		       ├── CategoryAttribute.java
+		       ├── CategoryAttributeList.java
+		       ├── Complaint.java
+		       ├── ComplaintCategory.java
+		       ├── ComplaintCategoryList.java
+		       ├── ComplaintList.java
+		       ├── Report.java
+		       ├── ReportList.java
+		       ├── Role.java
+		       ├── SuspendUser.java
+		       ├── SuspendUserList.java
+		       ├── User.java
+		       ├── UserList.java
+		├── services
+		       ├── collection
+		             ├── Filterer
+		             ├── Sorter
+		             ├── DateComparator
+		             ├── VoteComparator
+		       ├── DataSource.java
+		       ├── AgencyListDataSource.java
+		       ├── CategoryAttributeListDataSource.java
+		       ├── ComplaintCategoryListDataSource.java
+		       ├── ReportListDataSource.java
+		       ├── SuspendUserListDataSource.java
+		       ├── UserListDataSource.java
+                ├── datastructure
+                       ├── ListMap.java
+                       ├── Pair.java
+                       ├── TestListMap
+	   ├── module-info.java
+     ├── resources/ku/cs
+	   ├── view
+                 ├── agency
+                        ├── addAgencyDialog.fxml
+                        ├── addCategoryDialgo.fxml
+                        ├── agency.fxml
+                        ├── assignAgencyDialog.fxml
+                        ├── renameAgencyDialog.fxml
+                 ├── complaintCategory
+                        ├── addAttributeDialog.fxml
+                        ├── addCategoryDialog.fxml
+                        ├── addChoiceDialog.fxml
+                        ├── complaintCategory.fxml
+                        ├── renameAttributeDialog.fxml
+                        ├── renameCategoryDialog.fxml
+                        ├── renameChoiceDialog.fxml
+                 ├── login.fxml
+                 ├── register.fxml
+                 ├── main-application.fxml
+                 ├── home.fxml
+                 ├── about.fxml
+                 ├── help.fxml
+                 ├── setting.fxml
+                 ├── dashboard.fxml
+                 ├── complaint.fxml
+                 ├── complaintDetail.fxml
+                 ├── confirmationDialog.fxml
+                 ├── manageComplaint.fxml
+                 ├── report.fxml
+                 ├── requestUnsuspendDialog.fxml
+                 ├── showUser.fxml
+                 ├── suspendDialog.fxml
+                 ├── teacher-register.fxml
+                                      
+	   ├── css
+                 ├── fonts
+                        ├── Helvetica.css
+                        ├── Kanit.css
+                        ├── Sarabun.css            
+                 ├── fontSize
+                        ├── 12px.css
+                        ├── 16px.css
+                        ├── 18px.css
+                        ├── 20px.css
+                        ├── 24px.css
+                 ├── themes
+                        ├── dark.css
+                        ├── light.css
+                        ├── snow.css
+                 ├── main.css
+                 ├── login.css
+                 ├── register.css
+                 ├── request_suspend_dialog.css
+                 ├── dialog.css
+	   ├── images
+                 ├── arm.jpg
+                 ├── ice.jpg
+                 ├── non.jpg
+                 ├── ong.jpg
+                 ├── mountain-bg.jpg
+                 ├── ku-logo.jpg
+```
+
 ## Contributors
-- [Qu1etboy](https://github.com/Qu1etboy) (Weerawong Vonggatunyu)
-- [ong22280](https://github.com/ong22280) (Sittipong Hemloun)
-- [IceSarun](https://github.com/IceSarun)
-- [nachpolRN](https://github.com/nachpolRN)
+
+<table>
+   <tr>
+      <td>
+         <a href="https://github.com/Qu1etboy">
+           <img src="https://contrib.rocks/image?repo=Qu1etboy/ku-complaint-webpage" />
+         </a>
+         <div>
+            Qu1etboy
+         </div>
+      </td>
+      <td>
+         <a href="https://github.com/IceSarun">
+           <img src="https://contrib.rocks/image?repo=IceSarun/git101" />
+         </a>
+         <div>
+            IceSarun
+         </div>
+      </td>
+      <td>
+         <a href="https://github.com/ong22280">
+           <img src="https://contrib.rocks/image?repo=ong22280/ong22280" />
+         </a>
+         <div>
+            ong22280
+         </div>
+      </td>
+      <td>
+         <a href="https://github.com/nachpolRN">
+           <img src="https://contrib.rocks/image?repo=nachpolRN/git101" />
+         </a>
+         <div>
+            nachpolRN
+         </div>
+      </td>
+   </tr>
+</table>
 
 [//]: # (**วิธีทดสอบการ RUN**)
 

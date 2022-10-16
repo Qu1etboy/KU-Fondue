@@ -48,13 +48,16 @@ public class SuspendUserListDataSource implements DataSource<SuspendUserList> {
             UserList userList = userData.readData();
 
             for (String[] data : allData) {
-                if (data.length > 0) {
-                    User user = userList.findUserById(data[0]);
-
-                    suspendUserList.addSuspendUser(
-                            new SuspendUser(user, data[1], Integer.parseInt(data[2]), Boolean.parseBoolean(data[3]))
-                    );
+                if (data.length == 1 && data[0].isEmpty()) {
+                    continue;
                 }
+
+                User user = userList.findUserById(data[0]);
+
+                suspendUserList.addSuspendUser(
+                        new SuspendUser(user, data[1], Integer.parseInt(data[2]), Boolean.parseBoolean(data[3]))
+                );
+
             }
 
         } catch (IOException | CsvException e) {

@@ -56,6 +56,10 @@ public class UserListDataSource implements DataSource<UserList> {
             AgencyList agencyList = agencyData.readData();
 
             for (String[] data : allData) {
+                if (data.length == 1 && data[0].isEmpty()) {
+                    continue;
+                }
+
                 Agency agency = agencyList.findAgencyById(data[5]);
 //                SimpleDateFormat formatter = new SimpleDateFormat();
                 LocalDateTime lastOnline = LocalDateTime.parse(data[12]);

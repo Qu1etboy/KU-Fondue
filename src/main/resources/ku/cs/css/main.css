@@ -3,6 +3,11 @@
     -fx-font-size: 1em;
 }
 
+.text-color {
+    -fx-fill: -primary-text-color;
+    -fx-font-size: 1em;
+}
+
 /*.glyph-icon:hover {*/
 /*    -fx-fill: -primary-text-color-hover;*/
 /*}*/
@@ -489,4 +494,10 @@
 
 .header {
     -fx-text-fill: -primary-text-200;
+}
+
+.card {
+    -fx-background-color: -secondary-background-100;
+    -fx-background-radius: 10px;
+    -fx-border-radius: 10px;
 }

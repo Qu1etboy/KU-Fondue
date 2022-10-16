@@ -22,10 +22,20 @@ public class ReportList {
     }
 
     public void removeReport(Report report) {
-        reportList = reportList
-                .stream()
-                .filter(r -> !r.getId().equals(report.getId()))
-                .collect(Collectors.toList());
+        // remove all the same complaints that have been report more than once
+        // if it is report complaint otherwise remove user
+        if (report.getComplaint() != null) {
+            reportList = reportList
+                    .stream()
+                    .filter(r -> r.getComplaint() == null || !r.getComplaint().getId().equals(report.getComplaint().getId()))
+                    .collect(Collectors.toList());
+        } else {
+            reportList = reportList
+                    .stream()
+                    .filter(r -> r.getUser() == null || !r.getUser().getId().equals(report.getUser().getId()))
+                    .collect(Collectors.toList());
+        }
+
     }
 
     public ReportList filterBy(Filterer<Report> filterer) {

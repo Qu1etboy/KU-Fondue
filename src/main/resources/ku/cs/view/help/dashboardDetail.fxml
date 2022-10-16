@@ -1,0 +1,893 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox fx:id="background" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ku.cs.controllers.HelpController">
+   <children>
+      <ScrollPane prefHeight="400.0" prefWidth="600.0" style="-fx-background: -primary-background-color;" VBox.vgrow="ALWAYS">
+         <content>
+            <VBox alignment="TOP_CENTER" spacing="20.0">
+               <children>
+                  <HBox>
+                     <children>
+                        <Button mnemonicParsing="false" onAction="#handleBackButton" styleClass="transparent-button" text="Back">
+                           <HBox.margin>
+                              <Insets bottom="10.0" />
+                           </HBox.margin>
+                           <graphic>
+                              <FontAwesomeIconView glyphName="ARROW_LEFT" />
+                           </graphic>
+                        </Button>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" spacing="10.0">
+                     <children>
+                        <Label alignment="CENTER_RIGHT" contentDisplay="CENTER" text="วิธีการใช้งานหน้า dashboard" textAlignment="RIGHT" wrapText="true">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets left="10.0" right="10.0" top="-20.0" />
+                           </HBox.margin>
+                        </Label>
+                     </children>
+                     <VBox.margin>
+                        <Insets bottom="20.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <VBox>
+                     <children>
+                        <Label text="Dashboard คือหน้ารวมรวบข้อมูล, รายงาน และการดำเนินการต่างๆ ">
+                           <VBox.margin>
+                              <Insets left="20.0" />
+                           </VBox.margin>
+                        </Label>
+                     </children>
+                  </VBox>
+                  <HBox alignment="CENTER" prefWidth="564.0" spacing="10.0">
+                     <children>
+                        <ImageView fitHeight="400.0" fitWidth="400.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../images/help/dashboard1.jpg" />
+                           </image>
+                        </ImageView>
+                     </children>
+                     <VBox.margin>
+                        <Insets bottom="20.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <VBox spacing="5.0">
+                     <children>
+                        <Label text="ซึ่งสิทธิ์ในการเข้าเมนูต่างๆนั้นขึ้น กับ role ของบัญชีผู้นั้นๆ ได้แก่">
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </Label>
+                        <Label text="• Student: เรื่องร้องเรียน, เรื่องร้องเรียนของฉัน">
+                           <VBox.margin>
+                              <Insets left="20.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label text="• Teacher: เรื่องร้องเรียน, จัดการเรื่องร้องเรียน">
+                           <VBox.margin>
+                              <Insets left="20.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label text="• Admin: สามารถเข้าถึงได้ทั้งหมด">
+                           <VBox.margin>
+                              <Insets left="20.0" />
+                           </VBox.margin>
+                        </Label>
+                     </children>
+                     <padding>
+                        <Insets bottom="5.0" left="20.0" top="-10.0" />
+                     </padding>
+                  </VBox>
+                  <HBox alignment="CENTER" prefHeight="26.0" prefWidth="564.0" spacing="10.0">
+                     <children>
+                        <Label alignment="CENTER_RIGHT" contentDisplay="CENTER" text="หน้าเรื่องร้องเรียน" textAlignment="RIGHT" wrapText="true">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets left="10.0" right="10.0" top="-20.0" />
+                           </HBox.margin>
+                        </Label>
+                     </children>
+                     <padding>
+                        <Insets top="100.0" />
+                     </padding>
+                  </HBox>
+                  <VBox>
+                     <children>
+                        <Label text="แสดงรายการเรื่องร้องเรียนทั้งหมด โดยมีรายละเอียดดังนี้">
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </Label>
+                     </children>
+                     <VBox.margin>
+                        <Insets left="20.0" />
+                     </VBox.margin>
+                  </VBox>
+                  <HBox alignment="CENTER" spacing="10.0">
+                     <children>
+                        <ImageView fitHeight="400.0" fitWidth="400.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../images/help/dashboard2.jpg" />
+                           </image>
+                        </ImageView>
+                     </children>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                  </HBox>
+                  <HBox alignment="CENTER" spacing="10.0">
+                     <children>
+                        <ImageView fitHeight="400.0" fitWidth="400.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../images/help/dashboard3.jpg" />
+                           </image>
+                        </ImageView>
+                     </children>
+                     <VBox.margin>
+                        <Insets top="-10.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <VBox prefHeight="200.0" prefWidth="100.0" spacing="5.0">
+                     <children>
+                        <Label text="ประกอบไปด้วย" underline="true">
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </Label>
+                        <Label text="1. จำนวนสถานะของเรื่องร้องเรียน">
+                           <VBox.margin>
+                              <Insets left="20.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label text="2. สถิติการแจ้งเรื่องร้องเรียนในแต่ละหมวดหมู่">
+                           <VBox.margin>
+                              <Insets left="20.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label text="3. การกรองและเรียงข้อมูล">
+                           <VBox.margin>
+                              <Insets left="20.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label text="• สถานะ: รอรับเรื่อง, ดำเนินการ, เสร็จสิ้น">
+                           <VBox.margin>
+                              <Insets left="40.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label text="• เรียง: ล่าสุด, เก่าสุด, โหวตมากสุด, โหวตน้อยสุด">
+                           <VBox.margin>
+                              <Insets left="40.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label text="• หมวดหมู่:อาคารสถานที่ชำรุด,อุปกรณ์ชำรุด, ขยะมูลฝอย, การคมนาคม และอื่นๆ">
+                           <VBox.margin>
+                              <Insets left="40.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label text="• เลือกแสดงตามคะแนนโหวต">
+                           <VBox.margin>
+                              <Insets left="40.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label text="• เลือกตามวันที่และเวลา ">
+                           <VBox.margin>
+                              <Insets left="40.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label text="4. เรื่องร้องเรียนทั้งหมด">
+                           <VBox.margin>
+                              <Insets left="20.0" />
+                           </VBox.margin>
+                        </Label>
+                     </children>
+                     <padding>
+                        <Insets left="20.0" />
+                     </padding>
+                  </VBox>
+                  <VBox>
+                     <children>
+                        <Label text="หน้ารวมเรื่องเรียนเฉพาะเรื่องร้องเรียนที่ผู้ใช้ระบบที่กำลัง login อยู่เป็นผู้แจ้งเรื่องร้องเรียน ซึ่งแสดงสถานะการจัดการเรื่องร้องเรียน">
+                           <VBox.margin>
+                              <Insets left="20.0" />
+                           </VBox.margin>
+                        </Label>
+                     </children>
+                  </VBox>
+                  <HBox alignment="CENTER" spacing="10.0">
+                     <children>
+                        <ImageView fitHeight="400.0" fitWidth="400.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../images/help/dashboard4.jpg" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </HBox>
+                  <VBox>
+                     <children>
+                        <Label text="สามารถเข้าดูรายละเอียดของเรื่องร้องเรียนนั้นๆได้">
+                           <VBox.margin>
+                              <Insets left="20.0" />
+                           </VBox.margin>
+                        </Label>
+                     </children>
+                  </VBox>
+                  <HBox alignment="CENTER" spacing="10.0">
+                     <children>
+                        <ImageView fitHeight="400.0" fitWidth="400.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../images/help/dashboard5.jpg" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" spacing="10.0">
+                     <children>
+                        <Label alignment="CENTER_RIGHT" contentDisplay="CENTER" text="หน้าจัดการเรื่องร้องเรียน (เข้าถึงได้เฉพาะ เจ้าหน้าที่และadmin เท่านั้น)" textAlignment="RIGHT" wrapText="true">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets left="10.0" right="10.0" top="-20.0" />
+                           </HBox.margin>
+                        </Label>
+                     </children>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                     <padding>
+                        <Insets top="100.0" />
+                     </padding>
+                  </HBox>
+                  <VBox>
+                     <children>
+                        <Label text="หน้าจัดการเรื่องร้องเรียน แสดงรายการและสถานะ เฉพาะหมวดหมู่ที่ตนรับผิดชอบและไม่สามารถจัดการเรื่องร้องเรียนของหมวดหมู่อื่นที่ไม่อยู่ในความรับผิดชอบได้">
+                           <VBox.margin>
+                              <Insets left="20.0" />
+                           </VBox.margin>
+                        </Label>
+                     </children>
+                  </VBox>
+                  <HBox alignment="CENTER" spacing="10.0">
+                     <children>
+                        <ImageView fitHeight="400.0" fitWidth="400.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../images/help/dashboard6.jpg" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </HBox>
+                  <VBox>
+                     <children>
+                        <Label text="เมื่อเลือกเรื่องร้องเรียนแล้วกดแสดงรายละเอียด จะแสดงรายละเอียดของเรื่องร้องเรียนนั้น สามารถระบุรายละเอียดของวิธีการจัดการ และเลือกสถานะได้">
+                           <VBox.margin>
+                              <Insets left="20.0" />
+                           </VBox.margin>
+                        </Label>
+                     </children>
+                  </VBox>
+                  <HBox alignment="CENTER" spacing="10.0">
+                     <children>
+                        <ImageView fitHeight="400.0" fitWidth="400.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../images/help/dashboard7.jpg" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </HBox>
+                  <VBox spacing="5.0">
+                     <children>
+                        <Label text="หมายเหตุ" underline="true">
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </Label>
+                        <Label text="• ผู้ใช้ระบบให้คะแนนโหวตในเรื่องร้องเรียนเดิมซำ้ไม่ได้">
+                           <VBox.margin>
+                              <Insets left="20.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label text="• สถานะของเรื่องร้องเรียน และรายละเอียด จะต้องแสดงในหน้ารายละเอียดของเรื่องร้องเรียนให้ผู้ใช้ทั่วไปเห็น">
+                           <VBox.margin>
+                              <Insets left="20.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label text="• รายละเอียดเรื่องร้องเรียนจะไม่แสดงชื่อของผู้ร้องเรียน แต่แสดงหน่วยงานของเจ้าหน้าที่ โดยไม่แสดงชื่อเจ้าหน้าที่ให้ผู้ใช้ทั่วไปเห็น">
+                           <VBox.margin>
+                              <Insets left="20.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label text="  แต่แสดงชื่อเจ้าหน้าที่ที่จัดการเรื่องหน้าเรียนในหน่วยงานเดียวกันเห็น">
+                           <VBox.margin>
+                              <Insets left="20.0" />
+                           </VBox.margin>
+                        </Label>
+                     </children>
+                     <padding>
+                        <Insets bottom="5.0" left="20.0" />
+                     </padding>
+                  </VBox>
+                  <HBox alignment="CENTER" spacing="10.0">
+                     <children>
+                        <Label alignment="CENTER_RIGHT" contentDisplay="CENTER" text="หน้ารายชื่อผู้ใช้ (เข้าถึงได้เฉพาะ admin เท่านั้น)" textAlignment="RIGHT" wrapText="true">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets left="10.0" right="10.0" top="-20.0" />
+                           </HBox.margin>
+                        </Label>
+                     </children>
+                     <padding>
+                        <Insets top="100.0" />
+                     </padding>
+                  </HBox>
+                  <VBox>
+                     <children>
+                        <Label text="แสดงรายชื่อผู้ใช้ทั้งหมด">
+                           <VBox.margin>
+                              <Insets left="20.0" />
+                           </VBox.margin>
+                        </Label>
+                     </children>
+                  </VBox>
+                  <HBox alignment="CENTER" spacing="10.0">
+                     <children>
+                        <ImageView fitHeight="400.0" fitWidth="400.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../images/help/dashboard8.jpg" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </HBox>
+                  <VBox spacing="5.0">
+                     <children>
+                        <Label text="ประกอบไปด้วย" underline="true">
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </Label>
+                        <Label text="1. กรองและเรียงข้อมูล">
+                           <VBox.margin>
+                              <Insets left="20.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label text="• บทบาท Student, Teacher, Admin">
+                           <VBox.margin>
+                              <Insets left="40.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label text="• หน่วยงาน หน่วยงานอาหาร, หน่วยงานถนน, หน่วยงานการศึกษา และอื่นๆ">
+                           <VBox.margin>
+                              <Insets left="40.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label text="2. รายละเอียดของผู้ใช้งาน">
+                           <VBox.margin>
+                              <Insets left="20.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label text="• รูปโปรไฟล์">
+                           <VBox.margin>
+                              <Insets left="40.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label text="• username">
+                           <VBox.margin>
+                              <Insets left="40.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label text="• หน่วยงาน">
+                           <VBox.margin>
+                              <Insets left="40.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label text="• role">
+                           <VBox.margin>
+                              <Insets left="40.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label text="• เวลาที่ใช้งานล่าสุด">
+                           <VBox.margin>
+                              <Insets left="40.0" />
+                           </VBox.margin>
+                        </Label>
+                     </children>
+                     <padding>
+                        <Insets bottom="5.0" left="20.0" />
+                     </padding>
+                  </VBox>
+                  <HBox alignment="CENTER" spacing="10.0">
+                     <children>
+                        <Label alignment="CENTER_RIGHT" contentDisplay="CENTER" text="หน้าสมัครเจ้าหน้าที่ (เข้าถึงได้เฉพาะ admin เท่านั้น)" textAlignment="RIGHT" wrapText="true">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets left="10.0" right="10.0" top="-20.0" />
+                           </HBox.margin>
+                        </Label>
+                     </children>
+                     <padding>
+                        <Insets top="100.0" />
+                     </padding>
+                  </HBox>
+                  <VBox>
+                     <children>
+                        <Label text="สมัครเจ้าหน้าหน่วยงานสำหรับดูแลเรื่องร้องเรียน">
+                           <VBox.margin>
+                              <Insets left="20.0" />
+                           </VBox.margin>
+                        </Label>
+                     </children>
+                  </VBox>
+                  <HBox alignment="CENTER" spacing="10.0">
+                     <children>
+                        <ImageView fitHeight="400.0" fitWidth="400.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../images/help/dashboard9.jpg" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </HBox>
+                  <VBox spacing="5.0">
+                     <children>
+                        <Label text="วิธีการสมัคร" underline="true">
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </Label>
+                        <Label text="1. ใส่ username">
+                           <VBox.margin>
+                              <Insets left="20.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label text="2. ใส่ ชื่อ">
+                           <VBox.margin>
+                              <Insets left="20.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label text="3. ใส่ password">
+                           <VBox.margin>
+                              <Insets left="20.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label text="4. ยืนยัน password">
+                           <VBox.margin>
+                              <Insets left="20.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label text="5. อัพโหลดรูปไฟล์โปรไฟล์">
+                           <VBox.margin>
+                              <Insets left="20.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label text="6. เลือกหน่วยงานที่ต้องการสมัคร">
+                           <VBox.margin>
+                              <Insets left="20.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label text="7. สมัคร">
+                           <VBox.margin>
+                              <Insets left="20.0" />
+                           </VBox.margin>
+                        </Label>
+                     </children>
+                     <padding>
+                        <Insets bottom="5.0" left="20.0" />
+                     </padding>
+                  </VBox>
+                  <VBox>
+                     <children>
+                        <Label text="หมายเหตุ" underline="true">
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </Label>
+                        <Label text="• หาก username ซำ้กับที่มีในระบบ, ยืนยันรหัสผ่านไม่ถูกต้อง จะไม่สามารถทำการสมัครได้">
+                           <VBox.margin>
+                              <Insets left="20.0" />
+                           </VBox.margin>
+                        </Label>
+                     </children>
+                     <padding>
+                        <Insets left="20.0" />
+                     </padding>
+                  </VBox>
+                  <HBox alignment="CENTER" spacing="10.0">
+                     <children>
+                        <Label alignment="CENTER_RIGHT" contentDisplay="CENTER" text="หน้าเพิ่มหมวดหมู่เรื่องร้องเรียน (เข้าถึงได้เฉพาะ admin เท่านั้น)" textAlignment="RIGHT" wrapText="true">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets left="10.0" right="10.0" top="-20.0" />
+                           </HBox.margin>
+                        </Label>
+                     </children>
+                     <padding>
+                        <Insets top="100.0" />
+                     </padding>
+                  </HBox>
+                  <VBox>
+                     <children>
+                        <Label text="ใช้สำหรับการเพิ่ม, ลบหรือแก้คุณสมบัติของเรื่องร้องเรียน">
+                           <VBox.margin>
+                              <Insets left="20.0" />
+                           </VBox.margin>
+                        </Label>
+                     </children>
+                  </VBox>
+                  <HBox alignment="CENTER" spacing="10.0">
+                     <children>
+                        <ImageView fitHeight="400.0" fitWidth="400.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../images/help/dashboard10.jpg" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </HBox>
+                  <VBox spacing="5.0">
+                     <children>
+                        <Label text="ประกอบไปด้วย" underline="true">
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </Label>
+                        <Label text="• เพิ่มหมวดหมู่">
+                           <VBox.margin>
+                              <Insets left="20.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label text="หมวดหมู่เรื่องร้องเรียน">
+                           <VBox.margin>
+                              <Insets left="20.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label text="• เพิ่มคุณลักษณะ">
+                           <VBox.margin>
+                              <Insets left="40.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label text="•แก้ไขชื่อหมวดหมู่">
+                           <VBox.margin>
+                              <Insets left="40.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label text="• ลบหมวดหมู่">
+                           <VBox.margin>
+                              <Insets left="40.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label text="•แก้ไขคุณลักษณะ">
+                           <VBox.margin>
+                              <Insets left="40.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label text="• ลบคุณลักษณะ">
+                           <VBox.margin>
+                              <Insets left="40.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label text="คุณลักษณะ (แตกต่างกันไปตามคุณลักษณะของสิ่งนั้น เช่น)">
+                           <VBox.margin>
+                              <Insets left="40.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label text=" เพิ่มตัวเลือก">
+                           <VBox.margin>
+                              <Insets left="60.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label text="• เปลี่ยนชื่อตัวเลือก">
+                           <VBox.margin>
+                              <Insets left="60.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label text="• ลบตัวเลือก">
+                           <VBox.margin>
+                              <Insets left="60.0" />
+                           </VBox.margin>
+                        </Label>
+                     </children>
+                     <padding>
+                        <Insets bottom="5.0" left="20.0" />
+                     </padding>
+                  </VBox>
+                  <HBox alignment="CENTER" spacing="10.0">
+                     <children>
+                        <Label alignment="CENTER_RIGHT" contentDisplay="CENTER" text="หน้าเพิ่มหน่วยงาน (เข้าถึงได้เฉพาะ admin เท่านั้น)" textAlignment="RIGHT" wrapText="true">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets left="10.0" right="10.0" top="-20.0" />
+                           </HBox.margin>
+                        </Label>
+                     </children>
+                     <padding>
+                        <Insets top="100.0" />
+                     </padding>
+                  </HBox>
+                  <VBox>
+                     <children>
+                        <Label text="สำหรับเพิ่มหน่วยงาน, เพิ่ม, แสดงหรือแก้ไขเจ้าหน้าที่หน่วยงานและหมวดหมู่">
+                           <VBox.margin>
+                              <Insets left="20.0" />
+                           </VBox.margin>
+                        </Label>
+                     </children>
+                  </VBox>
+                  <HBox alignment="CENTER" spacing="10.0">
+                     <children>
+                        <ImageView fitHeight="400.0" fitWidth="400.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../images/help/dashboard11.jpg" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </HBox>
+                  <VBox spacing="5.0">
+                     <children>
+                        <Label text="ประกอบไปด้วย" underline="true">
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </Label>
+                        <Label text="• เพิ่มหน่วยงาน">
+                           <VBox.margin>
+                              <Insets left="20.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label text="หน่วยงาน">
+                           <VBox.margin>
+                              <Insets left="20.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label text="• เพิ่มเจ้าหน้าที่">
+                           <VBox.margin>
+                              <Insets left="40.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label text="• แก้ไขชื่อหน่วยงาน">
+                           <VBox.margin>
+                              <Insets left="40.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label text="• ลบหน่วยงาน">
+                           <VBox.margin>
+                              <Insets left="40.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label text="หมวดหมู่ที่ดูแล">
+                           <VBox.margin>
+                              <Insets left="40.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label text="• เพิ่มหมวดหมู่">
+                           <VBox.margin>
+                              <Insets left="60.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label text="• ลบหมวดหมู่">
+                           <VBox.margin>
+                              <Insets left="60.0" />
+                           </VBox.margin>
+                        </Label>
+                     </children>
+                     <padding>
+                        <Insets bottom="5.0" left="20.0" />
+                     </padding>
+                  </VBox>
+                  <HBox alignment="CENTER" spacing="10.0">
+                     <children>
+                        <Label alignment="CENTER_RIGHT" contentDisplay="CENTER" text="หน้ารายงานความไม่เหมาะสม (เข้าถึงได้เฉพาะ admin เท่านั้น)" textAlignment="RIGHT" wrapText="true">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets left="10.0" right="10.0" top="-20.0" />
+                           </HBox.margin>
+                        </Label>
+                     </children>
+                     <padding>
+                        <Insets top="100.0" />
+                     </padding>
+                  </HBox>
+                  <VBox>
+                     <children>
+                        <Label text="สำหรับจัดการความไม่เหมาะที่ทุกผู้ใช้ร้องเรียนผ่านเรื่องร้องเรียนของผู้ใช้นั้น">
+                           <VBox.margin>
+                              <Insets left="20.0" />
+                           </VBox.margin>
+                        </Label>
+                     </children>
+                  </VBox>
+                  <VBox>
+                     <children>
+                        <Label text="ประกอบไปด้วย 4 ส่วนดังนี้">
+                           <VBox.margin>
+                              <Insets left="20.0" />
+                           </VBox.margin>
+                        </Label>
+                     </children>
+                  </VBox>
+                  <VBox>
+                     <children>
+                        <Label text="1. ผู้ใช้ที่ถูกรายงาน">
+                           <VBox.margin>
+                              <Insets left="20.0" />
+                           </VBox.margin>
+                        </Label>
+                     </children>
+                  </VBox>
+                  <HBox alignment="CENTER" spacing="10.0">
+                     <children>
+                        <ImageView fitHeight="400.0" fitWidth="400.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../images/help/dashboard12.jpg" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </HBox>
+                  <VBox spacing="5.0">
+                     <children>
+                        <Label text="ฟังก์ชันการใช้งานประกอบไปด้วย" underline="true">
+                           <VBox.margin>
+                              <Insets left="20.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label text="• ระงับการใช้งาน: ผู้ใช่ดังกล่าวจะมาสามารถเข้าใช้งานได้">
+                           <VBox.margin>
+                              <Insets left="40.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label text="• ไม่ระงับการใช้งาน: ลบผู้ใช้ดังกล่าวออกจากผู้ใช้ที่ถูกรายงาน">
+                           <VBox.margin>
+                              <Insets left="40.0" />
+                           </VBox.margin>
+                        </Label>
+                     </children>
+                     <padding>
+                        <Insets bottom="5.0" left="20.0" />
+                     </padding>
+                  </VBox>
+                  <VBox>
+                     <children>
+                        <Label text="2. เรื่องร้องเรียนที่ถูกรายงาน">
+                           <VBox.margin>
+                              <Insets left="20.0" />
+                           </VBox.margin>
+                        </Label>
+                     </children>
+                  </VBox>
+                  <HBox alignment="CENTER" spacing="10.0">
+                     <children>
+                        <ImageView fitHeight="400.0" fitWidth="400.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../images/help/dashboard13.jpg" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </HBox>
+                  <VBox spacing="5.0">
+                     <children>
+                        <Label text="ฟังก์ชันการใช้งานที่เกี่ยวข้อง" underline="true">
+                           <VBox.margin>
+                              <Insets left="20.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label text="• ลบเรื่องร้องเรียน: ลบเรื่องร้องเรียนดังกล่าวออกจากหน้าเรื่องร้องเรื่องที่ถูกรายงาน">
+                           <VBox.margin>
+                              <Insets left="40.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label text="• ดูรายละเอียด: ดูรายละเอียด เช่น วันที่รายงาน, หมู่หมวดหมู่ และอื่นๆ">
+                           <VBox.margin>
+                              <Insets left="40.0" />
+                           </VBox.margin>
+                        </Label>
+                     </children>
+                     <padding>
+                        <Insets bottom="5.0" left="20.0" />
+                     </padding>
+                  </VBox>
+                  <VBox>
+                     <children>
+                        <Label text="3. ผู้ใช้ที่ถูกระงับ">
+                           <VBox.margin>
+                              <Insets left="20.0" />
+                           </VBox.margin>
+                        </Label>
+                     </children>
+                  </VBox>
+                  <HBox alignment="CENTER" spacing="10.0">
+                     <children>
+                        <ImageView fitHeight="400.0" fitWidth="400.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../images/help/dashboard14.jpg" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </HBox>
+                  <VBox spacing="5.0">
+                     <children>
+                        <Label text="ฟังก์ชันการใช้งานที่เกี่ยวข้องประกอบไปด้วย" underline="true">
+                           <VBox.margin>
+                              <Insets left="20.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label text="• คืนสิทธิ์การใชง้าน: ให้ผู้ใช้ดังกล่าวสามารถเข้าใช้งานระบบได้">
+                           <VBox.margin>
+                              <Insets left="40.0" />
+                           </VBox.margin>
+                        </Label>
+                     </children>
+                     <padding>
+                        <Insets bottom="5.0" left="20.0" />
+                     </padding>
+                  </VBox>
+                  <VBox>
+                     <children>
+                        <Label text="4. คำร้อง">
+                           <VBox.margin>
+                              <Insets left="20.0" />
+                           </VBox.margin>
+                        </Label>
+                     </children>
+                  </VBox>
+                  <HBox alignment="CENTER" spacing="10.0">
+                     <children>
+                        <ImageView fitHeight="400.0" fitWidth="400.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../images/help/dashboard15.jpg" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </HBox>
+                  <VBox spacing="5.0">
+                     <children>
+                        <Label text="ฟังก์ชันการใช้งานที่เกี่ยวข้อง" underline="true">
+                           <VBox.margin>
+                              <Insets left="20.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label text="• ปฎิเสธ: ไม่คืนสิทธิ์ใหผู้ใช้ดังกล่าว">
+                           <VBox.margin>
+                              <Insets left="40.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label text="• คืนสิทธิ์: คืนสิทธิ์ใหผู้ใช้ด้งกล่าว">
+                           <VBox.margin>
+                              <Insets left="40.0" />
+                           </VBox.margin>
+                        </Label>
+                     </children>
+                     <padding>
+                        <Insets bottom="5.0" left="20.0" />
+                     </padding>
+                  </VBox>
+               </children>
+               <padding>
+                  <Insets bottom="20.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+            </VBox>
+         </content>
+      </ScrollPane>
+   </children>
+</VBox>

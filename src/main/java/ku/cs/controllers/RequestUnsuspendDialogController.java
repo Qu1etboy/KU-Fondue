@@ -6,6 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -20,7 +21,7 @@ import java.io.IOException;
 public class RequestUnsuspendDialogController {
     @FXML private TextField usernameTextField;
     @FXML private TextArea reasonTextArea;
-
+    @FXML private Label errorMessage;
     private User user;
     private SuspendUserList suspendUserList;
     private DataSource<SuspendUserList> suspendUserData;
@@ -51,9 +52,11 @@ public class RequestUnsuspendDialogController {
         String reason = reasonTextArea.getText();
 
         if (username.isEmpty() || reason.isEmpty()) {
+            errorMessage.setText("กรุณากรอกข้อมูลให้ครบ");
             return;
         }
-        if (!user.getUsername().equals(username)) {
+        if (!user.checkUsername(username)) {
+            errorMessage.setText("ชื่อผู้ใช้ไม่ถูกต้อง");
             return;
         }
 

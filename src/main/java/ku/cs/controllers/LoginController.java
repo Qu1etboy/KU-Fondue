@@ -28,13 +28,13 @@ public class LoginController {
     @FXML private TextField passwordTextField;
     @FXML private Label errorMessage;
     private UserList userList;
-    private DataSource<UserList> data;
+    private DataSource<UserList> userData;
     private SuspendUserList suspendUserList;
     private DataSource<SuspendUserList> suspendUserData;
     @FXML
     public void initialize() {
-        data = new UserListDataSource("data", "user.csv");
-        userList = data.readData();
+        userData = new UserListDataSource("data", "user.csv");
+        userList = userData.readData();
         suspendUserData = new SuspendUserListDataSource("data", "suspend_user.csv");
         suspendUserList = suspendUserData.readData();
     }
@@ -77,7 +77,7 @@ public class LoginController {
             errorMessage.setText("ไม่พบผู้ใช้ในระบบ");
             return;
         }
-        if (!user.getPassword().equals(password)) {
+        if (!user.checkPassword(password)) {
             passwordTextField.getStyleClass().add("error-field");
             new Shake(passwordTextField).play();
             errorMessage.setText("รหัสผ่านไม่ถูกต้อง");
@@ -120,7 +120,7 @@ public class LoginController {
 
         user.setLoginTime(LocalDateTime.now());
         userList.updateUser(user);
-        data.writeData(userList);
+        userData.writeData(userList);
 
         MainApplicationController mainApplicationController = loader.getController();
         mainApplicationController.initData(user);

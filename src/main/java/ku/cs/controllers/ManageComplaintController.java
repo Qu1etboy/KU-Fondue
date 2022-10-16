@@ -76,7 +76,7 @@ public class ManageComplaintController {
             @Override
             public boolean filter(Complaint o) {
                 // admin can view every complaint
-                if (user.getRole() == Role.ADMIN) return true;
+                if (user.isRole(Role.ADMIN)) return true;
                 if (user.getAgency() == null) return false;
                 return user
                         .getAgency()
@@ -87,13 +87,6 @@ public class ManageComplaintController {
 
 
         dataTable.addAll(filteredComplaintList.getComplaintList());
-//            for (Complaint complaint : complaintList.getComplaintList()) {
-//                dataTable.add(complaint);
-//            }
-//            for(int i = 1;i < 7; i++){
-//                dataTable.add(new Complaint(String.valueOf(i),"category " + i,"detail " + i,
-//                        "status " + i));
-//            }
 
         complaintTable.setItems(dataTable);
 
@@ -114,7 +107,7 @@ public class ManageComplaintController {
         Parent pane = loader.load();
 
         ComplaintInfoController controller = loader.getController();
-        controller.initData(user, selectedComplaint, true);
+        controller.initData(user, selectedComplaint, "manageComplaint");
 
         BorderPane borderPane = (BorderPane) ((StackPane)((Node) actionEvent.getSource()).getScene().getRoot()).
                 getChildren().get(0);

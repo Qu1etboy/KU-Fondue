@@ -10,6 +10,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
+import ku.cs.animatefx.animation.Shake;
 import ku.cs.models.User;
 import ku.cs.models.UserList;
 import ku.cs.services.DataSource;
@@ -26,6 +27,7 @@ public class ChangePasswordController {
     @FXML private TextField userNameTextField;
     @FXML private TextField passwordPasswordField;
     @FXML private TextField passwordNewPasswordField;
+    @FXML private Label errorMessage;
 
     public void initData(User user) {
         this.user = user;
@@ -39,22 +41,36 @@ public class ChangePasswordController {
         String passwordNew = passwordNewPasswordField.getText();
         // User user = login.checkUsername(username);
 
-        if (username.isEmpty() || password.isEmpty()) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setContentText("กรุณากรอกรายละเอียดให้ครบ");
-            alert.show();
+        userNameTextField.getStyleClass().remove("error-field");
+        passwordPasswordField.getStyleClass().remove("error-field");
+        passwordNewPasswordField.getStyleClass().remove("error-field");
+
+        if (username.isEmpty() || password.isEmpty() || passwordNew.isEmpty()) {
+            errorMessage.setText("กรุณากรอกรายละเอียดให้ครบ");
+            if (username.isEmpty()) {
+                userNameTextField.getStyleClass().add("error-field");
+                new Shake(userNameTextField).play();
+            }
+            if (password.isEmpty()) {
+                passwordPasswordField.getStyleClass().add("error-field");
+                new Shake(passwordPasswordField).play();
+            }
+            if (passwordNew.isEmpty()) {
+                passwordNewPasswordField.getStyleClass().add("error-field");
+                new Shake(passwordNewPasswordField).play();
+            }
             return;
         }
-        if (!user.getUsername().equals(username)) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setContentText("ชื่อผู้ใช้ไม่ถูกต้อง");
-            alert.show();
+        if (!user.checkUsername(username)) {
+            errorMessage.setText("ชื่อผู้ใช้ไม่ถูกต้อง");
+            userNameTextField.getStyleClass().add("error-field");
+            new Shake(userNameTextField).play();
             return;
         }
-        if (!user.getPassword().equals(password)) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setContentText("รหัสผ่านไม่ถูกต้อง");
-            alert.show();
+        if (!user.checkPassword(password)) {
+            errorMessage.setText("รหัสผ่านไม่ถูกต้อง");
+            passwordPasswordField.getStyleClass().add("error-field");
+            new Shake(passwordPasswordField).play();
             return;
         }
 

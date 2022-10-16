@@ -30,7 +30,6 @@ import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
-import java.time.LocalDate;
 
 import ku.cs.animatefx.animation.Shake;
 
@@ -44,7 +43,7 @@ public class RegisterController {
     @FXML protected VBox fileContent;
 
     protected UserList userList;
-    protected DataSource<UserList> data;
+    protected DataSource<UserList> userData;
     protected String username;
     protected String name;
     protected String password;
@@ -52,8 +51,8 @@ public class RegisterController {
     protected Image image;
 
     public void initialize() {
-        data = new UserListDataSource("data", "user.csv");
-        userList = data.readData();
+        userData = new UserListDataSource("data", "user.csv");
+        userList = userData.readData();
     }
 
     @FXML
@@ -149,7 +148,7 @@ public class RegisterController {
         }
         System.out.println(user.getProfileImage());
         userList.addUser(user);
-        data.writeData(userList);
+        userData.writeData(userList);
 
         // go back to login page if register successfully
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/ku/cs/view/login.fxml"));

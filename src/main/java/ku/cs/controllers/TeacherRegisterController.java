@@ -36,8 +36,8 @@ public class TeacherRegisterController extends RegisterController {
         agencySelector.getItems().addAll(agencyList.getAgencyList());
         agencySelector.setOnAction(e -> handleSelectAgency());
 
-        data = new UserListDataSource("data", "user.csv");
-        userList = data.readData();
+        userData = new UserListDataSource("data", "user.csv");
+        userList = userData.readData();
     }
 
     private void handleSelectAgency() {
@@ -106,7 +106,7 @@ public class TeacherRegisterController extends RegisterController {
 
         System.out.println(user.getProfileImage().getUrl());
         userList.addUser(user);
-        data.writeData(userList);
+        userData.writeData(userList);
 
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setContentText("Register successfully");

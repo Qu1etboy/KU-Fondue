@@ -43,29 +43,22 @@ public class MainApplicationController {
     }
 
     @FXML
-    public void handleHomeButton() throws IOException {
-        if (!homeButton.getStyleClass().contains("active"))
-            homeButton.getStyleClass().add("active");
-        dashboardButton.getStyleClass().remove("active");
-        aboutButton.getStyleClass().remove("active");
-        helpButton.getStyleClass().remove("active");
-        settingButton.getStyleClass().remove("active");
+    private void handleHomeButton() throws IOException {
+        removeActive();
+        homeButton.getStyleClass().add("active");
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/ku/cs/view/home.fxml"));
         Parent pane = loader.load();
         HomeDetailController homeDetailController = loader.getController();
-        homeDetailController.initData(user);
+        homeDetailController.initData(user, homeButton, dashboardButton);
         borderPane.setCenter(pane);
     }
 
     @FXML
-    public void handleDashboardButton() throws IOException {
-        homeButton.getStyleClass().remove("active");
-        if (!dashboardButton.getStyleClass().contains("active"))
-            dashboardButton.getStyleClass().add("active");
-        aboutButton.getStyleClass().remove("active");
-        helpButton.getStyleClass().remove("active");
-        settingButton.getStyleClass().remove("active");
+    private void handleDashboardButton() throws IOException {
+        removeActive();
+        dashboardButton.getStyleClass().add("active");
+
 
 //        FXMLLoader loader;
 
@@ -87,39 +80,28 @@ public class MainApplicationController {
     }
 
     @FXML
-    public void handleAboutButton() throws IOException {
-        homeButton.getStyleClass().remove("active");
-        dashboardButton.getStyleClass().remove("active");
-        if (!aboutButton.getStyleClass().contains("active"))
-            aboutButton.getStyleClass().add("active");
-        helpButton.getStyleClass().remove("active");
-        settingButton.getStyleClass().remove("active");
+    private void handleAboutButton() throws IOException {
+        removeActive();
+        aboutButton.getStyleClass().add("active");
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/ku/cs/view/about1.fxml"));
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/ku/cs/view/about.fxml"));
         borderPane.setCenter(loader.load());
     }
 
     @FXML
-    public void handleHelpButton() throws IOException{
-        homeButton.getStyleClass().remove("active");
-        dashboardButton.getStyleClass().remove("active");
-        aboutButton.getStyleClass().remove("active");
-        if (!helpButton.getStyleClass().contains("active"))
-            helpButton.getStyleClass().add("active");
-        settingButton.getStyleClass().remove("active");
+    private void handleHelpButton() throws IOException{
+        removeActive();
+        helpButton.getStyleClass().add("active");
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/ku/cs/view/help.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/ku/cs/view/help/help.fxml"));
         borderPane.setCenter(loader.load());
     }
 
     @FXML
-    public void handleSettingButton() throws IOException{
-        homeButton.getStyleClass().remove("active");
-        dashboardButton.getStyleClass().remove("active");
-        aboutButton.getStyleClass().remove("active");
-        helpButton.getStyleClass().remove("active");
-        if (!settingButton.getStyleClass().contains("active"))
-            settingButton.getStyleClass().add("active");
+    private void handleSettingButton() throws IOException {
+        removeActive();
+        settingButton.getStyleClass().add("active");
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/ku/cs/view/setting.fxml"));
         Parent pane = loader.load();
@@ -129,5 +111,13 @@ public class MainApplicationController {
         settingDetailController.initData(user);
 
         borderPane.setCenter(pane);
+    }
+
+    private void removeActive() {
+        homeButton.getStyleClass().remove("active");
+        dashboardButton.getStyleClass().remove("active");
+        aboutButton.getStyleClass().remove("active");
+        helpButton.getStyleClass().remove("active");
+        settingButton.getStyleClass().remove("active");
     }
 }

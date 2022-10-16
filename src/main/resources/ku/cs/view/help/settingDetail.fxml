@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox fx:id="background" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ku.cs.controllers.HelpController">
+   <children>
+      <ScrollPane prefHeight="400.0" prefWidth="600.0" style="-fx-background: -primary-background-color;" VBox.vgrow="ALWAYS">
+         <content>
+            <VBox alignment="TOP_CENTER" spacing="20.0">
+               <children>
+                  <HBox>
+                     <children>
+                        <Button mnemonicParsing="false" onAction="#handleBackButton" styleClass="transparent-button" text="Back">
+                           <HBox.margin>
+                              <Insets bottom="10.0" />
+                           </HBox.margin>
+                           <graphic>
+                              <FontAwesomeIconView glyphName="ARROW_LEFT" />
+                           </graphic>
+                        </Button>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" spacing="10.0">
+                     <children>
+                        <Label alignment="CENTER_RIGHT" contentDisplay="CENTER" text="วิธีการใช้งานหน้า setting" textAlignment="RIGHT" wrapText="true">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets left="10.0" right="10.0" top="-20.0" />
+                           </HBox.margin>
+                        </Label>
+                     </children>
+                     <VBox.margin>
+                        <Insets bottom="20.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <VBox>
+                     <children>
+                        <Label text="สำหรับการตั้งค่าโปรแกรม ได้แก่ เปลี่ยน ธีม, ฟอนต์, ขนาดฟอนต์, โปรไฟล์, ชื่อ และรหัสผ่าน">
+                           <VBox.margin>
+                              <Insets left="20.0" />
+                           </VBox.margin>
+                        </Label>
+                     </children>
+                  </VBox>
+                  <HBox alignment="CENTER" spacing="10.0">
+                     <children>
+                        <ImageView fitHeight="400.0" fitWidth="400.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../images/help/setting1.jpg" />
+                           </image>
+                        </ImageView>
+                     </children>
+                     <VBox.margin>
+                        <Insets bottom="20.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <VBox prefHeight="200.0" prefWidth="100.0" spacing="5.0">
+                     <children>
+                        <Label text="ฟังก์ชันการใช้งานที่เกี่ยวข้องประกอบไปด้วย" underline="true">
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </Label>
+                        <Label text="• เปลี่ยนรูปโปรไฟล์">
+                           <VBox.margin>
+                              <Insets left="20.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label text="• เปลี่ยน username">
+                           <VBox.margin>
+                              <Insets left="20.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label text="• เปลี่ยนชื่อ">
+                           <VBox.margin>
+                              <Insets left="20.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label text="• เปลี่ยนรหัสผ่าน">
+                           <VBox.margin>
+                              <Insets left="20.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label text="Appearance">
+                           <VBox.margin>
+                              <Insets left="20.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label text="• Theme: dark, light, snow">
+                           <VBox.margin>
+                              <Insets left="40.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label text="• Font: Helvetica, Kanit, Sarabun">
+                           <VBox.margin>
+                              <Insets left="40.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label text="• Font Size: 12px, 16px, 18px, 20px, 24px">
+                           <VBox.margin>
+                              <Insets left="40.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label text="•ออกจากระบบ">
+                           <VBox.margin>
+                              <Insets left="20.0" />
+                           </VBox.margin>
+                        </Label>
+                     </children>
+                     <padding>
+                        <Insets bottom="5.0" left="20.0" top="-10.0" />
+                     </padding>
+                  </VBox>
+                  <VBox>
+                     <children>
+                        <Label text="หมายเหตุ" underline="true">
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </Label>
+                        <Label text="• การเปลี่ยน username/ชื่อ/รหัสผ่าน หากกรอกข้อมูลและรหัสผ่านไม่ถูกต้องจะไม่สามารถเปลี่ยนได้">
+                           <VBox.margin>
+                              <Insets left="20.0" />
+                           </VBox.margin>
+                        </Label>
+                     </children>
+                     <VBox.margin>
+                        <Insets left="20.0" />
+                     </VBox.margin>
+                  </VBox>
+               </children>
+               <padding>
+                  <Insets bottom="20.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+            </VBox>
+         </content>
+      </ScrollPane>
+   </children>
+</VBox>

@@ -53,6 +53,9 @@ public class AgencyListDataSource implements DataSource<AgencyList> {
             ComplaintCategoryList complaintCategoryList = categoryData.readData();
 
             for (String[] data : allData) {
+                if (data.length == 1 && data[0].isEmpty()) {
+                    continue;
+                }
                 List<ComplaintCategory> categories = new ArrayList<>();
                 String[] categoryIds = data[2].split(",");
                 for (String categoryId : categoryIds) {
