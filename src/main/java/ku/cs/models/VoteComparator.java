@@ -1,5 +1,7 @@
 package ku.cs.models;
 
+import ku.cs.models.Complaint;
+
 import java.util.Comparator;
 
 public class VoteComparator implements Comparator<Complaint> {
