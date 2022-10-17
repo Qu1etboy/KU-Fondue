@@ -53,8 +53,8 @@
 
 ## Admin account
 
-- username: admin
-- password: 1234
+- username: AdminKU
+- password: KUCA2022
 
 ## Library used
 
