@@ -29,6 +29,7 @@ public class Appearance {
         themes.add("dark");
         themes.add("light");
         themes.add("snow");
+        themes.add("oceanPalace");
     }
 
     public void addFont() {

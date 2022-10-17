@@ -10,7 +10,7 @@
 }
 
 .check-box {
-    -fx-text-fill: -primary-text-color;
+    -fx-text-fill: -primary-check-color;
 }
 
 .title {
@@ -44,7 +44,7 @@
 }
 
 .text-area {
-    -fx-text-fill: -primary-text-color;
+    -fx-text-fill: -primary-background-color;
 }
 
 .text-area .content {
