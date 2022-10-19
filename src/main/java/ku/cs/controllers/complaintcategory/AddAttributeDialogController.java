@@ -60,7 +60,7 @@ public class AddAttributeDialogController {
     private void handleDoneButton(ActionEvent actionEvent) {
 
         Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-        String attributeName = attributeNameTextField.getText();
+        String attributeName = attributeNameTextField.getText().replaceAll(",", " ");
 
         if (type == null || attributeName.isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.ERROR);

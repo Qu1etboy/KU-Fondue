@@ -26,7 +26,7 @@ public class RenameAttributeDialogController {
     @FXML
     private void handleDoneButton(ActionEvent actionEvent) {
         Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-        String attributeName = attributeNameTextField.getText();
+        String attributeName = attributeNameTextField.getText().replaceAll(",", " ");
 
         categoryAttribute.setNameAttribute(attributeName);
 
