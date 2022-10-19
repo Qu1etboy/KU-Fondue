@@ -152,10 +152,9 @@ public class RegisterController {
 
         // go back to login page if register successfully
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/ku/cs/view/login.fxml"));
-        Stage stage = (Stage)((Node) actionEvent.getSource()).getScene().getWindow();
-        Scene scene = new Scene(loader.load());
-        stage.setScene(scene);
-        stage.show();
+        Scene scene = ((Node) actionEvent.getSource()).getScene();
+        scene.setRoot(loader.load());
+
 
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setContentText("Register successfully");
