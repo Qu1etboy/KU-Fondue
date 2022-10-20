@@ -392,6 +392,8 @@ public class ComplaintDetailController implements Initializable {
         fromDate.setValue(null);
         toDate.setValue(null);
 
+        wordTextField.clear();
+
         loadData(complaintList);
     }
 
