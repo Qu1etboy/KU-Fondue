@@ -241,7 +241,6 @@ public class HomeDetailController {
             sendComplaint.addQuestionAnswer(q, questionAnswer.get(q));
         }
 
-        complaintList.addComplaint(sendComplaint);
         for(Image image : imageList){
             System.out.println(image.getUrl());
             File file = new File(image.getUrl().substring(5));
@@ -271,6 +270,8 @@ public class HomeDetailController {
                 }
             }
         }
+
+        complaintList.addComplaint(sendComplaint);
         complaintData.writeData(complaintList);
         clearInput();
         try {
