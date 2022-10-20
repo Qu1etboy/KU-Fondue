@@ -143,10 +143,14 @@ public class RegisterController {
                 user.setProfileImage(new Image(target.toUri().toString()));
 
             } catch (IOException e) {
-                e.printStackTrace();
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setContentText("หาไฟล์รูปภาพไม่เจอ (ชื่อไฟล์ห้ามมีช่องว่าง)");
+                alert.show();
+                return;
+                // e.printStackTrace();
             }
         }
-        System.out.println(user.getProfileImage());
+
         userList.addUser(user);
         userData.writeData(userList);
 

@@ -242,7 +242,7 @@ public class HomeDetailController {
         }
 
         for(Image image : imageList){
-            System.out.println(image.getUrl());
+
             File file = new File(image.getUrl().substring(5));
             if (file != null){
                 try {

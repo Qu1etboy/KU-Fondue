@@ -100,11 +100,13 @@ public class TeacherRegisterController extends RegisterController {
                 user.setProfileImage(new Image(target.toUri().toString()));
 
             } catch (IOException e) {
-                e.printStackTrace();
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setContentText("หาไฟล์รูปภาพไม่เจอ (ชื่อไฟล์ห้ามมีช่องว่าง)");
+                alert.show();
+                return;
             }
         }
 
-        System.out.println(user.getProfileImage().getUrl());
         userList.addUser(user);
         userData.writeData(userList);
 
