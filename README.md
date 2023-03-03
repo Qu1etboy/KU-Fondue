@@ -68,90 +68,93 @@
 
 ## Project structure
 
+<details>
+  <summary>View</summary>
+  
 ```
 src/main
-    ├── java
-           ├── ku/cs
-		├── controllers
-		       ├── agency
-		             ├── AddAgencyDialogController.java
-		             ├── AddCategoryDialogController.java
-		             ├── AgencyController.java
-		             ├── AssignAgencyDialogController.java
-		             ├── RenameAgencyDialogController.java
-		       ├── complaintcategory
-		             ├── AddAttributeDialogController.java
-		             ├── AddCategoryDialogController.java
-		             ├── AddChoiceDialogController.java
-		             ├── ComplaintCategoryDetail.java
-		             ├── RenameAttributeDialogController
-		             ├── RenameCategoryDialogController
-		             ├── RenameChoiceDialogController
-		       ├── setting
-		             ├── ChangeNameController.java
-		             ├── ChangePasswordController.java
-		             ├── ChangeUserNameController.java
-		             ├── SettingDetailController.java
-		       ├── LoginDetailController.java
-		       ├── RegisterDetailController.java
-		       ├── MainApplicationDetailController.java
-		       ├── HomeDetailController.java
-		       ├── SettingDetailController.java
-		       ├── DashboardDetailController.java
-		       ├── ComplaintDetailController.java
-		       ├── ComplaintInfoController.java
-		       ├── ConfirmationDialogController.java
-		       ├── ManageComplaintController.java
-		       ├── ReportController.java
-		       ├── ReportDialogController.java
-		       ├── RequestUnsuspendDialogController.java
-		       ├── ShowUserDetailController.java
-		       ├── SuspendDialogController.java
-		       ├── TeacherRegisterController.java
-		├── models
-		       ├── Agency.java
-		       ├── AgencyList.java
-		       ├── Appearence.java
-		       ├── CategoryAttribute.java
-		       ├── CategoryAttributeList.java
-		       ├── Complaint.java
-		       ├── ComplaintCategory.java
-		       ├── ComplaintCategoryList.java
-		       ├── ComplaintList.java
-		       ├── Report.java
-		       ├── ReportList.java
-		       ├── Role.java
-		       ├── SuspendUser.java
-		       ├── SuspendUserList.java
-		       ├── User.java
-		       ├── UserList.java
-		├── services
-		       ├── collection
-		             ├── Filterer
-		             ├── Sorter
-		             ├── DateComparator
-		             ├── VoteComparator
-		       ├── DataSource.java
-		       ├── AgencyListDataSource.java
-		       ├── CategoryAttributeListDataSource.java
-		       ├── ComplaintCategoryListDataSource.java
-		       ├── ReportListDataSource.java
-		       ├── SuspendUserListDataSource.java
-		       ├── UserListDataSource.java
-                ├── datastructure
-                       ├── ListMap.java
-                       ├── Pair.java
-                       ├── TestListMap
-	   ├── module-info.java
-     ├── resources/ku/cs
-	   ├── view
-                 ├── agency
+   ├── java
+         ├── ku/cs
+      ├── controllers
+            ├── agency
+                  ├── AddAgencyDialogController.java
+                  ├── AddCategoryDialogController.java
+                  ├── AgencyController.java
+                  ├── AssignAgencyDialogController.java
+                  ├── RenameAgencyDialogController.java
+            ├── complaintcategory
+                  ├── AddAttributeDialogController.java
+                  ├── AddCategoryDialogController.java
+                  ├── AddChoiceDialogController.java
+                  ├── ComplaintCategoryDetail.java
+                  ├── RenameAttributeDialogController
+                  ├── RenameCategoryDialogController
+                  ├── RenameChoiceDialogController
+            ├── setting
+                  ├── ChangeNameController.java
+                  ├── ChangePasswordController.java
+                  ├── ChangeUserNameController.java
+                  ├── SettingDetailController.java
+            ├── LoginDetailController.java
+            ├── RegisterDetailController.java
+            ├── MainApplicationDetailController.java
+            ├── HomeDetailController.java
+            ├── SettingDetailController.java
+            ├── DashboardDetailController.java
+            ├── ComplaintDetailController.java
+            ├── ComplaintInfoController.java
+            ├── ConfirmationDialogController.java
+            ├── ManageComplaintController.java
+            ├── ReportController.java
+            ├── ReportDialogController.java
+            ├── RequestUnsuspendDialogController.java
+            ├── ShowUserDetailController.java
+            ├── SuspendDialogController.java
+            ├── TeacherRegisterController.java
+      ├── models
+            ├── Agency.java
+            ├── AgencyList.java
+            ├── Appearence.java
+            ├── CategoryAttribute.java
+            ├── CategoryAttributeList.java
+            ├── Complaint.java
+            ├── ComplaintCategory.java
+            ├── ComplaintCategoryList.java
+            ├── ComplaintList.java
+            ├── Report.java
+            ├── ReportList.java
+            ├── Role.java
+            ├── SuspendUser.java
+            ├── SuspendUserList.java
+            ├── User.java
+            ├── UserList.java
+      ├── services
+            ├── collection
+                  ├── Filterer
+                  ├── Sorter
+                  ├── DateComparator
+                  ├── VoteComparator
+            ├── DataSource.java
+            ├── AgencyListDataSource.java
+            ├── CategoryAttributeListDataSource.java
+            ├── ComplaintCategoryListDataSource.java
+            ├── ReportListDataSource.java
+            ├── SuspendUserListDataSource.java
+            ├── UserListDataSource.java
+               ├── datastructure
+                     ├── ListMap.java
+                     ├── Pair.java
+                     ├── TestListMap
+      ├── module-info.java
+   ├── resources/ku/cs
+      ├── view
+               ├── agency
                         ├── addAgencyDialog.fxml
                         ├── addCategoryDialgo.fxml
                         ├── agency.fxml
                         ├── assignAgencyDialog.fxml
                         ├── renameAgencyDialog.fxml
-                 ├── complaintCategory
+               ├── complaintCategory
                         ├── addAttributeDialog.fxml
                         ├── addCategoryDialog.fxml
                         ├── addChoiceDialog.fxml
@@ -159,100 +162,91 @@ src/main
                         ├── renameAttributeDialog.fxml
                         ├── renameCategoryDialog.fxml
                         ├── renameChoiceDialog.fxml
-                 ├── login.fxml
-                 ├── register.fxml
-                 ├── main-application.fxml
-                 ├── home.fxml
-                 ├── about.fxml
-                 ├── help.fxml
-                 ├── setting.fxml
-                 ├── dashboard.fxml
-                 ├── complaint.fxml
-                 ├── complaintDetail.fxml
-                 ├── confirmationDialog.fxml
-                 ├── manageComplaint.fxml
-                 ├── report.fxml
-                 ├── requestUnsuspendDialog.fxml
-                 ├── showUser.fxml
-                 ├── suspendDialog.fxml
-                 ├── teacher-register.fxml
+               ├── login.fxml
+               ├── register.fxml
+               ├── main-application.fxml
+               ├── home.fxml
+               ├── about.fxml
+               ├── help.fxml
+               ├── setting.fxml
+               ├── dashboard.fxml
+               ├── complaint.fxml
+               ├── complaintDetail.fxml
+               ├── confirmationDialog.fxml
+               ├── manageComplaint.fxml
+               ├── report.fxml
+               ├── requestUnsuspendDialog.fxml
+               ├── showUser.fxml
+               ├── suspendDialog.fxml
+               ├── teacher-register.fxml
 
-	   ├── css
-                 ├── fonts
+      ├── css
+               ├── fonts
                         ├── Helvetica.css
                         ├── Kanit.css
                         ├── Sarabun.css
-                 ├── fontSize
+               ├── fontSize
                         ├── 12px.css
                         ├── 16px.css
                         ├── 18px.css
                         ├── 20px.css
                         ├── 24px.css
-                 ├── themes
+               ├── themes
                         ├── dark.css
                         ├── light.css
                         ├── snow.css
-                 ├── main.css
-                 ├── login.css
-                 ├── register.css
-                 ├── request_suspend_dialog.css
-                 ├── dialog.css
-	   ├── images
-                 ├── arm.jpg
-                 ├── ice.jpg
-                 ├── non.jpg
-                 ├── ong.jpg
-                 ├── mountain-bg.jpg
-                 ├── ku-logo.jpg
+               ├── main.css
+               ├── login.css
+               ├── register.css
+               ├── request_suspend_dialog.css
+               ├── dialog.css
+      ├── images
+               ├── arm.jpg
+               ├── ice.jpg
+               ├── non.jpg
+               ├── ong.jpg
+               ├── mountain-bg.jpg
+               ├── ku-logo.jpg
+
 ```
+</details>
 
 ## Contributors
 
 <table>
-   <tr>
-      <td>
-         <a href="https://github.com/Qu1etboy">
-           <img src="https://contrib.rocks/image?repo=Qu1etboy/ku-complaint-webpage" />
-         </a>
-         <div>
-            Qu1etboy
-         </div>
-      </td>
-      <td>
-         <a href="https://github.com/IceSarun">
-           <img src="https://contrib.rocks/image?repo=IceSarun/git101" />
-         </a>
-         <div>
-            IceSarun
-         </div>
-      </td>
-      <td>
-         <a href="https://github.com/ong22280">
-           <img src="https://contrib.rocks/image?repo=ong22280/ong22280" />
-         </a>
-         <div>
-            ong22280
-         </div>
-      </td>
-      <td>
-         <a href="https://github.com/nachpolRN">
-           <img src="https://contrib.rocks/image?repo=nachpolRN/git101" />
-         </a>
-         <div>
-            nachpolRN
-         </div>
-      </td>
-   </tr>
+<tr>
+<td>
+<a href="https://github.com/Qu1etboy">
+<img src="https://contrib.rocks/image?repo=Qu1etboy/ku-complaint-webpage" />
+</a>
+<div>
+Qu1etboy
+</div>
+</td>
+<td>
+<a href="https://github.com/IceSarun">
+<img src="https://contrib.rocks/image?repo=IceSarun/git101" />
+</a>
+<div>
+IceSarun
+</div>
+</td>
+<td>
+<a href="https://github.com/ong22280">
+<img src="https://contrib.rocks/image?repo=ong22280/ong22280" />
+</a>
+<div>
+ong22280
+</div>
+</td>
+<td>
+<a href="https://github.com/nachpolRN">
+<img src="https://contrib.rocks/image?repo=nachpolRN/git101" />
+</a>
+<div>
+nachpolRN
+</div>
+</td>
+</tr>
 </table>
-
-[//]: # "**วิธีทดสอบการ RUN**"
-[//]: # "1. Main"
-[//]: # "   - `run Main Class`"
-[//]: # "2. javafx plugin"
-[//]: # "   - `MVN Clean`"
-[//]: # "   - `javafx -> javafx:run`"
-[//]: #
-[//]: # "**วิธีสร้าง Jar**<br>"
-[//]: # "MVN Clean<br>"
-[//]: # "MVN install<br><br>"
-[//]: # "file จะอยู่ใน target เป็น shade.jar "
+```
